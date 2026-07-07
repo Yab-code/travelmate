@@ -1,0 +1,3 @@
+// Controllers placeholder
+
+module.exports = {};
