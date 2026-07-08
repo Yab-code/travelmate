@@ -9,7 +9,6 @@ const app = express();
 // Security headers
 app.use(helmet());
 
-
 // CORS — allow Vite dev server and same-origin in production
 app.use(
   cors({
@@ -22,8 +21,6 @@ app.use(
 );
 
 app.use(express.json());
-
-// Request logging — logs all incoming HTTP requests with method, URL, status, duration, IP
 app.use(requestLogger);
 
 // Health check
@@ -39,3 +36,4 @@ app.use('/api', apiRouter);
 app.use(errorHandler);
 
 module.exports = app;
+
