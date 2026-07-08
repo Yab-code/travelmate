@@ -1,165 +1,85 @@
-# TravelMate — Database Documentation
+# TravelMate Database Documentation
 
-## Overview
-
-TravelMate uses **PostgreSQL** as the relational database engine, managed through **Prisma ORM** (v7).  
-The schema models three user roles, company profiles under a one-to-one ownership pattern, and placeholder tables for travel packages and events.
-
----
+TravelMate uses PostgreSQL with Prisma migrations. The schema stores users, roles, planner companies, travel packages, and events.
 
 ## ER Diagram
 
 ```mermaid
 erDiagram
-    Role {
-        int    id        PK
-        string name      UK "SUPER_ADMIN | EVENT_PLANNER | TRAVELER"
-    }
+  Role ||--o{ User : assigns
+  Company ||--o{ User : has_members
+  User ||--o| Company : owns
+  Company ||--o{ TravelPackage : offers
+  Company ||--o{ Event : organizes
 
-    User {
-        int       id         PK
-        string    name
-        string    email      UK
-        string    password          "BCrypt hashed"
-        int       roleId     FK
-        boolean   isActive          "default: true"
-        int       companyId  FK     "nullable"
-        timestamp createdAt
-        timestamp updatedAt
-    }
+  Role {
+    int id PK
+    RoleName name UK
+  }
 
-    Company {
-        int       id              PK
-        string    companyName
-        string    businessEmail   UK
-        string    phone
-        string    address
-        string    description
-        string    logo                    "nullable"
-        string    licenseDocument         "nullable"
-        string    status                  "PENDING | APPROVED | REJECTED"
-        int       ownerId         FK  UK  "one-to-one with User"
-        timestamp createdAt
-        timestamp updatedAt
-    }
+  User {
+    int id PK
+    string name
+    string email UK
+    string password
+    int roleId FK
+    boolean isActive
+    int companyId FK
+    datetime createdAt
+    datetime updatedAt
+  }
 
-    TravelPackage {
-        int id        PK
-        int companyId FK
-    }
+  Company {
+    int id PK
+    string companyName
+    string businessEmail UK
+    string phone
+    string address
+    string description
+    CompanyStatus status
+    int ownerId FK UK
+  }
 
-    Event {
-        int id        PK
-        int companyId FK
-    }
+  TravelPackage {
+    int id PK
+    string title
+    string location
+    string type
+    decimal price
+    int duration
+    int companyId FK
+  }
 
-    Role        ||--o{ User          : "has many"
-    User        ||--o| Company       : "owns (1-to-1)"
-    User        }o--o| Company       : "member of"
-    Company     ||--o{ TravelPackage : "offers"
-    Company     ||--o{ Event         : "organises"
+  Event {
+    int id PK
+    string title
+    string category
+    decimal price
+    datetime date
+    string location
+    int companyId FK
+  }
 ```
 
----
+## Tables
 
-## Table Descriptions
+- `Role`: allowed roles are `SUPER_ADMIN`, `EVENT_PLANNER`, and `TRAVELER`.
+- `User`: stores accounts with bcrypt-hashed passwords and a role reference.
+- `Company`: stores event planner company profiles and approval status.
+- `TravelPackage`: stores public travel package listings owned by a company.
+- `Event`: stores public event listings owned by a company.
 
-### `Role`
-Defines the system roles available:
+## Relationships
 
-| Column | Type | Description |
-|--------|------|-------------|
-| `id`   | SERIAL (PK) | Auto-incremented primary key |
-| `name` | ENUM (`RoleName`) | One of: `SUPER_ADMIN`, `EVENT_PLANNER`, `TRAVELER` |
+- One role can have many users.
+- One company owner is one user.
+- One company can have many members, packages, and events.
+- Packages and events cannot exist without a company.
 
-### `User`
-Stores all registered user accounts across all roles.
+## DDL
 
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | SERIAL (PK) | Auto-incremented primary key |
-| `name` | TEXT | Full display name |
-| `email` | TEXT (UNIQUE) | Login identifier |
-| `password` | TEXT | BCrypt-hashed password (never stored plain-text) |
-| `roleId` | INTEGER (FK → Role) | References the user's role |
-| `isActive` | BOOLEAN | Soft-delete/ban flag, defaults to `true` |
-| `companyId` | INTEGER? (FK → Company) | Optional — set when user joins or is assigned a company |
-| `createdAt` | TIMESTAMP | Auto-set on insert |
-| `updatedAt` | TIMESTAMP | Auto-updated on modification |
+The raw SQL DDL script is in `database/schema.sql`.
 
-### `Company`
-Represents event planner company profiles. Each company is **owned** by exactly one `EVENT_PLANNER` user.
+## Prisma
 
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | SERIAL (PK) | Auto-incremented primary key |
-| `companyName` | TEXT | Official company name |
-| `businessEmail` | TEXT (UNIQUE) | Primary contact email |
-| `phone` | TEXT | Phone number |
-| `address` | TEXT | Physical address |
-| `description` | TEXT | Company summary |
-| `logo` | TEXT? | Optional URL/path to logo |
-| `licenseDocument` | TEXT? | Optional URL/path to license |
-| `status` | ENUM (`CompanyStatus`) | `PENDING` → `APPROVED` or `REJECTED` by Super Admin |
-| `ownerId` | INTEGER (FK → User, UNIQUE) | One-to-one with the owning planner user |
-| `createdAt` | TIMESTAMP | Auto-set on insert |
-| `updatedAt` | TIMESTAMP | Auto-updated on modification |
-
-### `TravelPackage`
-Placeholder table — associates travel packages with their issuing company.
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | SERIAL (PK) | Auto-incremented primary key |
-| `companyId` | INTEGER (FK → Company) | The company offering this package |
-
-### `Event`
-Placeholder table — associates events with their organising company.
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | SERIAL (PK) | Auto-incremented primary key |
-| `companyId` | INTEGER (FK → Company) | The company running this event |
-
----
-
-## Relationships Summary
-
-| Relationship | Type | Description |
-|-------------|------|-------------|
-| Role → User | 1-to-many | A role can be assigned to many users |
-| User → Company (owner) | 1-to-1 | One planner owns exactly one company |
-| User → Company (member) | many-to-1 | Many users can be members of a company |
-| Company → TravelPackage | 1-to-many | A company offers many packages |
-| Company → Event | 1-to-many | A company organises many events |
-
----
-
-## ENUMs
-
-### `RoleName`
-```sql
-CREATE TYPE "RoleName" AS ENUM ('SUPER_ADMIN', 'EVENT_PLANNER', 'TRAVELER');
-```
-
-### `CompanyStatus`
-```sql
-CREATE TYPE "CompanyStatus" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
-```
-
----
-
-## DDL Script Location
-
-The full raw SQL DDL script is at:  
-[`database/schema.sql`](./schema.sql)
-
----
-
-## Prisma Schema Location
-
-The authoritative Prisma schema is at:  
-[`backend/prisma/schema.prisma`](../backend/prisma/schema.prisma)
-
-Migration history is maintained in:  
-[`backend/prisma/migrations/`](../backend/prisma/migrations/)
+The Prisma schema is in `backend/prisma/schema.prisma`, with migrations in `backend/prisma/migrations/`.

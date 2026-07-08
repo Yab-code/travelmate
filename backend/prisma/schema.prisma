@@ -64,13 +64,41 @@ model Company {
 
 // Placeholder models to satisfy relations – can be expanded later
 model TravelPackage {
-  id        Int     @id @default(autoincrement())
-  companyId Int
-  company   Company @relation(fields: [companyId], references: [id])
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String
+  location     String
+  type         String
+  lodging      String
+  price        Decimal  @db.Decimal(10, 2)
+  duration     Int
+  image        String?
+  tags         String[] @default([])
+  difficulty   String   @default("Easy")
+  groupSize    String   @default("Max 10")
+  language     String   @default("English")
+  rating       Decimal  @default(0) @db.Decimal(3, 2)
+  reviewsCount Int      @default(0)
+  itinerary    Json?
+  companyId    Int
+  company      Company  @relation(fields: [companyId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Event {
-  id        Int     @id @default(autoincrement())
-  companyId Int
-  company   Company @relation(fields: [companyId], references: [id])
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  category    String
+  price       Decimal  @db.Decimal(10, 2)
+  date        DateTime
+  location    String
+  image       String?
+  organizer   String?
+  featured    Boolean  @default(false)
+  companyId   Int
+  company     Company  @relation(fields: [companyId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
