@@ -1,0 +1,472 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TravelPlanner Pro - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f8f9ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-secondary-fixed": "#002108",
+                    "surface-tint": "#0054d6",
+                    "background": "#f8f9ff",
+                    "on-surface": "#0b1c30",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#dce9ff",
+                    "booking-blue": "#003580",
+                    "secondary-fixed-dim": "#3ce36a",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-variant": "#d3e4fe",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "tertiary-container": "#cc4204",
+                    "on-tertiary-container": "#fff6f4",
+                    "surface-dim": "#cbdbf5",
+                    "secondary-fixed": "#69ff87",
+                    "on-primary-container": "#f8f7ff",
+                    "surface-gray": "#F8FAFC",
+                    "border-subtle": "#E2E8F0",
+                    "inverse-primary": "#b3c5ff",
+                    "surface-bright": "#f8f9ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0066ff",
+                    "primary-fixed": "#dae1ff",
+                    "surface-container": "#e5eeff",
+                    "outline": "#727687",
+                    "on-primary-fixed": "#001849",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#213145",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-surface-variant": "#424656",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "secondary": "#006e2a",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary": "#a33200",
+                    "secondary-container": "#5cfd80",
+                    "surface-container-low": "#eff4ff",
+                    "on-secondary-fixed-variant": "#00531e",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "primary": "#0050cb",
+                    "on-secondary-container": "#00732c",
+                    "on-secondary": "#ffffff",
+                    "accent-yellow": "#FFB700",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        .sidebar-active {
+            box-shadow: inset 4px 0 0 0 #0050cb;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Side Navigation Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface border-r border-border-subtle flex flex-col py-6 z-20">
+<div class="px-6 mb-10">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">TravelPlanner Pro</h1>
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Enterprise Edition</p>
+</div>
+<nav class="flex-grow space-y-1">
+<!-- Active State: Dashboard -->
+<a class="flex items-center px-6 py-3 text-primary font-bold border-r-4 border-primary bg-surface-container-low duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">inventory_2</span>
+<span class="font-body-md text-body-md">Package Management</span>
+</a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">event</span>
+<span class="font-body-md text-body-md">Event Management</span>
+</a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+<span class="font-body-md text-body-md">Analytics</span>
+</a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">confirmation_number</span>
+<span class="font-body-md text-body-md">Bookings</span>
+</a>
+<a class="flex items-center px-6 py-3 text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="px-6 pt-6 mt-auto border-t border-border-subtle">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a travel enterprise executive, soft studio lighting, high-end corporate style, neutral background, sharp focus, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHLrJfPDHFugnQ1FVUpl00RaMbc6JVRm5yDSsfhGdaNcHdEV2810a1BU0WsgOh70Nn2wwa2cBh_rQ7V8kycrzg7zZ4ju6oAoUhmZHWU3DnCl-RrPhs3YgMF8NzO02uXydiZxghKudy69Nv-iuxSOImrUiJOQOCAaesOi3DbSDcbRqqbCS0uSf_V0a0RsTiGG8woer_tKxa2PcsygG7--X38ni4d-xNcrPjpRvhSZPed22wdai0W-0rsMwozn8AbS4kCOB36j4X-Sjb">
+</div>
+<div>
+<p class="font-label-md text-label-md">Abeba Selassie</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Admin Access</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas Area -->
+<main class="ml-64 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-10 bg-surface border-b border-border-subtle shadow-sm flex justify-between items-center px-margin-desktop py-4">
+<div class="flex items-center flex-grow">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Search events, bookings, or revenue..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-all duration-200">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-md text-label-md">Support</span>
+</button>
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-all duration-200">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<div class="h-8 w-px bg-border-subtle"></div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm">
+                    New Event
+                </button>
+</div>
+</header>
+<!-- Content Body -->
+<div class="pt-24 px-margin-desktop pb-12">
+<!-- Performance Overview Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Performance Overview</h2>
+<p class="text-on-surface-variant font-body-md text-body-md mt-1">Real-time business insights for TravelMate Ethiopia.</p>
+</div>
+<div class="flex gap-3">
+<select class="bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2 font-label-md text-label-md text-on-surface-variant focus:ring-2 focus:ring-primary outline-none">
+<option>Last 30 Days</option>
+<option>Last 6 Months</option>
+<option>Year to Date</option>
+</select>
+<button class="flex items-center gap-2 border border-outline-variant px-4 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                        Export Report
+                    </button>
+</div>
+</div>
+<!-- Analytics Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- Card 1: Revenue -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">payments</span>
+</div>
+<span class="text-secondary font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                            +12.5%
+                        </span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">Total Revenue</p>
+<h3 class="text-[28px] font-bold text-on-surface mt-1">$425,000</h3>
+</div>
+<!-- Card 2: Bookings -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-secondary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-secondary">confirmation_number</span>
+</div>
+<span class="text-secondary font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                            +8.2%
+                        </span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">Total Bookings</p>
+<h3 class="text-[28px] font-bold text-on-surface mt-1">1,240</h3>
+</div>
+<!-- Card 3: Active Packages -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-tertiary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-tertiary">inventory_2</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">Stable</span>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">Active Packages</p>
+<h3 class="text-[28px] font-bold text-on-surface mt-1">24</h3>
+</div>
+<!-- Card 4: Rating -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-accent-yellow/10 rounded-lg">
+<span class="material-symbols-outlined text-accent-yellow" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="flex">
+<span class="material-symbols-outlined text-accent-yellow text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-accent-yellow text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-accent-yellow text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-accent-yellow text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-accent-yellow text-[16px]" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-label-md text-label-md">Customer Rating</p>
+<h3 class="text-[28px] font-bold text-on-surface mt-1">4.8<span class="text-body-sm font-normal text-outline">/5</span></h3>
+</div>
+</div>
+<!-- Charts Section (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+<!-- Large Chart: Revenue Trends -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl border border-border-subtle shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h4 class="font-headline-md text-headline-md text-on-surface">Revenue Trends</h4>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Last Year</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Current Year</span>
+</div>
+</div>
+</div>
+<div class="chart-container flex items-end justify-between gap-2 border-b border-l border-border-subtle pb-2 pl-2">
+<!-- Simplified Visual Chart Placeholder -->
+<div class="flex-1 bg-primary/20 h-[40%] rounded-t-sm relative group hover:bg-primary/40 transition-all cursor-pointer"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] px-2 py-1 rounded hidden group-hover:block">$12k</div></div>
+<div class="flex-1 bg-primary/20 h-[55%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[45%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[70%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[65%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[85%] rounded-t-sm"></div>
+<div class="flex-1 bg-secondary/80 h-[45%] rounded-t-sm"></div>
+<div class="flex-1 bg-secondary/80 h-[60%] rounded-t-sm"></div>
+<div class="flex-1 bg-secondary/80 h-[50%] rounded-t-sm"></div>
+<div class="flex-1 bg-secondary/80 h-[75%] rounded-t-sm"></div>
+<div class="flex-1 bg-secondary/80 h-[95%] rounded-t-sm relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] px-2 py-1 rounded hidden group-hover:block">$45k</div></div>
+<div class="flex-1 bg-secondary/80 h-[80%] rounded-t-sm"></div>
+</div>
+<div class="flex justify-between mt-4 px-2 text-label-sm font-label-sm text-outline">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+</div>
+</div>
+<!-- Small Chart: Booking Distribution -->
+<div class="bg-surface-container-lowest p-8 rounded-xl border border-border-subtle shadow-sm">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-6">Booking Distribution</h4>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-label-md font-label-md mb-2">
+<span>Group Tours</span>
+<span>45%</span>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 45%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-md font-label-md mb-2">
+<span>Private Events</span>
+<span>30%</span>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 30%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-label-md font-label-md mb-2">
+<span>Corporate Retreats</span>
+<span>25%</span>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 25%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-10 p-4 rounded-lg bg-surface-container-low flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-[32px]">info</span>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Group tours saw a 15% surge this month due to Meskel Festival preparations.</p>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Upcoming Events & Details -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+<!-- Upcoming Events Table -->
+<div class="lg:col-span-3 bg-surface-container-lowest rounded-xl border border-border-subtle shadow-sm overflow-hidden">
+<div class="p-6 border-b border-border-subtle flex justify-between items-center">
+<h4 class="font-headline-md text-headline-md text-on-surface">Upcoming Events</h4>
+<button class="text-primary font-label-md text-label-md hover:underline">View All Schedule</button>
+</div>
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-gray border-b border-border-subtle">
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase tracking-wider">Event Name</th>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase tracking-wider">Date</th>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 font-label-md text-label-md text-outline uppercase tracking-wider text-right">Attendees</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A vibrant landscape photo of Meskel Square in Addis Ababa during the bonfire festival, glowing yellow and orange lights, massive crowds in traditional white clothing, cinematic lighting, cultural heritage style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg3jsJ3IhoBsuiao2VTwI_dRJahD5jwRPYD92xWYn2XbRO-21AUKS1kOtjy7RabjNFJkb5MCEw4eV-kHeM5-HVM-spxBZ_l8GIhQNNrBSWHGER9iSjyqIgG1CKGhEah7I1im1yqCua2Pn9OEBZpfoo87KAkHrPoT5ZCJp5kAoBiQPBLYiEG2YPguAj9oD-xd2hk972Q8-nO31Bh3fhtzzE2rYJz273oyai1pcVNv0919F1or2pZDeIz5BrZmEoyBW6iF0r3dourxa2">
+</div>
+<span class="font-label-md text-label-md text-on-surface">Meskel Festival</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface-variant">Sep 27, 2023</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Confirmed</span>
+</td>
+<td class="px-6 py-4 text-right font-body-md text-body-md font-bold">5,200</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Dynamic shot of runners in the Great Ethiopian Run, bright colored jerseys, energetic urban street scene in Addis Ababa, bright daylight, high-speed photography capturing motion and excitement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjxUC0x3WLpqh4wvSQejy6MDT9CgEzcyt-lMGZyEqD0isVgLjhinXmW_Uf0Y9Yj8YkwL6yKTqsmGJKq03PJOestpvqxTP3BVQdBK0APnxFlvSqNzEh97SUHcOsCtHaI_LQOKrZdCRcZ83SIBKtPG2tDZCnRdVprMtwPg-tZLPSkNeAUHZjjS0gl_k6ZhbXBgj--y4dg9RaNFs4XsHw2reA1vKmKpCKWADajy-7ntuLt_rji0OTtB2swRPkzw60ekXS629OtpSSE8Cl">
+</div>
+<span class="font-label-md text-label-md text-on-surface">Great Ethiopian Run</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface-variant">Nov 19, 2023</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-on-primary-fixed-variant font-label-sm text-label-sm">In Progress</span>
+</td>
+<td class="px-6 py-4 text-right font-body-md text-body-md font-bold">45,000</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Ancient rock-hewn churches of Lalibela, Ethiopia, breathtaking architectural detail, dramatic sunlight and shadows, majestic historical atmosphere, high quality travel photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo78nC3sn_wHZR_K4IAl2zobqVkOnmrHfOlm79WPjF46p5VkbmIPxG_sj9GJzsNvLzHASLKy5M2JbawpFi7ZSD7VhLopt1NE5UZn0xEkYyEvIXXcTff32pIiHZgs0IaYtr33bm5ktg-3ZDvky5W-Mk9OKThf2ZYAu_BtSmsQ9wLza2QnUmiMY6vSaXwvzKfCHXtpZJVeqQVpOZD7698_oVX3nWRUETa0F0P60-2lWGG5Je2yXZ3whtW_VVCJdI221yFnzSVssG-Avq">
+</div>
+<span class="font-label-md text-label-md text-on-surface">Lalibela Heritage Tour</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface-variant">Dec 05, 2023</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full bg-tertiary-container/10 text-tertiary font-label-sm text-label-sm">Pending</span>
+</td>
+<td class="px-6 py-4 text-right font-body-md text-body-md font-bold">150</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Recent Activity Feed -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-border-subtle shadow-sm">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-6">Recent Activity</h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+<div>
+<p class="text-label-md font-label-md text-on-surface">New Booking Confirmed</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Meskel Group Package for 12 pax.</p>
+<span class="text-[10px] text-outline uppercase font-bold">2 minutes ago</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0"></div>
+<div>
+<p class="text-label-md font-label-md text-on-surface">Payment Received</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Invoice #45218 ($12,400.00)</p>
+<span class="text-[10px] text-outline uppercase font-bold">1 hour ago</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-2 h-2 rounded-full bg-tertiary mt-2 flex-shrink-0"></div>
+<div>
+<p class="text-label-md font-label-md text-on-surface">New Package Listed</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">'Danakil Depression Expedition'</p>
+<span class="text-[10px] text-outline uppercase font-bold">4 hours ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('aside nav a').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                if (!item.classList.contains('text-primary')) {
+                    item.style.transform = 'translateX(4px)';
+                }
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Simple smooth scrolling or active state logic
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

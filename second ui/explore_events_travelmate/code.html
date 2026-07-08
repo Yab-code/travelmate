@@ -1,0 +1,452 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TravelMate | Browse Events</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#5cfd80",
+                    "on-primary-fixed": "#001849",
+                    "inverse-primary": "#b3c5ff",
+                    "surface-tint": "#0054d6",
+                    "surface-container-low": "#eff4ff",
+                    "on-secondary-fixed-variant": "#00531e",
+                    "primary-container": "#0066ff",
+                    "outline-variant": "#c2c6d8",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "on-surface-variant": "#424656",
+                    "error": "#ba1a1a",
+                    "border-subtle": "#E2E8F0",
+                    "primary": "#0050cb",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface-container": "#e5eeff",
+                    "secondary-fixed": "#69ff87",
+                    "surface-variant": "#d3e4fe",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#006e2a",
+                    "outline": "#727687",
+                    "tertiary": "#a33200",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "surface-gray": "#F8FAFC",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-surface": "#0b1c30",
+                    "on-tertiary-container": "#fff6f4",
+                    "primary-fixed": "#dae1ff",
+                    "on-primary-container": "#f8f7ff",
+                    "booking-blue": "#003580",
+                    "on-primary": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "surface-container-high": "#dce9ff",
+                    "surface": "#f8f9ff",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#213145",
+                    "on-secondary-container": "#00732c",
+                    "accent-yellow": "#FFB700",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffdbd0",
+                    "tertiary-container": "#cc4204",
+                    "on-secondary-fixed": "#002108",
+                    "surface-bright": "#f8f9ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "surface-dim": "#cbdbf5",
+                    "secondary-fixed-dim": "#3ce36a",
+                    "background": "#f8f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .event-card:hover .event-image { transform: scale(1.05); }
+        .event-image { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 10px; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar (Execution from JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-inverse-surface border-r border-border-subtle dark:border-outline-variant flex flex-col p-4 gap-2 z-50">
+<div class="mb-8 px-2 flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">TravelMate</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Premium Planning</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 p-3 font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 p-3 font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">explore</span> Explore Packages
+            </a>
+<!-- Active Navigation Logic: Events maps to the current page -->
+<a class="flex items-center gap-3 p-3 text-primary dark:text-inverse-primary font-bold bg-surface-container dark:bg-surface-container-high rounded-lg" href="#">
+<span class="material-symbols-outlined">event</span> Events
+            </a>
+<a class="flex items-center gap-3 p-3 font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">flight_takeoff</span> My Trips
+            </a>
+<a class="flex items-center gap-3 p-3 font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">favorite</span> Wishlist
+            </a>
+<a class="flex items-center gap-3 p-3 font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+</nav>
+<button class="mt-auto bg-primary text-on-primary font-label-md text-label-md py-3 px-4 rounded-xl flex items-center justify-center gap-2 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span> New Trip
+        </button>
+</aside>
+<!-- TopAppBar (Execution from JSON) -->
+<header class="fixed top-0 right-0 left-64 h-16 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-xl border-b border-border-subtle dark:border-outline-variant flex justify-between items-center px-8 z-40">
+<div class="flex items-center bg-surface-container-lowest border border-border-subtle rounded-full px-4 py-1.5 w-96">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full ml-2" placeholder="Search events, festivals..." type="text">
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant opacity-80 hover:opacity-100 transition-opacity">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant opacity-80 hover:opacity-100 transition-opacity">help</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-border-subtle">
+<img class="w-full h-full object-cover" data-alt="A professional close-up studio portrait of a confident young travel consultant with a friendly smile, set against a soft bokeh background of a modern architectural office. The lighting is bright and even, highlighting the clear skin and professional attire in a high-end light-mode corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLEiGZ5Y1D66T-8W9krZDcwA3gWbaRs9isnKiyFhH3y0PnKweFwkg0vd0uoGEmyRUF6h6lo00Nds4i9WgBohcYPTD_psZPc-Qgb_Q3xBq1m4qTX3kyWyFE5vhCC9vcbOql2gF1JFlVo3oo8cnRmysutOz8Ij5C-BqEIye4kJwqf_PUAPW3oSJ82kudIWmA0m4LHpMKceoWkUi1BQ8ziB20vM6wgtGBtjkylI1AAjSTS6caNP_LyavHBw369ltHsy_t3eTP6LnOFdQm">
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="max-w-[1280px] mx-auto p-10">
+<!-- Discovery Header & Categories -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Discover Local Events</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Immerse yourself in the vibrant culture and traditions of Ethiopia.</p>
+</div>
+<div class="flex gap-2">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md">Cultural Festivals</button>
+<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors">Music</button>
+<button class="px-6 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors">Sports</button>
+</div>
+</div>
+<!-- Location Chips -->
+<div class="flex flex-wrap gap-3 mb-10">
+<span class="font-label-sm text-label-sm text-outline flex items-center mr-2">POULAR LOCATIONS:</span>
+<button class="px-4 py-1.5 rounded-lg border border-border-subtle bg-white text-body-sm hover:border-primary hover:text-primary transition-all">Addis Ababa</button>
+<button class="px-4 py-1.5 rounded-lg border border-border-subtle bg-white text-body-sm hover:border-primary hover:text-primary transition-all">Lalibela</button>
+<button class="px-4 py-1.5 rounded-lg border border-border-subtle bg-white text-body-sm hover:border-primary hover:text-primary transition-all">Gondar</button>
+<button class="px-4 py-1.5 rounded-lg border border-border-subtle bg-white text-body-sm hover:border-primary hover:text-primary transition-all">Bahir Dar</button>
+<button class="px-4 py-1.5 rounded-lg border border-border-subtle bg-white text-body-sm hover:border-primary hover:text-primary transition-all">Axum</button>
+</div>
+</section>
+<div class="flex gap-8">
+<!-- Left Content: Event Grid -->
+<div class="flex-1">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Card 1: Meskel Festival -->
+<div class="event-card group bg-white rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle flex flex-col h-full">
+<div class="relative h-48 overflow-hidden">
+<img class="event-image w-full h-full object-cover" data-alt="A spectacular wide-angle shot of the Meskel Festival in Addis Ababa's Meskel Square. Thousands of people in traditional white Ethiopian clothing surround a massive ceremonial bonfire called the Damera as the sun sets. The atmosphere is vibrant with golden hour lighting, capturing the spiritual and cultural energy of the historic celebration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmQfpJnLfWAo753f3EXe_KpI6v6Wcv7yYzR53K43F8pVx5Z9glgPasezVIpOL_AodxELILsVGmPjcWVBF_U_KnOGEPHOP0RJ19-z6SOJrTtuKSZzujo7UKicCpkfIhHIKghKhK2BfcA5Hxcysoel2rt--72YMYOLlUrrWgIB-vRRUa-RldatOhQoh9cpc85TFHTDcPp6yCRKIa6-zBBU9J3KB24ms-f2N9WgqVXf8seA1hmYI8ka273FAKHzxgZvKKKyAowRrR2VWR">
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg">
+<span class="text-primary font-bold text-label-md">Cultural</span>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Meskel Festival</h3>
+<span class="font-label-md text-label-md text-secondary">FREE</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                        September 27, 2024
+                                    </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                                        Meskel Square, Addis Ababa
+                                    </div>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="h-8 w-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center text-[10px] font-bold">JD</div>
+<div class="h-8 w-8 rounded-full border-2 border-white bg-slate-300 flex items-center justify-center text-[10px] font-bold">AS</div>
+<div class="h-8 w-8 rounded-full border-2 border-white bg-primary text-on-primary text-[10px] font-bold">+12</div>
+</div>
+<button class="text-primary font-label-md text-label-md flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                        Interested <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Great Ethiopian Run -->
+<div class="event-card group bg-white rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle flex flex-col h-full">
+<div class="relative h-48 overflow-hidden">
+<img class="event-image w-full h-full object-cover" data-alt="A dynamic, high-energy action shot of the Great Ethiopian Run in the streets of Addis Ababa. A massive sea of thousands of runners in bright yellow jerseys creates a river of color against the city's modern and historic architecture. The morning sun creates long shadows and a sense of optimism and communal spirit, typical of this world-renowned athletics event." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAADIus4LDB1wOoYKMJftG-Xfs-uX8FYscbm4Z3aFGKYZR2aVQP5JR-jfUUihU802AvmAmxPrWJ7X0Fq4lsxljWqjX3jblm5P2ZXC8d4T8TIuy4z2XQEpKJ53HWFFWMT3ofjm71Q-s_QH22ZhryCULRkZuuiP8Ewm9Q_nkNgz9ZpF5PTRNPFdjWAywG9_gNbyo9XOr1i6ZqbbaeM5v3KudhhxnxKLk3oVDfv9C_TKJQ9d0yFCQDxOph_8mW00nPICTYKxEchEWiuaWQ">
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg">
+<span class="text-primary font-bold text-label-md">Sports</span>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Great Ethiopian Run</h3>
+<span class="font-label-md text-label-md text-on-surface">$25.00</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                        November 17, 2024
+                                    </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+                                        07:00 AM
+                                    </div>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="h-8 w-8 rounded-full border-2 border-white bg-slate-400"></div>
+<div class="h-8 w-8 rounded-full border-2 border-white bg-slate-500"></div>
+<div class="h-8 w-8 rounded-full border-2 border-white bg-primary text-on-primary text-[10px] font-bold">+500</div>
+</div>
+<button class="text-primary font-label-md text-label-md flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                        Interested <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Gondar Timkat Celebration -->
+<div class="event-card group bg-white rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle flex flex-col h-full">
+<div class="relative h-48 overflow-hidden">
+<img class="event-image w-full h-full object-cover" data-alt="A serene yet powerful image of the Fasilides Bath in Gondar during the Timkat festival. Priests in colorful ornate robes hold ceremonial umbrellas while worshippers jump into the historic stone pool. The soft morning mist and ancient architecture of the 17th-century royal compound create a timeless, ethereal scene in a professional travel photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCalhVxDyqa0yMWbRokxoJNtDtoLqxAVcuAZkRPFXs0mg1PCpMaSFKVcplQVsu7tMREo9eC7DlvcSWlXCfRI2R3dRIQjDI7yiHvONRRiXIm0lyvui4azEx-rGlZoQeEe_7HhaWMYnw5FmSYKCTkgcQAA8N6_pocvHzZ6h5G8Q9M3U28GA12LbrYqYHBrh1AsGV9-WuDWX52XO78vpZesFeqa7Q2TXi7bwcC_jo5xhKE6iGGGR_GtWa6Hd3CsHOW0X7xqjRcLmJ75M_-">
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg">
+<span class="text-primary font-bold text-label-md">Traditional</span>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Timkat Epiphany</h3>
+<span class="font-label-md text-label-md text-secondary">FREE</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                        January 19, 2025
+                                    </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+                                        Fasilides Bath, Gondar
+                                    </div>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container/30 text-on-secondary-container px-2 py-0.5 rounded text-[10px] font-bold uppercase">Trending</span>
+</div>
+<button class="text-primary font-label-md text-label-md flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                        Interested <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4: Addis Jazz Night -->
+<div class="event-card group bg-white rounded-2xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle flex flex-col h-full">
+<div class="relative h-48 overflow-hidden">
+<img class="event-image w-full h-full object-cover" data-alt="A moody, high-contrast interior shot of a boutique jazz club in Addis Ababa. A musician is silhouetted against warm, amber stage lights while playing a saxophone. The background is slightly blurred showing an elegant crowd enjoying drinks. The aesthetic is sophisticated and urban, emphasizing the city's modern nightlife and artistic soul." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjGVqYpMznR_lzVvBGxgp-Q4n6TKL3-g2basAVBI-gK0SpM0t-WQ90Rcyj7z9PT6Sk6z8TpabKPe00Ux2Hj_QfA4XLz23H4HkxqfuQ69Ly9CWbUlsQZUt9l1QvX4qokUXoalNiXODYZn02HJUuvUhdN1loY16id3oS0ZHhxo2lu_OTSA06PbiNe9Wu4iG9vhqFTpmfez-62Ivd3-2C5Bp4uQT5_LqURxFdnLgM8Z0YddPS3_5JieK8sKvZ2mqh6ELsc6kGoXmTUEw1">
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg">
+<span class="text-primary font-bold text-label-md">Music</span>
+</div>
+<button class="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-1">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Addis Jazz Night</h3>
+<span class="font-label-md text-label-md text-on-surface">$15.00</span>
+</div>
+<div class="space-y-2 mb-6">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                        Every Friday
+                                    </div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+                                        08:30 PM
+                                    </div>
+</div>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="bg-surface-container-highest text-primary px-2 py-0.5 rounded text-[10px] font-bold uppercase">Popular</span>
+</div>
+<button class="text-primary font-label-md text-label-md flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                                        Interested <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Content: Sidebar Widgets -->
+<aside class="w-80 flex flex-col gap-6">
+<!-- Calendar Widget -->
+<div class="bg-white rounded-2xl p-6 border border-border-subtle shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-label-md text-label-md text-on-surface">September 2024</h4>
+<div class="flex gap-1">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">chevron_left</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">chevron_right</button>
+</div>
+</div>
+<div class="grid grid-cols-7 text-center text-label-sm font-label-sm text-outline mb-4">
+<span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+</div>
+<div class="grid grid-cols-7 text-center text-body-sm font-body-sm">
+<span class="p-2 text-outline">1</span><span class="p-2 text-outline">2</span><span class="p-2 text-outline">3</span><span class="p-2">4</span><span class="p-2">5</span><span class="p-2">6</span><span class="p-2">7</span>
+<span class="p-2">8</span><span class="p-2">9</span><span class="p-2">10</span><span class="p-2">11</span><span class="p-2">12</span><span class="p-2">13</span><span class="p-2">14</span>
+<span class="p-2">15</span><span class="p-2">16</span><span class="p-2">17</span><span class="p-2">18</span><span class="p-2">19</span><span class="p-2">20</span><span class="p-2">21</span>
+<span class="p-2">22</span><span class="p-2">23</span><span class="p-2">24</span><span class="p-2">25</span><span class="p-2">26</span><span class="p-2 bg-primary text-on-primary rounded-lg font-bold">27</span><span class="p-2">28</span>
+<span class="p-2">29</span><span class="p-2">30</span><span class="p-2 text-outline">1</span><span class="p-2 text-outline">2</span><span class="p-2 text-outline">3</span><span class="p-2 text-outline">4</span><span class="p-2 text-outline">5</span>
+</div>
+<div class="mt-6 pt-4 border-t border-border-subtle">
+<div class="flex items-center gap-3">
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Selected: Meskel Festival</span>
+</div>
+</div>
+</div>
+<!-- My Interest Summary -->
+<div class="bg-surface-container rounded-2xl p-6 border border-border-subtle">
+<h4 class="font-label-md text-label-md text-on-surface mb-4">My Interests</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-primary border border-border-subtle">
+<span class="material-symbols-outlined">festival</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface leading-none mb-1">Cultural</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">12 events saved</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-secondary border border-border-subtle">
+<span class="material-symbols-outlined">directions_run</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface leading-none mb-1">Athletics</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">5 events saved</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border-2 border-primary text-primary font-label-md text-label-md rounded-xl hover:bg-primary/5 transition-colors">View Saved List</button>
+</div>
+<!-- Promotional Card -->
+<div class="relative h-64 rounded-2xl overflow-hidden group cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A lush, cinematic view of the Simien Mountains in Ethiopia. The jagged peaks are bathed in soft morning light with clouds floating in the valleys below. A lone Gelada baboon is visible in the foreground among vibrant wildflowers, capturing the wild and majestic beauty of Ethiopia's highland wilderness in a premium travel editorial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCeoSWjyCs0FtlmAO8ytx5oAvWTmNiAKI4biYBNYhy3v3XSmxqL_yBGzP9ny6TCJVNb7HpFAhYT6pJyNAGsS5OVujYUW2B8vKbTWshz34GjSBhVYF1Ly3rA48KFpPIuUIyMFc65Aiha-iu7YROQ6hA0lSi9wYRCCy3lHY3zhi74vXjFunbeulhBFznIwpPkiFptb8jZb0p8L3qcnGIClKPrbQphVC7XvPvHdIVWhSdtsofipRlOwFFipUV7JzYNHjyjEisfREyZziL">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-6 flex flex-col justify-end">
+<span class="text-white font-label-sm text-label-sm mb-1 uppercase tracking-wider">Plan Your Adventure</span>
+<h4 class="text-white font-headline-md text-headline-md leading-tight mb-4">Simien Mountains Trekking</h4>
+<span class="inline-block w-fit px-4 py-2 bg-accent-yellow text-on-surface font-label-md text-label-md rounded-lg">Explore Now</span>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Interactive Toggle Script -->
+<script>
+        document.querySelectorAll('.event-card button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if(this.querySelector('.material-symbols-outlined').innerText === 'favorite') {
+                    const icon = this.querySelector('.material-symbols-outlined');
+                    const isFilled = icon.style.fontVariationSettings.includes("'FILL' 1");
+                    
+                    if(isFilled) {
+                        icon.style.fontVariationSettings = "'FILL' 0";
+                        this.classList.remove('text-error');
+                        this.classList.add('text-outline');
+                    } else {
+                        icon.style.fontVariationSettings = "'FILL' 1";
+                        this.classList.add('text-error');
+                        this.classList.remove('text-outline');
+                        
+                        // Small bounce animation
+                        this.animate([
+                            { transform: 'scale(1)' },
+                            { transform: 'scale(1.2)' },
+                            { transform: 'scale(1)' }
+                        ], { duration: 300 });
+                    }
+                }
+            });
+        });
+
+        // Hover interactions for the calendar
+        document.querySelectorAll('.grid-cols-7 span:not(.text-outline)').forEach(day => {
+            day.addEventListener('mouseenter', function() {
+                if(!this.classList.contains('bg-primary')) {
+                    this.classList.add('bg-surface-container', 'rounded-lg');
+                }
+            });
+            day.addEventListener('mouseleave', function() {
+                if(!this.classList.contains('bg-primary')) {
+                    this.classList.remove('bg-surface-container', 'rounded-lg');
+                }
+            });
+        });
+    </script>
+</body></html>

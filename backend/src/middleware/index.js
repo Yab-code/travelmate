@@ -1,3 +1,4 @@
-// Middleware placeholder
+const { protect, requireRole } = require('./auth');
+const { errorHandler } = require('./errorHandler');
 
-module.exports = {};
+module.exports = { protect, requireRole, errorHandler };

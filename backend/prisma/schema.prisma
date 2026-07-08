@@ -4,8 +4,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // Connection URLs are configured outside schema for Prisma v7+
-  // See https://pris.ly/d/config-datasource
 }
 
 enum RoleName {
@@ -27,17 +25,20 @@ model Role {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  roleId    Int
-  role      Role     @relation(fields: [roleId], references: [id])
-  isActive  Boolean  @default(true)
-  companyId Int?
-  company   Company? @relation(fields: [companyId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            Int       @id @default(autoincrement())
+  name          String
+  email         String    @unique
+  password      String
+  roleId        Int
+  role          Role      @relation(fields: [roleId], references: [id])
+  isActive      Boolean   @default(true)
+  // The company this user belongs to (as a member/employee)
+  companyId     Int?
+  memberOf      Company?  @relation("CompanyMembers", fields: [companyId], references: [id])
+  // The company this user owns (as EVENT_PLANNER)
+  ownedCompany  Company?  @relation("CompanyOwner")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Company {
@@ -50,8 +51,11 @@ model Company {
   logo            String?
   licenseDocument String?
   status          CompanyStatus @default(PENDING)
-  ownerId         Int
-  owner           User          @relation(fields: [ownerId], references: [id])
+  // The owner — one User owns one Company (one-to-one)
+  ownerId         Int           @unique
+  owner           User          @relation("CompanyOwner", fields: [ownerId], references: [id])
+  // Members (employees/planners) assigned to this company
+  members         User[]        @relation("CompanyMembers")
   travelPackages  TravelPackage[]
   events          Event[]
   createdAt       DateTime      @default(now())
@@ -60,13 +64,13 @@ model Company {
 
 // Placeholder models to satisfy relations – can be expanded later
 model TravelPackage {
-  id        Int    @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   companyId Int
   company   Company @relation(fields: [companyId], references: [id])
 }
 
 model Event {
-  id        Int    @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   companyId Int
   company   Company @relation(fields: [companyId], references: [id])
 }

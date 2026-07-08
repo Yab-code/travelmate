@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Events - TravelMate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .event-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .event-card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.08);
+        }
+        .category-chip-active {
+            background-color: #0050cb;
+            color: white;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-surface": "#0b1c30",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "primary-fixed": "#dae1ff",
+                    "on-primary-container": "#f8f7ff",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary-container": "#cc4204",
+                    "border-subtle": "#E2E8F0",
+                    "primary": "#0050cb",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "surface-gray": "#F8FAFC",
+                    "surface-variant": "#d3e4fe",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#006e2a",
+                    "secondary-container": "#5cfd80",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-low": "#eff4ff",
+                    "accent-yellow": "#FFB700",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#00531e",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "inverse-primary": "#b3c5ff",
+                    "surface-container-high": "#dce9ff",
+                    "booking-blue": "#003580",
+                    "tertiary-fixed": "#ffdbd0",
+                    "outline": "#727687",
+                    "surface": "#f8f9ff",
+                    "secondary-fixed": "#69ff87",
+                    "secondary-fixed-dim": "#3ce36a",
+                    "on-primary-fixed": "#001849",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "on-secondary-container": "#00732c",
+                    "background": "#f8f9ff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "primary-container": "#0066ff",
+                    "on-surface-variant": "#424656",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container": "#e5eeff",
+                    "tertiary": "#a33200",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-background": "#0b1c30",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#0054d6",
+                    "on-tertiary-container": "#fff6f4",
+                    "inverse-surface": "#213145",
+                    "on-secondary-fixed": "#002108",
+                    "surface-bright": "#f8f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "unit": "8px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20 bg-surface/80 backdrop-blur-md border-b border-border-subtle shadow-sm">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary">TravelMate</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Packages</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">Events</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container border border-outline-variant/30 rounded-full px-4 py-2">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search events..." type="text"/>
+</div>
+<button class="font-label-md text-label-md text-primary px-4 py-2 hover:bg-primary/5 rounded-lg transition-all">Sign In</button>
+<button class="font-label-md text-label-md bg-primary text-on-primary px-6 py-2.5 rounded-full hover:shadow-lg active:scale-95 transition-all">Get Started</button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-10">
+<!-- Hero & Filter Section -->
+<section class="mb-16">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Discover Amazing Events</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Find the most exciting experiences, from local food festivals to global music tours, curated specifically for your travel style.</p>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-2.5 rounded-full border border-outline-variant font-label-md text-label-md hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="tune">tune</span> Filters
+                    </button>
+</div>
+</div>
+<!-- Category Chips -->
+<div class="flex flex-wrap gap-3 mb-8">
+<button class="category-chip-active px-6 py-2 rounded-full font-label-md text-label-md transition-all">All Events</button>
+<button class="bg-white border border-outline-variant/50 px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="music_note">music_note</span> Music
+                </button>
+<button class="bg-white border border-outline-variant/50 px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="palette">palette</span> Art
+                </button>
+<button class="bg-white border border-outline-variant/50 px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="sports_soccer">sports_soccer</span> Sports
+                </button>
+<button class="bg-white border border-outline-variant/50 px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="restaurant">restaurant</span> Food
+                </button>
+</div>
+</section>
+<!-- This Weekend Section (Bento Inspired Grid) -->
+<section class="mb-20">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-lg text-headline-lg">This Weekend</h2>
+<a class="text-primary font-label-md flex items-center gap-1 hover:underline" href="#">View All <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[500px]">
+<!-- Featured Large Card -->
+<div class="md:col-span-8 group relative rounded-xl overflow-hidden shadow-sm event-card-hover bg-white">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+<div class="absolute top-4 left-4 z-20 flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">Trending</span>
+<span class="bg-white/90 backdrop-blur-md text-on-surface px-3 py-1 rounded-full text-label-sm font-label-sm">$120</span>
+</div>
+<div class="w-full h-full" data-alt="A cinematic wide-angle shot of a vibrant outdoor summer music festival at sunset. Thousands of happy people are silhouetted against a brilliant orange and purple sky. The stage features high-tech neon lighting and giant LED screens in the style of TravelMate's premium corporate aesthetic. The overall mood is energetic, optimistic, and high-fidelity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDdlb26NlJDBAsmP9YawlayTKkL83Lu1v230Ea_1aYK0NghPqw3u1VJ93gJZIm9WPILr6NulR2B4fnBgEgNi1XthHq8Zvgv-R-wpnol5djvR0oYHtScP6RxijOZhSnu6wCaho7qwjOcHhVeBwPJrIkDZzK7HdQHuaT-PuIV-xDcWujjZsimCEHPmyA7l9jHKAKQHOopyjjOWBW7CPE0IEQXXCl0pX9CRoRDFhCL8B0pkHWewP4izHbaR-eYtFjR9Tb5wTF2M89FH71a')"></div>
+<div class="absolute bottom-0 left-0 p-8 z-20 w-full text-white">
+<div class="flex items-center gap-4 mb-2 text-white/80 font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span> Oct 12, 19:00</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Central Park, NYC</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg mb-4">Electric Horizon Music Festival</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-[10px]">LM</div>
+<span class="text-body-sm">Lumina Events Group</span>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary px-8 py-3 rounded-full font-label-md transition-all shadow-lg">Book Now</button>
+</div>
+</div>
+</div>
+<!-- Vertical Stack Cards -->
+<div class="md:col-span-4 flex flex-col gap-6">
+<div class="flex-1 bg-white rounded-xl overflow-hidden border border-border-subtle p-5 event-card-hover flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full text-label-sm font-label-sm">Food &amp; Wine</span>
+<span class="text-primary font-bold">$45</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Artisan Bakery Workshop</h4>
+<p class="text-on-surface-variant text-body-sm line-clamp-2">Learn the secrets of sourdough from master bakers in this hands-on morning session.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between">
+<span class="text-body-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 10:00 AM</span>
+<button class="text-primary font-label-md hover:bg-primary/5 px-4 py-2 rounded-lg transition-all">Book</button>
+</div>
+</div>
+<div class="flex-1 bg-white rounded-xl overflow-hidden border border-border-subtle p-5 event-card-hover flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full text-label-sm font-label-sm">Art Gallery</span>
+<span class="text-primary font-bold">Free</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Modernism Reimagined</h4>
+<p class="text-on-surface-variant text-body-sm line-clamp-2">An exclusive preview of the new digital sculpture wing at the Met with the curator.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between">
+<span class="text-body-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 2:00 PM</span>
+<button class="text-primary font-label-md hover:bg-primary/5 px-4 py-2 rounded-lg transition-all">Register</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Popular Next Month Section -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-lg text-headline-lg">Popular Next Month</h2>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Event Card 1 -->
+<div class="bg-white rounded-xl overflow-hidden border border-border-subtle event-card-hover">
+<div class="relative h-48 w-full" data-alt="A clean, minimalist shot of a high-end sushi chef preparing fresh nigiri in a bright, modern restaurant with light wood accents. The lighting is soft and natural, emphasizing the textures of the fish and the precision of the chef. Professional corporate travel aesthetic for a premium culinary event." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCs8HTnb7C0C8IcCgv7LIe9_C6v-wrYsW5CqU6I5sniDtBE1xc3DuRAg29lKxzaAkxDuW9mswoNf_KHobyzKwUyoxQjv38upxDeXmoQ5FEmjS1nk-9RHOKwfdsg7nKenrT8eB0mm0v6PtTgYmegtZupuyCJnRXWu4AvVFo2TmC_Cr0iDFL2NCfNSJNjjlPWlqcb15iD1iYLRGyd4_oUk_bBxntf7RBww4k4tbmW2fBjIyzPmfKyE6oe0dGet-rUrTD5wLBUfFz-Ms6D')">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="text-primary font-bold text-label-sm">$180</span>
+</div>
+</div>
+<div class="p-5">
+<span class="text-secondary font-label-sm text-label-sm block mb-1">Nov 04 • 6:30 PM</span>
+<h5 class="font-headline-md text-body-lg font-bold mb-3 truncate">Omakase Experience</h5>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Tokyo Kitchen, LDN
+                        </div>
+<div class="flex items-center justify-between gap-2 border-t border-border-subtle pt-4">
+<span class="text-body-sm text-outline font-medium">Global Flavors</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-sm hover:opacity-90 transition-all">Book Now</button>
+</div>
+</div>
+</div>
+<!-- Event Card 2 -->
+<div class="bg-white rounded-xl overflow-hidden border border-border-subtle event-card-hover">
+<div class="relative h-48 w-full" data-alt="Action-packed professional tennis match on a bright blue hard court. The player is caught mid-serve under clear blue skies. The colors are vibrant and saturated, following the TravelMate blue palette. The atmosphere is energetic and premium, showcasing a major sporting event." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBf1sOnVD6TrQWWfaPDKt6Wjm-DGHvh6gFBQ5i06GgDu9sOUtD02m3TD3weolQ1dAyClfGkrPZ5UrS90fQzh-P9FZHBKhRUmJiRQvhNzZJDmGdRNd-x5icVy-y4LHd6Wwjk-HJqj8xwNXgyIAXQ07Ncd9XGPkqqEc3Wno9CGxC3xqZIvRFZhCx8K2PVFiyclWtmpki-zJbmOR4t_9AJ9WWoGtQQHnUNWwCFvvlAZDELl1jS5ICzXNr5jqsFN9a2GXHD6XOABtBTi11W')">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="text-primary font-bold text-label-sm">$250</span>
+</div>
+</div>
+<div class="p-5">
+<span class="text-secondary font-label-sm text-label-sm block mb-1">Nov 12 • 1:00 PM</span>
+<h5 class="font-headline-md text-body-lg font-bold mb-3 truncate">Grand Slam Masters</h5>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Arena One, Paris
+                        </div>
+<div class="flex items-center justify-between gap-2 border-t border-border-subtle pt-4">
+<span class="text-body-sm text-outline font-medium">ATP Tour</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-sm hover:opacity-90 transition-all">Book Now</button>
+</div>
+</div>
+</div>
+<!-- Event Card 3 -->
+<div class="bg-white rounded-xl overflow-hidden border border-border-subtle event-card-hover">
+<div class="relative h-48 w-full" data-alt="An atmospheric indoor jazz club with warm amber lighting. A saxophone player is performing in a spotlight, with soft bokeh of cocktail glasses and a sophisticated audience in the background. The style is classic yet contemporary, with deep shadows and rich tones. TravelMate's professional corporate style with a touch of evening elegance." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCbZ2vH-BtCGXp7Hm95lmT6opyPhUi0PO1gcYHZcXZu-bpUyi0igs7XYv5JMiKI3F2abiLxNcqaeexgbswm4QxZ47wMt7lwOQHaSJ8fpp5-LjUnsmIDp4Crl6tL3VUvS1klpBMkauYZ_7kHTH4kjjxXelatWycP9lH_Jbvy0RP-jgnxGE-iNkFjvvNjqFf6D_4pdWyVTSaSQWYrsGTvIZVwO_Ra0JapzHQBak5zgsAjeWykQHoFOELOQytVHhgqYw_gm_DhB5Apaahu')">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="text-primary font-bold text-label-sm">$65</span>
+</div>
+</div>
+<div class="p-5">
+<span class="text-secondary font-label-sm text-label-sm block mb-1">Nov 18 • 9:00 PM</span>
+<h5 class="font-headline-md text-body-lg font-bold mb-3 truncate">Midnight Jazz Session</h5>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Blue Note, NYC
+                        </div>
+<div class="flex items-center justify-between gap-2 border-t border-border-subtle pt-4">
+<span class="text-body-sm text-outline font-medium">Late Night NYC</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-sm hover:opacity-90 transition-all">Book Now</button>
+</div>
+</div>
+</div>
+<!-- Event Card 4 -->
+<div class="bg-white rounded-xl overflow-hidden border border-border-subtle event-card-hover">
+<div class="relative h-48 w-full" data-alt="A futuristic technology exhibition hall with clean white lines, large glass windows, and holographic displays. Professional business people are interacting with cutting-edge tech gadgets. The space is flooded with bright, natural light. High-end corporate travel aesthetic with a focus on innovation and future trends." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAvDei8i6YZyRHoO7lnFJ2sQFBRoLEoQHjIr6PZMfX-xRVrb9eUvXY_SBvV28RWs-_wEvn14iVy-QRTIe5hUmlxQ0owes_QyHa3prwiyLkmay6FVcYw99SCdc0hrB1QRzqcundZbzVV62na6Ij6-Z2-0WQCsQyTBrSLe12jcWALOQCtda6Kn6j3PriokVZBGKHc-omKRBTHz3mmF8Gfy64sI83WdHekgVim7mh8rl-pszbz9PQiY_EtUtMI1e_s51IKHd_JR6sSrqRc')">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="text-primary font-bold text-label-sm">Invite Only</span>
+</div>
+</div>
+<div class="p-5">
+<span class="text-secondary font-label-sm text-label-sm block mb-1">Nov 25 • 10:00 AM</span>
+<h5 class="font-headline-md text-body-lg font-bold mb-3 truncate">Tech Summit 2024</h5>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Expo Center, SF
+                        </div>
+<div class="flex items-center justify-between gap-2 border-t border-border-subtle pt-4">
+<span class="text-body-sm text-outline font-medium">Innovate Inc.</span>
+<button class="border border-primary text-primary px-4 py-2 rounded-lg font-label-md text-sm hover:bg-primary/5 transition-all">Waitlist</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full px-margin-desktop py-20 max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter bg-on-surface text-on-primary">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed mb-6 block">TravelMate</span>
+<p class="text-body-sm text-outline-variant/80 mb-6">Elevating your travel experience with curated events and premium planning services worldwide.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="public">public</span>
+</a>
+<a class="w-10 h-10 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="alternate_email">alternate_email</span>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h6 class="font-label-md text-white">Company</h6>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">About Us</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Careers</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Press</a>
+</div>
+<div class="flex flex-col gap-4">
+<h6 class="font-label-md text-white">Resources</h6>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Travel Guides</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Partner Program</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Support Center</a>
+</div>
+<div class="flex flex-col gap-4">
+<h6 class="font-label-md text-white">Newsletter</h6>
+<p class="text-body-sm text-outline-variant">Get travel inspiration and event updates weekly.</p>
+<div class="flex gap-2">
+<input class="bg-white/10 border-none rounded-lg px-4 py-2 text-body-sm focus:ring-1 focus:ring-primary w-full" placeholder="Your email" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg"><span class="material-symbols-outlined" data-icon="send">send</span></button>
+</div>
+</div>
+<div class="col-span-full border-t border-outline-variant/20 pt-10 mt-10 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-body-sm text-outline-variant">© 2024 TravelMate. Premium Travel &amp; Event Planning.</span>
+<div class="flex gap-6">
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for category chips
+        const chips = document.querySelectorAll('.bg-white.border-outline-variant\\/50');
+        const mainChip = document.querySelector('.category-chip-active');
+
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chips.forEach(c => {
+                    c.classList.remove('category-chip-active', 'text-white', 'bg-primary');
+                    c.classList.add('bg-white', 'text-on-surface-variant');
+                });
+                mainChip.classList.remove('category-chip-active');
+                mainChip.classList.add('bg-white', 'text-on-surface-variant', 'border', 'border-outline-variant/50');
+                
+                chip.classList.add('category-chip-active');
+                chip.classList.remove('bg-white', 'text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>

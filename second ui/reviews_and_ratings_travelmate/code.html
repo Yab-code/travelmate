@@ -1,0 +1,392 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TravelMate | Reviews &amp; Ratings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .star-rating .material-symbols-outlined { cursor: pointer; transition: color 0.2s; }
+        .star-rating .material-symbols-outlined:hover,
+        .star-rating .material-symbols-outlined.active {
+            font-variation-settings: 'FILL' 1;
+            color: #FFB700;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "primary-container": "#0066ff",
+                "outline-variant": "#c2c6d8",
+                "inverse-on-surface": "#eaf1ff",
+                "on-secondary-fixed-variant": "#00531e",
+                "surface-container-highest": "#d3e4fe",
+                "on-tertiary": "#ffffff",
+                "surface-tint": "#0054d6",
+                "surface-container-low": "#eff4ff",
+                "secondary-container": "#5cfd80",
+                "on-primary-fixed": "#001849",
+                "inverse-primary": "#b3c5ff",
+                "on-surface-variant": "#424656",
+                "error": "#ba1a1a",
+                "on-error-container": "#93000a",
+                "tertiary-fixed-dim": "#ffb59d",
+                "on-secondary": "#ffffff",
+                "surface-variant": "#d3e4fe",
+                "tertiary": "#a33200",
+                "secondary": "#006e2a",
+                "outline": "#727687",
+                "primary": "#0050cb",
+                "border-subtle": "#E2E8F0",
+                "on-primary-fixed-variant": "#003fa4",
+                "surface-container": "#e5eeff",
+                "secondary-fixed": "#69ff87",
+                "on-surface": "#0b1c30",
+                "on-tertiary-container": "#fff6f4",
+                "surface-gray": "#F8FAFC",
+                "on-tertiary-fixed-variant": "#832600",
+                "on-tertiary-fixed": "#390c00",
+                "on-background": "#0b1c30",
+                "on-primary": "#ffffff",
+                "surface-container-high": "#dce9ff",
+                "on-primary-container": "#f8f7ff",
+                "primary-fixed": "#dae1ff",
+                "booking-blue": "#003580",
+                "on-secondary-container": "#00732c",
+                "surface-container-lowest": "#ffffff",
+                "inverse-surface": "#213145",
+                "surface": "#f8f9ff",
+                "on-error": "#ffffff",
+                "tertiary-container": "#cc4204",
+                "surface-bright": "#f8f9ff",
+                "on-secondary-fixed": "#002108",
+                "accent-yellow": "#FFB700",
+                "tertiary-fixed": "#ffdbd0",
+                "error-container": "#ffdad6",
+                "surface-dim": "#cbdbf5",
+                "secondary-fixed-dim": "#3ce36a",
+                "background": "#f8f9ff",
+                "primary-fixed-dim": "#b3c5ff"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-max": "1280px",
+                "unit": "8px",
+                "margin-desktop": "40px",
+                "gutter": "24px",
+                "margin-mobile": "16px"
+        },
+        "fontFamily": {
+                "headline-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "headline-lg-mobile": ["Inter"],
+                "label-sm": ["Inter"],
+                "headline-lg": ["Inter"],
+                "label-md": ["Inter"],
+                "body-md": ["Inter"],
+                "body-sm": ["Inter"],
+                "display-lg": ["Inter"]
+        },
+        "fontSize": {
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+        }
+      }
+    }
+  }
+</script>
+<!-- Side Navigation Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-inverse-surface border-r border-border-subtle dark:border-outline-variant flex flex-col p-4 gap-2 z-50">
+<div class="mb-8 px-2">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">TravelMate</h1>
+<p class="text-on-surface-variant font-label-sm">Premium Planning</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined">explore</span> Explore Packages
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined">event</span> Events
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 text-primary dark:text-inverse-primary font-bold bg-surface-container dark:bg-surface-container-high rounded-lg font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">flight_takeoff</span> My Trips
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined">favorite</span> Wishlist
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container-high transition-colors font-body-md text-body-md rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+        </a>
+</nav>
+<button class="mt-auto bg-primary text-on-primary w-full py-3 rounded-xl font-label-md flex items-center justify-center gap-2 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span> New Trip
+    </button>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center h-16 px-8 sticky top-0 bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-xl border-b border-border-subtle dark:border-outline-variant z-40">
+<div class="flex items-center bg-surface-container px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full ml-2" placeholder="Search trips or reviews..." type="text">
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant opacity-80 hover:opacity-100 transition-opacity">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant opacity-80 hover:opacity-100 transition-opacity">help</button>
+<div class="w-8 h-8 rounded-full bg-primary-fixed overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a happy traveler with a warm smile, wearing a lightweight linen shirt, set against a blurred background of a sunny Mediterranean coastal town. The lighting is soft and golden, matching a premium travel brand aesthetic with clean, bright, and optimistic tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCatNG-SGBC7B-BZTIDGWhhVexcAxzvzqCOpVXmMgqKs9HCm17NWxy2j-oNyeu7o85vAArfdsH4guecHz8USL26SYo0I1ChdjXJi-DaHYnEX0G-2F4Iv9FVMwcYsjpfUsNZdcgW3qGfn-ebeWQ3QEWb_NmThqUoLj7m6jO10fiakq4qUx5vdwSseD1vDPCOM7tx4RyluTImoLc3sSJN3FAUz9NfYu6CFwX00iP5YGyyxlwLI6CgV7Y-OEUOF0QJk4vNY657zYx0XSKI">
+</div>
+</div>
+</header>
+<!-- Page Content Container -->
+<div class="p-10 max-w-container-max mx-auto space-y-12">
+<!-- Header -->
+<header class="flex flex-col gap-2">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Reviews &amp; Ratings</h2>
+<p class="font-body-md text-on-surface-variant">Share your experiences and revisit your travel memories.</p>
+</header>
+<!-- Pending Reviews Section -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Pending Reviews</h3>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-sm">2 New</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Pending Card 1 -->
+<div class="bg-surface-container-lowest border border-border-subtle p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex gap-6 items-center group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300">
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A majestic close-up of the Blue Nile Falls in Ethiopia, with powerful white water cascading down rocky cliffs into a misty basin. Lush green vegetation surrounds the falls under a bright, clear blue sky. The visual style is high-fidelity and aspirational, with vibrant natural colors and crisp detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRWwybPNsLU3cDbbx_Mm3W5TJ3BUnNi3yU0erIOnvsv7FaAELfi480lGHozGmTlabmE3WpEV7C7y8OBHYwLaH4is5K6UoATI6rB2B8awbY7j1vGgAZbAwnwtxplePR8e8SVw-l2oMxk-qTn2Dlga-YBYNqXr9WCEMGUTn-UKlei__WoFF-MMTbtfwfjhV2FfcQS90EOOcSZu5ic9rNnSqIUk9fCrvDSQfPr4oLzKURK-UtdaDRfGFia1ioU5TO-Nv9Sh2Eif-aGkzh">
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-secondary uppercase tracking-wider mb-1">Completed July 15, 2023</p>
+<h4 class="font-headline-md text-on-surface text-[20px]">Blue Nile Falls Expedition</h4>
+<p class="font-body-sm text-on-surface-variant mb-4">Bahir Dar, Ethiopia</p>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md hover:opacity-90 transition-opacity" onclick="openReviewModal('Blue Nile Falls Expedition')">Write Review</button>
+</div>
+</div>
+<!-- Pending Card 2 -->
+<div class="bg-surface-container-lowest border border-border-subtle p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] flex gap-6 items-center group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300">
+<div class="w-24 h-24 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A serene landscape of the Simien Mountains in Ethiopia, showing jagged mountain peaks and deep valleys shrouded in a soft morning mist. The foreground features unique Afro-alpine flora. The mood is tranquil and professional, captured during the golden hour for a warm, premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPVLE8CWL5hKDdIRTDrRXpocKN2Pes2m8AK16Kw2XbFKUiRFSfKJ9hJIOTqYfHkQwQ5yDtQDdON7cFylyjaYf-gVS0oYFUUyL09BUhM5l9KhovloJS7UKAY0RGmzPhcRJRUADjgSye8GVAJyha2to8BmCpkt27nrHEmMmj_ve435St-gRcav06ooEL5lRlbVF0GC5ximiD1ijPZB_zmjRes6MOvXTJC8sKZ1qk-cbTF63l8wq5qpkeq0VkZAOqvj1pwK1zeJSVO9hD">
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-secondary uppercase tracking-wider mb-1">Completed June 28, 2023</p>
+<h4 class="font-headline-md text-on-surface text-[20px]">Simien Mountains Trek</h4>
+<p class="font-body-sm text-on-surface-variant mb-4">Gondar, Ethiopia</p>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md hover:opacity-90 transition-opacity" onclick="openReviewModal('Simien Mountains Trek')">Write Review</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Review History Section - Bento Style -->
+<section>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Review History</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Large Featured Review -->
+<div class="md:col-span-2 bg-surface-container-lowest border border-border-subtle rounded-xl p-8 shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<div class="flex justify-between items-start mb-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A scenic view of a luxury safari lodge overlooking the African savannah at sunset. The lighting is warm and dramatic, highlighting the elegant thatched roofs and comfortable outdoor seating. The style is sophisticated corporate travel, emphasizing comfort and high-end experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA627-bnC40RLlwrhWEXxUQxyXrK9YF7p2afeijResOX1E6TWCth1X238v7C6hNMgw7xHnC5SuX7pSPFM3VXeFGdgynPr5uYsyAWVbjc4ZPvJOn3OHHnG602g_UEoIxvBFCWVup8O4uNS-IpNCfsa6r8aCVO92Tsh7ypOLtgwdIMYW0JD_hKW1EyaBnFvnK5FaX3B9dCiP1JyWP4dkstVG8aC013B-IaOarglVGxgK60CZZt8zHXIpMofx9viTdh0ptubEHThrn44sG">
+</div>
+<div>
+<h4 class="font-headline-md text-on-surface text-[18px]">Lalibela Rock-Hewn Churches</h4>
+<p class="font-body-sm text-on-surface-variant">Reviewed on May 12, 2023</p>
+</div>
+</div>
+<div class="flex text-accent-yellow">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<p class="font-body-md text-on-surface leading-relaxed mb-6 italic">
+                        "An absolutely spiritual experience. The engineering of these churches is mind-blowing. Our guide from TravelMate was exceptionally knowledgeable and ensured we saw the best spots at the right times to avoid the crowds. Highly recommend the dawn service!"
+                    </p>
+<div class="flex gap-2">
+<span class="bg-surface-container px-3 py-1 rounded-full font-label-sm text-on-primary-fixed-variant">#Historical</span>
+<span class="bg-surface-container px-3 py-1 rounded-full font-label-sm text-on-primary-fixed-variant">#Architecture</span>
+<span class="bg-surface-container px-3 py-1 rounded-full font-label-sm text-on-primary-fixed-variant">#Spiritual</span>
+</div>
+</div>
+<!-- Small Stats/Summary Card -->
+<div class="bg-primary text-on-primary rounded-xl p-8 flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-[48px] mb-4">verified_user</span>
+<h4 class="font-headline-md text-headline-md mb-2">Impact Score</h4>
+<p class="font-display-lg text-display-lg font-bold">4.9</p>
+<p class="font-body-sm opacity-80 mt-2">Your reviews helped 1,240 travelers last month</p>
+</div>
+<!-- Secondary Review List -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] md:col-span-3">
+<div class="space-y-6">
+<div class="flex justify-between items-center py-4 border-b border-border-subtle last:border-0">
+<div>
+<h5 class="font-label-md text-on-surface">Dallol Volcanic Crater Visit</h5>
+<p class="font-body-sm text-on-surface-variant">April 05, 2023</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex text-accent-yellow">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+<button class="text-primary font-label-sm hover:underline">Edit</button>
+</div>
+</div>
+<div class="flex justify-between items-center py-4 border-b border-border-subtle last:border-0">
+<div>
+<h5 class="font-label-md text-on-surface">Axum Obelisks Private Tour</h5>
+<p class="font-body-sm text-on-surface-variant">March 14, 2023</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex text-accent-yellow">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<button class="text-primary font-label-sm hover:underline">Edit</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Review Modal Overlay -->
+<div class="fixed inset-0 z-[100] hidden items-center justify-center bg-inverse-surface/40 backdrop-blur-sm px-4" id="reviewModal">
+<div class="bg-surface w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+<div class="p-6 border-b border-border-subtle flex justify-between items-center">
+<h3 class="font-headline-md text-on-surface" id="modalTitle">Write a Review</h3>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-on-surface" onclick="closeReviewModal()">close</button>
+</div>
+<div class="p-8">
+<div class="mb-8 text-center">
+<p class="font-label-md text-on-surface-variant mb-4">How was your experience?</p>
+<div class="star-rating flex justify-center gap-2" id="starRating">
+<span class="material-symbols-outlined text-[40px]" data-value="1">star</span>
+<span class="material-symbols-outlined text-[40px]" data-value="2">star</span>
+<span class="material-symbols-outlined text-[40px]" data-value="3">star</span>
+<span class="material-symbols-outlined text-[40px]" data-value="4">star</span>
+<span class="material-symbols-outlined text-[40px]" data-value="5">star</span>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block font-label-md text-on-surface mb-2">Review Title</label>
+<input class="w-full p-4 rounded-lg border border-border-subtle focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Summarize your trip" type="text">
+</div>
+<div>
+<label class="block font-label-md text-on-surface mb-2">Your Story</label>
+<textarea class="w-full p-4 rounded-lg border border-border-subtle focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="What were the highlights? Anything we can improve?" rows="5"></textarea>
+</div>
+</div>
+<div class="mt-8 flex gap-4">
+<button class="flex-1 px-6 py-3 border border-border-subtle rounded-xl font-label-md text-on-surface-variant hover:bg-surface-container transition-colors" onclick="closeReviewModal()">Cancel</button>
+<button class="flex-1 px-6 py-3 bg-primary text-on-primary rounded-xl font-label-md hover:opacity-90 shadow-lg shadow-primary/20 transition-all">Post Review</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    const modal = document.getElementById('reviewModal');
+    const stars = document.querySelectorAll('#starRating span');
+    let currentRating = 0;
+
+    function openReviewModal(tripName) {
+        document.getElementById('modalTitle').textContent = `Review: ${tripName}`;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeReviewModal() {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        resetStars();
+    }
+
+    function resetStars() {
+        stars.forEach(s => s.classList.remove('active'));
+        currentRating = 0;
+    }
+
+    stars.forEach(star => {
+        star.addEventListener('click', (e) => {
+            const val = parseInt(e.target.getAttribute('data-value'));
+            currentRating = val;
+            updateStars();
+        });
+
+        star.addEventListener('mouseenter', (e) => {
+            const val = parseInt(e.target.getAttribute('data-value'));
+            highlightStars(val);
+        });
+
+        star.addEventListener('mouseleave', () => {
+            updateStars();
+        });
+    });
+
+    function highlightStars(val) {
+        stars.forEach(s => {
+            const sVal = parseInt(s.getAttribute('data-value'));
+            if (sVal <= val) {
+                s.classList.add('active');
+            } else {
+                s.classList.remove('active');
+            }
+        });
+    }
+
+    function updateStars() {
+        stars.forEach(s => {
+            const sVal = parseInt(s.getAttribute('data-value'));
+            if (sVal <= currentRating) {
+                s.classList.add('active');
+            } else {
+                s.classList.remove('active');
+            }
+        });
+    }
+
+    // Modal close on background click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeReviewModal();
+    });
+</script>
+</body></html>

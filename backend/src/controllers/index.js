@@ -1,3 +1,4 @@
-// Controllers placeholder
+const authController = require('./authController');
+const userController = require('./userController');
 
-module.exports = {};
+module.exports = { authController, userController };

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About TravelMate | Premium Travel Planning</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#832600",
+                        "on-surface": "#0b1c30",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "primary-fixed": "#dae1ff",
+                        "on-primary-container": "#f8f7ff",
+                        "outline-variant": "#c2c6d8",
+                        "tertiary-container": "#cc4204",
+                        "border-subtle": "#E2E8F0",
+                        "primary": "#0050cb",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "surface-gray": "#F8FAFC",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#006e2a",
+                        "secondary-container": "#5cfd80",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-low": "#eff4ff",
+                        "accent-yellow": "#FFB700",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00531e",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "inverse-primary": "#b3c5ff",
+                        "surface-container-high": "#dce9ff",
+                        "booking-blue": "#003580",
+                        "tertiary-fixed": "#ffdbd0",
+                        "outline": "#727687",
+                        "surface": "#f8f9ff",
+                        "secondary-fixed": "#69ff87",
+                        "secondary-fixed-dim": "#3ce36a",
+                        "on-primary-fixed": "#001849",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "on-secondary-container": "#00732c",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "primary-container": "#0066ff",
+                        "on-surface-variant": "#424656",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#a33200",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-background": "#0b1c30",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#0054d6",
+                        "on-tertiary-container": "#fff6f4",
+                        "inverse-surface": "#213145",
+                        "on-secondary-fixed": "#002108",
+                        "surface-bright": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "unit": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar (Shared Component) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-20 bg-surface/80 backdrop-blur-md border-b border-border-subtle shadow-sm">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-bold text-primary">TravelMate</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Packages</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Events</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">About</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full transition-colors">search</button>
+<button class="hidden md:block font-label-md text-primary hover:opacity-80 transition-all">Sign In</button>
+<button class="px-6 py-2 bg-primary-container text-on-primary font-label-md rounded-full hover:shadow-lg active:scale-95 transition-all">Get Started</button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative pt-24 pb-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center">
+<div class="max-w-3xl mx-auto">
+<span class="inline-block px-4 py-1.5 mb-6 rounded-full bg-surface-container text-primary font-label-sm tracking-wider">ABOUT OUR JOURNEY</span>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-6 tracking-tight leading-tight">
+                    Empowering travelers to create lasting memories.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12">
+                    We believe travel is more than just reaching a destination; it's about the stories you tell, the people you meet, and the experiences that change you forever.
+                </p>
+</div>
+<div class="relative w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden shadow-2xl mb-24">
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
+<img class="w-full h-full object-cover" data-alt="A wide-angle cinematic shot of a sunset over a serene Mediterranean coastline with rolling hills and white-washed architecture. The lighting is golden and soft, emphasizing a premium travel aesthetic with a palette of deep blues, warm oranges, and crisp whites. High-fidelity detail with a focus on peace and inspiration, representing the core of TravelMate's mission." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFFZeahR5FwmQKYnnrLi2_YRxIJJErUt6iWsV1Z-BHfdxtU70JzhjBAV7y15TpECUbeofTYMYNWOK_Q9pksM8xn_K1yshpLWh5fUpKo2nPaE9IZvs5TlSAp8JKg7yFlG2wEI78pQFVZszqWF9TTh_cBWsw8HVjvI7V8Z1oEwU5ESeAsTMJX0PCOuWttzMUUY8hQVwWfIcU5i6r3u5YGqzwn_2JcVDubKpCNNs5TJGXEG2s72mrRQfhUc7Ed3P4aJL7cumV1sF-saEL"/>
+</div>
+</section>
+<!-- Platform Explanation / Bento Grid -->
+<section class="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto bg-surface-container-low rounded-[40px] mb-24">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-5 flex flex-col justify-center">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">How TravelMate Works</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
+                        Our platform acts as a digital bridge, connecting passionate explorers with curated local experiences that aren't found in standard guidebooks. We handle the complexity of logistics so you can focus on the wonder of discovery.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h4 class="font-label-md text-on-surface">Curated Networks</h4>
+<p class="text-body-sm text-on-surface-variant">Vetted partners ensuring safety and authenticity.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h4 class="font-label-md text-on-surface">Smart Logistics</h4>
+<p class="text-body-sm text-on-surface-variant">Real-time scheduling and seamless documentation.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="md:col-span-7 grid grid-cols-2 gap-4">
+<div class="rounded-2xl overflow-hidden h-64 shadow-sm group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A close-up shot of a local artisan in a rustic pottery studio, hands covered in clay, working on a delicate ceramic piece. The lighting is warm and natural, coming through a side window, highlighting the texture and authenticity of a curated travel experience. Modern Corporate style with high contrast and emotional warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0tU99sFl5nYhndQOU9YpyzOPTRHw8uD1JcIadKaPc-LD-iCfb0ahNT0lEYMldYKCAhLAKj0iqmi61I2QV8WhUderQMEPWuQDGmT4EuzYAQPjEOF145UYctBzNjO41lFDO4njou4IAb0NqYW7zooqJX6Jl1i_NA_qX3bT5oED8n8WNi79grWgsoyMENmyr9THaEhFIeGxpCVXZ9pvyh9VXwV1KAqj0884Xf4FruN3CknVwYsuWIogOi85vEFgLb9gomo1w33MeXz1R"/>
+</div>
+<div class="rounded-2xl overflow-hidden h-80 shadow-sm group -mt-8">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="An aerial view of a vibrant local market in Southeast Asia, showing colorful spices, fresh tropical fruits, and bustling crowds. The image captures the energy and variety of global travel destinations. Saturated colors and high-fidelity detail, emphasizing the '10k+ Destinations' aspect of TravelMate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgWftUPBljBic1Wdp7vHruZJbBueUpOk10dFisoHD09TzUN_PyoFbMh5Vyvv2mPWScVqkhVlJ--YFwxdP_OnkUYJ7bpqy4DB6MhI9d6U_04AC_KQKPHcEXPC2h8ekFAHEvpdczKWOeQ2ZYUSRgkN9Bco1O55mMcLr3WR5Bdd0akGnzyLKzuv5NxQh8KWLHe-T5Aihq9tKWQuzG-EyT6RQVLfZV5MVdHC_TeYIMEvgT7uNP-jWajDNDyJU0Dv5_7Dq8lTQoUXT7Cyq0"/>
+</div>
+<div class="rounded-2xl overflow-hidden h-72 shadow-sm group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A group of diverse travelers laughing together around a campfire in a lush forest clearing under a starry night sky. Soft ambient firelight creates a cozy and memorable atmosphere. The scene evokes lasting memories and high-quality social connections facilitated by the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzRG81RGA6Q5SM5wlt-eEaMWRSUi7Z1dEZ2Ngf-vKg4ZWIW2D4QvAgcMGLa4LHNJYnW3TUzLyRDrXbVcZqcmCE8lWxRYvcOxHnvHoT_BKPGrGa-2eXlGJq7O7-d-UaQrwpf-ICSF4gaqmW2vYIuKO1NaXFevd3i6pPpd2UsCBI3R6ae7gMkEzN6iPLR_phcUIGC4NamHsaKbCSF8rbPr_w8rnBRU2G0LnPbn0EuN2NDMFneANZGe2Z8ZD6_q9AH8XQP4qgCIk1JQVt"/>
+</div>
+<div class="rounded-2xl overflow-hidden h-56 shadow-sm group -mt-12">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A clean, minimalist workspace showing a tablet displaying a beautifully designed travel itinerary map with pins on various European cities. Professional SaaS-inspired clarity in the UI design of the tablet. The background is slightly blurred with soft daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB7HknOV7epudp8xdQGYGefvTnzYYKhvtoF8ucfugQb4XUAg8RphGrNh4vW2rHZwRlwIjtm_r6T55Dl8Aw5FCCuJVzksgJmtiv5q1KEaF2UG62BpFLg9UujS5gi_YzkeL2MDyoCa2Eko-vuHCXhYROa3V4iaCRpcs5hz81tOvE5rIyjqVZSrRq2vz_X59PmOm86ZW6wB5OPCXkbUWofkfOT_XJ2bQzQzEazmrKPrBkHVZyvwQuvqItP5irM0ioORF2OKdnjmvg-cEa"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us -->
+<section class="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center mb-24">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-16">Why TravelMate?</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="p-8 rounded-2xl glass-card flex flex-col items-center hover:shadow-md transition-all duration-300">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="verified">verified</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Quality</h3>
+<p class="text-on-surface-variant">Every experience is manually vetted by our experts to ensure the highest standards of hospitality.</p>
+</div>
+<div class="p-8 rounded-2xl glass-card flex flex-col items-center hover:shadow-md transition-all duration-300">
+<div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="payments">payments</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Value</h3>
+<p class="text-on-surface-variant">We negotiate direct rates with global partners to bring you exclusive pricing without hidden fees.</p>
+</div>
+<div class="p-8 rounded-2xl glass-card flex flex-col items-center hover:shadow-md transition-all duration-300">
+<div class="w-16 h-16 bg-accent-yellow/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-accent-yellow text-4xl" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Simplicity</h3>
+<p class="text-on-surface-variant">Our intuitive interface makes booking complex multi-city trips as easy as sending a message.</p>
+</div>
+</div>
+</section>
+<!-- Statistics Section -->
+<section class="py-24 bg-on-surface text-on-primary">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter text-center">
+<div class="space-y-2">
+<div class="font-display-lg text-display-lg text-primary-fixed tracking-tight">10k+</div>
+<div class="font-label-md uppercase tracking-[0.2em] opacity-70">Destinations</div>
+</div>
+<div class="space-y-2 border-y md:border-y-0 md:border-x border-outline-variant/20 py-8 md:py-0">
+<div class="font-display-lg text-display-lg text-secondary-fixed-dim tracking-tight">500k+</div>
+<div class="font-label-md uppercase tracking-[0.2em] opacity-70">Happy Travelers</div>
+</div>
+<div class="space-y-2">
+<div class="font-display-lg text-display-lg text-tertiary-fixed-dim tracking-tight">200+</div>
+<div class="font-label-md uppercase tracking-[0.2em] opacity-70">Global Partners</div>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mb-24">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+<div class="max-w-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Meet the Visionaries</h2>
+<p class="text-on-surface-variant font-body-md leading-relaxed">Our diverse team of world-travelers, data scientists, and storytellers is dedicated to redefining what it means to explore the world.</p>
+</div>
+<button class="flex items-center gap-2 font-label-md text-primary group">
+                    View Careers <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Founder 1 -->
+<div class="group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-sm grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="Professional studio headshot of a confident female founder in her late 30s. She has a warm, professional expression, wearing a minimalist navy blazer against a soft grey background. Clean lighting, sharp focus, representing leadership and reliability in the travel industry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrIjk7UE4sttsWYy3Sdda2_wgJk0rcwxNY_XfjcEW7WgxYvI3M2qJl3DbCct0KCy79oOORyEHKxP211-FYjE8hOMylebRq99LiC3wHPBnv08z4IS6a6QiX9dec7sP6HL35koLKj1QisQQV8wCupMn8-QOyJ1IDn-6rWGGJdlGOePtrYbjgX0CkOuPOOIkaD1XxlrR-Q2INyuRSarqJHrDFc8oAqokqwMVvtejKMvDraPLj5cKXbUlZU8O8plrLL_FL9w3PkRXhDGhy"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Elena Rodriguez</h4>
+<p class="text-primary font-label-sm mb-2">CEO &amp; Founder</p>
+<p class="text-body-sm text-on-surface-variant">Former travel journalist with a passion for sustainable tourism and cultural heritage.</p>
+</div>
+<!-- Founder 2 -->
+<div class="group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-sm grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a male tech founder in his early 40s. He is wearing a simple black t-shirt, standing in a bright, modern office space with blurred plants in the background. Calm and approachable expression. Premium photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4KTV_0eBUOOKNX75WKqktvmJfsopSQaCSIKAuNgTlOoAuDV4SWgNXasVnZ2nH70qyY74Slbc_ErAnK07WoAT6prMb8rMr3lgdPbeA9oOVNVCJerOMA5L3790AvHVw47ncNCkSvlDk0BK-R5L45zkJMhXVGr9yq6Eo8uEy8Wh-7oPYQoxhmJzd0HZF3tj8uZMekcYz4AdYon_O5UoWKuJevEJJMl9m7QOzibbWFs_XgfT7AE6PsqUeGQsa-zhh__sw8IoTv6oruB7x"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">David Chen</h4>
+<p class="text-primary font-label-sm mb-2">CTO &amp; Co-Founder</p>
+<p class="text-body-sm text-on-surface-variant">Previously led engineering teams at top-tier global booking platforms.</p>
+</div>
+<!-- Team Member 1 -->
+<div class="group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-sm grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="Professional studio headshot of a female operations leader in her mid 30s. She has short hair, wearing a white blouse, with a friendly and efficient demeanor. The lighting is bright and airy, matching the TravelMate brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHP0x_WIv11eHHiEYhnRGJgq_gOjn2xIS4sAPPwZADEgjN0onX1Mjdfpj4VYpg7r5mQGjYUJeGJB_eyA9k9kT3NRWGDNsDi3LkRMb7inORm0eaSEMlwPrS8BVq3ZdWAqW5OtvMj0ai-vyvaju0miICuaL6CnpkDQaT4CWpSnhcZLjouLNCpSXvQjn-FnUhFvUudRYb078J-1kfNmQgJgjtiZjH79q7GYWmwFTAz65oAtRBMP7bQsB7JYOulzcSOTUQqHVeBccin1Su"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Sarah Jenkins</h4>
+<p class="text-primary font-label-sm mb-2">Head of Experiences</p>
+<p class="text-body-sm text-on-surface-variant">Has personally visited over 85 countries to vet our initial partner networks.</p>
+</div>
+<!-- Team Member 2 -->
+<div class="group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-sm grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a male design director in his 30s. Creative and modern appearance, wearing designer glasses and a charcoal sweater. Background is a blurred architectural space with natural wood elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6C6Zd3Xm795lkmbX1Wi8qM-J9Bz_IUDAYqK-IqP-RkTdzjj4ZvQRyNNRZ_B1Q4tP0R20yIAk7c1LCfJAkkAdsr0YGKVLm7UQh4xeUIpWWF55kaLFFmbtcAplUxO7-IRzOzVl6v3oHJLVRlN__u002VIKkwpBibFjejLbboS8KYUMd6n2NbTY1S-Aq-qxeWZ_xgY4C9Un_6cJo-4KFVdy11W2VCBHpxBOrcjEc-LPLbBkjJGJ1Ykcc8pkpCmHIj2eI01gExo5qgirj"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Marcus Thorne</h4>
+<p class="text-primary font-label-sm mb-2">Design Director</p>
+<p class="text-body-sm text-on-surface-variant">Ensuring that every digital interaction with TravelMate is intuitive and inspiring.</p>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="relative rounded-[40px] bg-primary-container p-12 md:p-24 overflow-hidden flex flex-col items-center text-center">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-[120px] -mr-48 -mt-48"></div>
+<div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary-container rounded-full blur-[120px] -ml-48 -mb-48"></div>
+</div>
+<h2 class="relative z-10 font-display-lg text-display-lg text-on-primary mb-8 max-w-2xl">Ready to start your next adventure?</h2>
+<div class="relative z-10 flex flex-col sm:flex-row gap-4">
+<button class="px-8 py-4 bg-on-primary text-primary font-label-md rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all">Plan Your Trip</button>
+<button class="px-8 py-4 bg-transparent border border-on-primary/30 text-on-primary font-label-md rounded-full hover:bg-on-primary/10 transition-all">Explore Packages</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter bg-on-surface border-t border-outline-variant/10 text-outline-variant">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed mb-6 block">TravelMate</span>
+<p class="text-body-sm leading-relaxed mb-6">Premium Travel &amp; Event Planning for the modern explorer.</p>
+</div>
+<div>
+<h4 class="text-white font-label-md mb-6">Discover</h4>
+<nav class="flex flex-col gap-4">
+<a class="text-body-sm hover:text-white transition-colors" href="#">Home</a>
+<a class="text-body-sm hover:text-white transition-colors" href="#">Packages</a>
+<a class="text-body-sm hover:text-white transition-colors" href="#">Events</a>
+</nav>
+</div>
+<div>
+<h4 class="text-white font-label-md mb-6">Company</h4>
+<nav class="flex flex-col gap-4">
+<a class="text-body-sm text-primary-fixed font-bold" href="#">About</a>
+<a class="text-body-sm hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="text-body-sm hover:text-white transition-colors" href="#">Terms of Service</a>
+</nav>
+</div>
+<div>
+<h4 class="text-white font-label-md mb-6">Newsletter</h4>
+<p class="text-body-sm mb-4">Join our community for exclusive travel deals.</p>
+<div class="flex gap-2">
+<input class="bg-surface-container-highest/10 border-none rounded-full px-4 py-2 text-body-sm focus:ring-1 focus:ring-primary-fixed w-full" placeholder="Email address" type="email"/>
+<button class="bg-primary-fixed text-on-primary-fixed p-2 rounded-full material-symbols-outlined">send</button>
+</div>
+</div>
+<div class="md:col-span-4 mt-20 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-body-sm">© 2024 TravelMate. Premium Travel &amp; Event Planning.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined hover:text-white cursor-pointer">public</span>
+<span class="material-symbols-outlined hover:text-white cursor-pointer">share</span>
+<span class="material-symbols-outlined hover:text-white cursor-pointer">mail</span>
+</div>
+</div>
+</footer>
+<script>
+        // Simple scroll reveal interaction
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+
+        // Initialize sticky header behavior
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('h-16', 'shadow-md');
+                header.classList.remove('h-20', 'shadow-sm');
+            } else {
+                header.classList.add('h-20', 'shadow-sm');
+                header.classList.remove('h-16', 'shadow-md');
+            }
+        });
+    </script>
+</body></html>

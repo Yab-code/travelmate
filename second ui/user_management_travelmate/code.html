@@ -1,0 +1,534 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>User Management | TravelMate Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container": "#e5eeff",
+                "secondary-container": "#5cfd80",
+                "primary-fixed-dim": "#b3c5ff",
+                "surface-bright": "#f8f9ff",
+                "on-secondary-fixed": "#002108",
+                "primary-fixed": "#dae1ff",
+                "error": "#ba1a1a",
+                "outline-variant": "#c2c6d8",
+                "surface-container-low": "#eff4ff",
+                "error-container": "#ffdad6",
+                "tertiary-fixed": "#ffdbd0",
+                "on-error-container": "#93000a",
+                "surface": "#f8f9ff",
+                "on-tertiary-container": "#fff6f4",
+                "secondary": "#006e2a",
+                "inverse-surface": "#213145",
+                "on-surface-variant": "#424656",
+                "secondary-fixed": "#69ff87",
+                "border-subtle": "#E2E8F0",
+                "surface-variant": "#d3e4fe",
+                "on-surface": "#0b1c30",
+                "on-secondary": "#ffffff",
+                "booking-blue": "#003580",
+                "accent-yellow": "#FFB700",
+                "outline": "#727687",
+                "surface-dim": "#cbdbf5",
+                "primary-container": "#0066ff",
+                "inverse-primary": "#b3c5ff",
+                "surface-tint": "#0054d6",
+                "on-background": "#0b1c30",
+                "on-secondary-container": "#00732c",
+                "surface-gray": "#F8FAFC",
+                "secondary-fixed-dim": "#3ce36a",
+                "background": "#f8f9ff",
+                "surface-container-lowest": "#ffffff",
+                "primary": "#0050cb",
+                "surface-container-highest": "#d3e4fe",
+                "tertiary-container": "#cc4204",
+                "on-primary-container": "#f8f7ff",
+                "on-tertiary": "#ffffff",
+                "on-tertiary-fixed-variant": "#832600",
+                "on-error": "#ffffff",
+                "tertiary-fixed-dim": "#ffb59d",
+                "on-primary": "#ffffff",
+                "inverse-on-surface": "#eaf1ff",
+                "on-secondary-fixed-variant": "#00531e",
+                "on-primary-fixed-variant": "#003fa4",
+                "tertiary": "#a33200",
+                "on-tertiary-fixed": "#390c00",
+                "surface-container-high": "#dce9ff",
+                "on-primary-fixed": "#001849"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "container-max": "1280px",
+                "unit": "8px",
+                "margin-mobile": "16px",
+                "margin-desktop": "40px",
+                "gutter": "24px"
+            },
+            "fontFamily": {
+                "headline-md": ["Inter"],
+                "display-lg": ["Inter"],
+                "headline-lg-mobile": ["Inter"],
+                "label-sm": ["Inter"],
+                "label-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "body-sm": ["Inter"],
+                "headline-lg": ["Inter"],
+                "body-md": ["Inter"]
+            },
+            "fontSize": {
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9ff; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d3e4fe; border-radius: 10px; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-lowest dark:bg-inverse-surface border-r border-border-subtle dark:border-outline-variant shadow-sm flex flex-col h-full py-6 z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md font-bold text-booking-blue dark:text-primary-fixed">TravelMate</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-70">Enterprise Admin</p>
+</div>
+<nav class="flex-1 space-y-1 px-3 overflow-y-auto custom-scrollbar">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Bookings -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-md text-label-md">Bookings</span>
+</a>
+<!-- Destinations -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-md text-label-md">Destinations</span>
+</a>
+<!-- Users (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-container dark:bg-secondary-container/20 text-primary dark:text-secondary-fixed-dim border-r-4 border-primary dark:border-secondary-fixed-dim active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<!-- Analytics -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low hover:bg-surface-container-high dark:hover:bg-on-surface-variant/10 transition-colors duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full py-3 rounded-xl bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:brightness-110 active:scale-95 transition-all">
+                Support Portal
+            </button>
+</div>
+</aside>
+<!-- TopNavBar (Authority: JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface dark:bg-on-background border-b border-border-subtle dark:border-outline-variant flex justify-between items-center px-margin-desktop h-16 z-40">
+<div class="flex items-center gap-6 flex-1">
+<span class="font-headline-sm text-headline-sm font-semibold text-booking-blue">Admin Console</span>
+<div class="relative w-full max-w-md focus-within:ring-2 focus-within:ring-primary rounded-full transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 font-body-md text-body-md focus:ring-0" placeholder="Global search..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container-low dark:hover:bg-surface-variant/20 rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low dark:hover:bg-surface-variant/20 rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low dark:hover:bg-surface-variant/20 rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="apps">apps</span>
+</button>
+<div class="h-8 w-px bg-border-subtle mx-2"></div>
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-fixed-dim" data-alt="Close-up portrait of a professional corporate super administrator in a modern high-tech office. The lighting is bright and clear with soft shadows, reflecting a professional SaaS environment. The person has a friendly yet authoritative expression, wearing business casual attire. The background is softly blurred showing minimalist architecture with booking-blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZYhOSG5V7veyFGdgv5jwGViP--iJsc0zKXC1SNXxlp45dnLOFb-Wa9AW_fuGGPjWg90APtj7NDuML0K9GOYLmE_dERLbDJa_u8WCS1j-y0Jqj6bTrEVocox0aeZ-eAQ9g6gSRvRUere4Ve-7ExE1DGpIbl1RG8QtD0wbpqyOG7Ej0sN7MDCvj8H0IExeZMM2RjmmjSvTL31mMqoD-wnOG-4gPQFBL9tHvLSFtET_951s4tIdv6lRBr_6OJNuwh5nufHqTbEy_Gy36">
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="p-margin-desktop max-w-container-max mx-auto">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">User Management</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Oversee system roles, permissions, and account statuses for all TravelMate users.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 bg-surface-container-highest text-primary font-label-md text-label-md rounded-xl hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">download</span> Export CSV
+                    </button>
+<button class="flex items-center gap-2 px-5 py-2.5 bg-primary text-on-primary font-label-md text-label-md rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined">person_add</span> Create New User
+                    </button>
+</div>
+</div>
+<!-- Dashboard Overview Stats (Bento-lite) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-border-subtle shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<div class="text-secondary mb-2 bg-secondary/10 w-fit p-2 rounded-lg"><span class="material-symbols-outlined">group</span></div>
+<div class="text-on-surface-variant font-label-md text-label-md">Total Users</div>
+<div class="text-on-surface font-headline-md text-headline-md">12,842</div>
+<div class="text-secondary font-label-sm text-label-sm mt-1">↑ 12% this month</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-border-subtle shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<div class="text-primary mb-2 bg-primary/10 w-fit p-2 rounded-lg"><span class="material-symbols-outlined">travel_explore</span></div>
+<div class="text-on-surface-variant font-label-md text-label-md">Active Travelers</div>
+<div class="text-on-surface font-headline-md text-headline-md">8,421</div>
+<div class="text-primary font-label-sm text-label-sm mt-1">65% of total base</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-border-subtle shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<div class="text-tertiary mb-2 bg-tertiary/10 w-fit p-2 rounded-lg"><span class="material-symbols-outlined">event_note</span></div>
+<div class="text-on-surface-variant font-label-md text-label-md">Verified Planners</div>
+<div class="text-on-surface font-headline-md text-headline-md">423</div>
+<div class="text-tertiary font-label-sm text-label-sm mt-1">Pending verification: 12</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-border-subtle shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<div class="text-error mb-2 bg-error/10 w-fit p-2 rounded-lg"><span class="material-symbols-outlined">block</span></div>
+<div class="text-on-surface-variant font-label-md text-label-md">Suspended Accounts</div>
+<div class="text-on-surface font-headline-md text-headline-md">56</div>
+<div class="text-error font-label-sm text-label-sm mt-1">Security flagged: 4</div>
+</div>
+</div>
+<!-- Advanced Filters -->
+<div class="bg-surface-container-lowest rounded-t-xl border-x border-t border-border-subtle p-5 flex flex-wrap gap-4 items-center justify-between">
+<div class="flex flex-wrap gap-3">
+<div class="relative group">
+<select class="appearance-none bg-surface-container-low border border-border-subtle font-label-md text-label-md pl-4 pr-10 py-2 rounded-lg focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer">
+<option>All Roles</option>
+<option>Traveler</option>
+<option>Planner</option>
+<option>Admin</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<div class="relative group">
+<select class="appearance-none bg-surface-container-low border border-border-subtle font-label-md text-label-md pl-4 pr-10 py-2 rounded-lg focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer">
+<option>All Status</option>
+<option>Active</option>
+<option>Suspended</option>
+<option>Inactive</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface-variant border border-border-subtle font-label-md text-label-md rounded-lg flex items-center gap-2 hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span> Last 30 Days
+                    </button>
+</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">
+                    Showing <span class="font-bold text-on-surface">50</span> of 12,842 users
+                </div>
+</div>
+<!-- User Data Table -->
+<div class="bg-surface-container-lowest border border-border-subtle rounded-b-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle">
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">User Name</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Email</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Role</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Last Login</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md">AM</div>
+<div>
+<div class="text-on-surface font-label-md text-label-md">Alex Morgan</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">UID: 9821-XP</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface font-body-md text-body-md">alex.morgan@example.com</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-surface-variant text-primary font-label-sm text-label-sm rounded-full">Traveler</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-secondary font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Active
+                                </div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant font-body-md text-body-md">2 hours ago</td>
+<td class="px-6 py-4 text-right">
+<div class="relative inline-block text-left">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-on-surface-variant transition-all" onclick="toggleDropdown(this)">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 glass-panel rounded-xl shadow-xl z-10 py-1 overflow-hidden transition-all">
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-primary-container/10 text-on-surface font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">edit</span> Edit Profile</a>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-primary-container/10 text-on-surface font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">lock_reset</span> Reset Password</a>
+<div class="border-t border-border-subtle my-1"></div>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-error/10 text-error font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">block</span> Suspend Account</a>
+</div>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-fixed flex items-center justify-center font-bold text-label-md">SK</div>
+<div>
+<div class="text-on-surface font-label-md text-label-md">Sarah Klein</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">UID: 4412-BB</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface font-body-md text-body-md">s.klein@travelpro.io</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-secondary-container/30 text-secondary font-label-sm text-label-sm rounded-full">Planner</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-secondary font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Active
+                                </div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant font-body-md text-body-md">May 12, 2024</td>
+<td class="px-6 py-4 text-right">
+<div class="relative inline-block text-left">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-on-surface-variant transition-all" onclick="toggleDropdown(this)">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 glass-panel rounded-xl shadow-xl z-10 py-1 overflow-hidden transition-all">
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-primary-container/10 text-on-surface font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">edit</span> Edit Profile</a>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-primary-container/10 text-on-surface font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">lock_reset</span> Reset Password</a>
+<div class="border-t border-border-subtle my-1"></div>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-error/10 text-error font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">block</span> Suspend Account</a>
+</div>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-label-md">JW</div>
+<div>
+<div class="text-on-surface font-label-md text-label-md">James Wu</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">UID: 1092-LK</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface font-body-md text-body-md">james.wu@travelmate.admin</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm rounded-full">Admin</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-error font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-error"></span> Suspended
+                                </div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant font-body-md text-body-md">April 29, 2024</td>
+<td class="px-6 py-4 text-right">
+<div class="relative inline-block text-left">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-on-surface-variant transition-all" onclick="toggleDropdown(this)">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 glass-panel rounded-xl shadow-xl z-10 py-1 overflow-hidden transition-all">
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-primary-container/10 text-on-surface font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">check_circle</span> Activate Account</a>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-primary-container/10 text-on-surface font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">edit</span> Edit Profile</a>
+<div class="border-t border-border-subtle my-1"></div>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-error/10 text-error font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">delete</span> Delete Permanently</a>
+</div>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img class="w-9 h-9 rounded-full object-cover" data-alt="Portrait of a travel photographer as a user avatar. The background shows a soft-focus alpine landscape with clear blue skies. The person is smiling warmly, wearing high-performance outdoor clothing. High-end modern photography style, soft focus, bright natural lighting, consistent with a travel SaaS dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9oqlSjWRrllPDXOk2jWufF1KYKZdfVSAF0JpaXM6lRbSbQAWdoep_yFIhLoC2VKN8d3_vrV07QwwVMDoXxvr88utxJjRBZbXZ1zYqE8Qcjrq2Honu1FVaR-jSOGBaspCUAJzvMoilDD4XeGwTxr1SOGMnHdHseSr-8nDwN4BPk3WXtS-mykYtUCA5hHKOdqVvmXXx8hnCP2xha212K9GKWNEqweDouUjn1FjHbUmHZivqPHwElvNtE62OR6aUGDc4u8JQNqrZ3evx">
+<div>
+<div class="text-on-surface font-label-md text-label-md">Elena Rodriguez</div>
+<div class="text-on-surface-variant font-body-sm text-body-sm">UID: 7721-ZX</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface font-body-md text-body-md">elena.rodriguez@gmail.com</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-surface-variant text-primary font-label-sm text-label-sm rounded-full">Traveler</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2 text-secondary font-label-md text-label-md">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Active
+                                </div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant font-body-md text-body-md">Just now</td>
+<td class="px-6 py-4 text-right">
+<div class="relative inline-block text-left">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-on-surface-variant transition-all" onclick="toggleDropdown(this)">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-48 glass-panel rounded-xl shadow-xl z-10 py-1 overflow-hidden transition-all">
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-primary-container/10 text-on-surface font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">edit</span> Edit Profile</a>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-primary-container/10 text-on-surface font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">lock_reset</span> Reset Password</a>
+<div class="border-t border-border-subtle my-1"></div>
+<a class="flex items-center gap-3 px-4 py-2 hover:bg-error/10 text-error font-label-md text-label-md" href="#"><span class="material-symbols-outlined text-[18px]">block</span> Suspend Account</a>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-6 py-4 bg-surface-container-low border-t border-border-subtle flex items-center justify-between">
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">first_page</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg bg-primary text-on-primary font-label-md text-label-md">1</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-high text-on-surface font-label-md text-label-md">2</button>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-high text-on-surface font-label-md text-label-md">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-8 h-8 rounded-lg hover:bg-surface-container-high text-on-surface font-label-md text-label-md">42</button>
+</div>
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">last_page</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-body-sm text-on-surface-variant">Rows per page:</span>
+<select class="bg-transparent font-label-md text-label-md border-none focus:ring-0 cursor-pointer">
+<option>10</option>
+<option selected="">25</option>
+<option>50</option>
+<option>100</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Asymmetric / Bento Section: System Health & Activity -->
+<div class="mt-margin-desktop grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="md:col-span-2 bg-surface-container-lowest p-6 rounded-2xl border border-border-subtle shadow-sm flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-on-surface">System Activity Feed</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4 p-3 hover:bg-surface-container-low rounded-xl transition-colors">
+<div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<div>
+<p class="text-on-surface font-label-md text-label-md">New Traveler Registration</p>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Elena Rodriguez has joined the platform via Referral Link.</p>
+<p class="text-on-surface-variant/60 font-label-sm text-label-sm mt-1">2 minutes ago</p>
+</div>
+</div>
+<div class="flex gap-4 p-3 hover:bg-surface-container-low rounded-xl transition-colors">
+<div class="w-10 h-10 rounded-full bg-error/10 text-error flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<p class="text-on-surface font-label-md text-label-md">Failed Login Attempt</p>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Admin James Wu account flagged for 5 failed attempts from unknown IP.</p>
+<p class="text-on-surface-variant/60 font-label-sm text-label-sm mt-1">45 minutes ago</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-booking-blue p-8 rounded-2xl text-on-primary flex flex-col justify-between overflow-hidden relative group">
+<!-- Subtle background decoration -->
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-2">Security Audit</h3>
+<p class="text-on-primary/80 font-body-sm text-body-sm">Run a comprehensive system-wide security audit and permission review.</p>
+</div>
+<div class="mt-8">
+<div class="flex justify-between items-end mb-2">
+<span class="font-label-md text-label-md">Last Audit: 4 days ago</span>
+<span class="font-headline-sm text-headline-sm">98.2%</span>
+</div>
+<div class="w-full bg-white/20 h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed h-full w-[98.2%]"></div>
+</div>
+</div>
+<button class="mt-8 w-full py-3 bg-white text-booking-blue font-label-md text-label-md rounded-xl hover:bg-surface-container transition-colors active:scale-95">
+                        Start Full Audit
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interaction for dropdowns
+        function toggleDropdown(button) {
+            // Close other dropdowns first
+            document.querySelectorAll('.glass-panel').forEach(menu => {
+                if (menu !== button.nextElementSibling) menu.classList.add('hidden');
+            });
+            // Toggle current
+            const menu = button.nextElementSibling;
+            menu.classList.toggle('hidden');
+        }
+
+        // Close dropdowns on outside click
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.relative')) {
+                document.querySelectorAll('.glass-panel').forEach(menu => menu.classList.add('hidden'));
+            }
+        });
+
+        // Simulating some dynamic behavior for a premium feel
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                // Potential for adding subtle scale or shadow effects via JS if needed
+            });
+        });
+    </script>
+</body></html>

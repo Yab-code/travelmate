@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About TravelMate Ethiopia | Preserving Heritage Through Travel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#832600",
+                        "on-surface": "#0b1c30",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "primary-fixed": "#dae1ff",
+                        "on-primary-container": "#f8f7ff",
+                        "outline-variant": "#c2c6d8",
+                        "tertiary-container": "#cc4204",
+                        "border-subtle": "#E2E8F0",
+                        "primary": "#0050cb",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "surface-gray": "#F8FAFC",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#006e2a",
+                        "secondary-container": "#5cfd80",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-low": "#eff4ff",
+                        "accent-yellow": "#FFB700",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00531e",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "inverse-primary": "#b3c5ff",
+                        "surface-container-high": "#dce9ff",
+                        "booking-blue": "#003580",
+                        "tertiary-fixed": "#ffdbd0",
+                        "outline": "#727687",
+                        "surface": "#f8f9ff",
+                        "secondary-fixed": "#69ff87",
+                        "secondary-fixed-dim": "#3ce36a",
+                        "on-primary-fixed": "#001849",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "on-secondary-container": "#00732c",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "primary-container": "#0066ff",
+                        "on-surface-variant": "#424656",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#a33200",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-background": "#0b1c30",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#0054d6",
+                        "on-tertiary-container": "#fff6f4",
+                        "inverse-surface": "#213145",
+                        "on-secondary-fixed": "#002108",
+                        "surface-bright": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "unit": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar (Shared Component) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-20 bg-surface/80 backdrop-blur-md border-b border-border-subtle shadow-sm">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-bold text-primary">TravelMate</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Destinations</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Tours</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">About Ethiopia</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full transition-colors">search</button>
+<button class="hidden md:block font-label-md text-primary hover:opacity-80 transition-all">Sign In</button>
+<button class="px-6 py-2 bg-primary-container text-on-primary font-label-md rounded-full hover:shadow-lg active:scale-95 transition-all">Explore Now</button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative pt-24 pb-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center">
+<div class="max-w-3xl mx-auto">
+<span class="inline-block px-4 py-1.5 mb-6 rounded-full bg-surface-container text-primary font-label-sm tracking-wider">PRESERVING ETHIOPIAN HERITAGE</span>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-6 tracking-tight leading-tight">
+                Championing Sustainable Tourism in the Land of Origins.
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12">
+                Our mission is to showcase the breathtaking beauty of Ethiopia while protecting its unique cultural heritage and diverse ecosystems for generations to come.
+            </p>
+</div>
+<div class="relative w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden shadow-2xl mb-24">
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
+<img class="w-full h-full object-cover" data-alt="Breathtaking panoramic view of the Simien Mountains in Ethiopia, featuring dramatic jagged peaks and deep valleys under a clear blue sky. The scene highlights Ethiopia's natural majesty and commitment to eco-tourism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHXn0l-Z9P7tKj_V_hR-Q9D6D1-X0H1K1vX0S8A9R9E8N7B6V5C4X3Z2A1_S0D9F8G7H6J5K4L3M2N1B0V9C8X7Z6A5S4D3F2G1H0J9K8L7M6N5B4V3C2X1Z0"/>
+</div>
+</section>
+<!-- Platform Explanation / Bento Grid -->
+<section class="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto bg-surface-container-low rounded-[40px] mb-24">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-5 flex flex-col justify-center">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">Our Local Connection</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
+                    TravelMate Ethiopia connects you directly with local communities, from the rock-hewn churches of Lalibela to the vibrant markets of the Omo Valley. We prioritize authentic engagement over mass tourism.
+                </p>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">eco</span>
+<div>
+<h4 class="font-label-md text-on-surface">Eco-Conscious Travel</h4>
+<p class="text-body-sm text-on-surface-variant">Minimizing environmental impact across the Rift Valley.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<div>
+<h4 class="font-label-md text-on-surface">Heritage Protection</h4>
+<p class="text-body-sm text-on-surface-variant">Supporting local preservation projects at UNESCO sites.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="md:col-span-7 grid grid-cols-2 gap-4">
+<div class="rounded-2xl overflow-hidden h-64 shadow-sm group">
+<img alt="Traditional Ethiopian coffee ceremony, steam rising from a clay pot (jebena), professional photography, warm and inviting atmosphere." class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_9QQSAsN6bE0ciapgMN6lUHsIVS9pt1STbwj7h1qO67tn3IFmbys6WYsh5AfA0PCTB-jb6j7b5snWk-kQD5VffoWJ8p5OzXOygd5W2MjnOdiI7hTiQPym9FCjqAOyJQzonSJfQB1qVgdT6pGp_gZdnAeuVmzQg7gNZAqFO64AItyeGTmZVvsDjOY-iEybvIdPbBTQzSaQ-NCyW0LO0Vpj6AcOif4Hwtp0d0_uwB5jdj5kVzDXroqcIXeHnernf16HS5dyiuZam4fF"/>
+</div>
+<div class="rounded-2xl overflow-hidden h-80 shadow-sm group -mt-8">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A majestic Gelada baboon, unique to the Ethiopian highlands, sitting on a rocky ledge with its thick mane catching the sunlight. High-fidelity wildlife photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3J9K8L7M6N5B4V3C2X1Z0A9S8D7F6G5H4J3K2L1M0N9B8V7C6X5Z4A3S2D1F0G9H8J7K6L5M4N3B2V1C0X9Z8A7S6D5F4G3H2J1K0"/>
+</div>
+<div class="rounded-2xl overflow-hidden h-72 shadow-sm group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="The stunning rock-hewn Church of Saint George in Lalibela, carved into a cross shape from a single block of volcanic stone. Aerial view highlighting the architectural genius." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2W3X4Y5Z6A7B8C9D0E1F2G3H4I5J6K7L8M9N0O1P2Q3R4S5T6U7V8W9X0"/>
+</div>
+<div class="rounded-2xl overflow-hidden h-56 shadow-sm group -mt-12">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A colorful array of Ethiopian spices and injera served on a traditional mesob. The lighting is warm and textural, highlighting Ethiopian culinary culture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuV1W2X3Y4Z5A6B7C8D9E0F1G2H3I4J5K6L7M8N9O0P1Q2R3S4T5U6V7W8X9Y0Z1A2B3C4D5E6F7G8H9I0J1K2L3M4N5O6P"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Why Choose Us -->
+<section class="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center mb-24">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-16">Why TravelMate Ethiopia?</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="p-8 rounded-2xl glass-card flex flex-col items-center hover:shadow-md transition-all duration-300">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="travel_explore">travel_explore</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Authenticity</h3>
+<p class="text-on-surface-variant">We provide deep-dive cultural experiences led by local guides who know every hidden secret of their homeland.</p>
+</div>
+<div class="p-8 rounded-2xl glass-card flex flex-col items-center hover:shadow-md transition-all duration-300">
+<div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="nature_people">nature_people</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Impact</h3>
+<p class="text-on-surface-variant">40% of our profits go directly back into the communities you visit, supporting education and clean water initiatives.</p>
+</div>
+<div class="p-8 rounded-2xl glass-card flex flex-col items-center hover:shadow-md transition-all duration-300">
+<div class="w-16 h-16 bg-accent-yellow/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-accent-yellow text-4xl" data-icon="verified_user">verified_user</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-3">Expertise</h3>
+<p class="text-on-surface-variant">From logistics to language, our team of Ethiopian travel experts ensures a safe and seamless journey.</p>
+</div>
+</div>
+</section>
+<!-- Statistics Section -->
+<section class="py-24 bg-on-surface text-on-primary">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter text-center">
+<div class="space-y-2">
+<div class="font-display-lg text-display-lg text-primary-fixed tracking-tight">9</div>
+<div class="font-label-md uppercase tracking-[0.2em] opacity-70">UNESCO World Heritage Sites</div>
+</div>
+<div class="space-y-2 border-y md:border-y-0 md:border-x border-outline-variant/20 py-8 md:py-0">
+<div class="font-display-lg text-display-lg text-secondary-fixed-dim tracking-tight">30+</div>
+<div class="font-label-md uppercase tracking-[0.2em] opacity-70">Endemic Species</div>
+</div>
+<div class="space-y-2 md:border-r border-outline-variant/20 py-8 md:py-0">
+<div class="font-display-lg text-display-lg text-tertiary-fixed-dim tracking-tight">80+</div>
+<div class="font-label-md uppercase tracking-[0.2em] opacity-70">Distinct Ethnic Groups</div>
+</div>
+<div class="space-y-2">
+<div class="font-display-lg text-display-lg text-accent-yellow tracking-tight">3,000</div>
+<div class="font-label-md uppercase tracking-[0.2em] opacity-70">Years of History</div>
+</div>
+</div>
+</section>
+<!-- Team Section -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto mb-24">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+<div class="max-w-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Meet the Guardians of Heritage</h2>
+<p class="text-on-surface-variant font-body-md leading-relaxed">Our team is comprised of Ethiopia's leading historians, conservationists, and hospitality professionals.</p>
+</div>
+<button class="flex items-center gap-2 font-label-md text-primary group">
+                Work With Us <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Team 1 -->
+<div class="group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-sm grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="Portrait of an Ethiopian travel leader, a man in his late 40s with deep knowledge in history and culture. Warm, wise expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuE1F2G3H4I5J6K7L8M9N0O1P2Q3R4S5T6U7V8W9X0Y1Z2A3B4C5D6E7F8G9H0I1J2K3L4M5N6O7P8Q9R0S1T2U3V4W5X6Y7Z8A9B0C1D2E3F4G5H6I7J8K9L0"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Abebe Selassie</h4>
+<p class="text-primary font-label-sm mb-2">Director of Cultural Heritage</p>
+<p class="text-body-sm text-on-surface-variant">Renowned historian specializing in Axumite civilization and Orthodox Christian architecture.</p>
+</div>
+<!-- Team 2 -->
+<div class="group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-sm grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of an Ethiopian woman in her 30s, an expert in eco-tourism and sustainable development." src="https://lh3.googleusercontent.com/aida-public/AB6AXuQ1R2S3T4U5V6W7X8Y9Z0A1B2C3D4E5F6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2W3X4Y5Z6A7B8C9D0E1F2G3H4I5J6K7L8M9N0O1P2Q3R4"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Makeda Tadesse</h4>
+<p class="text-primary font-label-sm mb-2">Head of Sustainable Tours</p>
+<p class="text-body-sm text-on-surface-variant">Environmental scientist dedicated to protecting Ethiopia's national parks and endemic wildlife.</p>
+</div>
+<!-- Team 3 -->
+<div class="group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-sm grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="Portrait of a senior Ethiopian guide with decades of experience in the Omo Valley." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1S2D3F4G5H6J7K8L9M0N1B2V3C4X5Z6A7S8D9F0G1H2J3K4L5M6N7B8V9C0X1Z2A3S4D5F6G7H8J9K0L1M2N3B4V5C6X7Z8A9S0D1F2G3H4J5"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Yohannes Haile</h4>
+<p class="text-primary font-label-sm mb-2">Senior Cultural Guide</p>
+<p class="text-body-sm text-on-surface-variant">Linguist and expert in the tribal customs and traditions of Southern Ethiopia's diverse peoples.</p>
+</div>
+<!-- Team 4 -->
+<div class="group">
+<div class="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-sm grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="Headshot of an Ethiopian logistics expert, ensuring seamless travel across the country." src="https://lh3.googleusercontent.com/aida-public/AB6AXuG1H2J3K4L5M6N7B8V9C0X1Z2A3S4D5F6G7H8J9K0L1M2N3B4V5C6X7Z8A9S0D1F2G3H4J5K6L7M8N9O0P1Q2R3S4T5U6V7W8X9Y0Z1A2B3C4D5E6F"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Zewdu Bekele</h4>
+<p class="text-primary font-label-sm mb-2">Operations Manager</p>
+<p class="text-body-sm text-on-surface-variant">Managing our complex network of local transport and premium eco-lodges across the highlands.</p>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="relative rounded-[40px] bg-primary-container p-12 md:p-24 overflow-hidden flex flex-col items-center text-center">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-[120px] -mr-48 -mt-48"></div>
+<div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary-container rounded-full blur-[120px] -ml-48 -mb-48"></div>
+</div>
+<h2 class="relative z-10 font-display-lg text-display-lg text-on-primary mb-8 max-w-2xl">Ready to discover the Land of Origins?</h2>
+<div class="relative z-10 flex flex-col sm:flex-row gap-4">
+<button class="px-8 py-4 bg-on-primary text-primary font-label-md rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all">Start Your Ethiopian Journey</button>
+<button class="px-8 py-4 bg-transparent border border-on-primary/30 text-on-primary font-label-md rounded-full hover:bg-on-primary/10 transition-all">View All Itineraries</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full px-margin-mobile md:px-margin-desktop py-20 max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter bg-on-surface border-t border-outline-variant/10 text-outline-variant">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed mb-6 block">TravelMate</span>
+<p class="text-body-sm leading-relaxed mb-6">Promoting authentic and sustainable travel in Ethiopia.</p>
+</div>
+<div>
+<h4 class="text-white font-label-md mb-6">Discover</h4>
+<nav class="flex flex-col gap-4">
+<a class="text-body-sm hover:text-white transition-colors" href="#">Historical Circuit</a>
+<a class="text-body-sm hover:text-white transition-colors" href="#">Simien Trekking</a>
+<a class="text-body-sm hover:text-white transition-colors" href="#">Omo Valley Culture</a>
+</nav>
+</div>
+<div>
+<h4 class="text-white font-label-md mb-6">Our Mission</h4>
+<nav class="flex flex-col gap-4">
+<a class="text-body-sm text-primary-fixed font-bold" href="#">About Ethiopia</a>
+<a class="text-body-sm hover:text-white transition-colors" href="#">Sustainability Impact</a>
+<a class="text-body-sm hover:text-white transition-colors" href="#">Community Partners</a>
+</nav>
+</div>
+<div>
+<h4 class="text-white font-label-md mb-6">Newsletter</h4>
+<p class="text-body-sm mb-4">Join our community for Ethiopian travel updates.</p>
+<div class="flex gap-2">
+<input class="bg-surface-container-highest/10 border-none rounded-full px-4 py-2 text-body-sm focus:ring-1 focus:ring-primary-fixed w-full" placeholder="Email address" type="email"/>
+<button class="bg-primary-fixed text-on-primary-fixed p-2 rounded-full material-symbols-outlined">send</button>
+</div>
+</div>
+<div class="md:col-span-4 mt-20 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-body-sm">© 2024 TravelMate Ethiopia. All rights reserved.</p>
+<div class="flex gap-6">
+<span class="material-symbols-outlined hover:text-white cursor-pointer">public</span>
+<span class="material-symbols-outlined hover:text-white cursor-pointer">share</span>
+<span class="material-symbols-outlined hover:text-white cursor-pointer">mail</span>
+</div>
+</div>
+</footer>
+<script>
+    // Simple scroll reveal interaction
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+                entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+        observer.observe(section);
+    });
+
+    // Initialize sticky header behavior
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 20) {
+            header.classList.add('h-16', 'shadow-md');
+            header.classList.remove('h-20', 'shadow-sm');
+        } else {
+            header.classList.add('h-20', 'shadow-sm');
+            header.classList.remove('h-16', 'shadow-md');
+        }
+    });
+</script>
+</body></html>

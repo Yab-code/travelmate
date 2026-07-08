@@ -1,0 +1,369 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TravelPlanner Pro - Create Package</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f8f9ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "on-secondary-fixed": "#002108",
+                    "surface-tint": "#0054d6",
+                    "background": "#f8f9ff",
+                    "on-surface": "#0b1c30",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#dce9ff",
+                    "booking-blue": "#003580",
+                    "secondary-fixed-dim": "#3ce36a",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-variant": "#d3e4fe",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "tertiary-container": "#cc4204",
+                    "on-tertiary-container": "#fff6f4",
+                    "surface-dim": "#cbdbf5",
+                    "secondary-fixed": "#69ff87",
+                    "on-primary-container": "#f8f7ff",
+                    "surface-gray": "#F8FAFC",
+                    "border-subtle": "#E2E8F0",
+                    "inverse-primary": "#b3c5ff",
+                    "surface-bright": "#f8f9ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#0066ff",
+                    "primary-fixed": "#dae1ff",
+                    "surface-container": "#e5eeff",
+                    "outline": "#727687",
+                    "on-primary-fixed": "#001849",
+                    "tertiary-fixed": "#ffdbd0",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#213145",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-surface-variant": "#424656",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#0b1c30",
+                    "secondary": "#006e2a",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary": "#a33200",
+                    "secondary-container": "#5cfd80",
+                    "surface-container-low": "#eff4ff",
+                    "on-secondary-fixed-variant": "#00531e",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "primary": "#0050cb",
+                    "on-secondary-container": "#00732c",
+                    "on-secondary": "#ffffff",
+                    "accent-yellow": "#FFB700",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .custom-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 80, 203, 0.2);
+            border-color: #0050cb;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface dark:bg-inverse-surface border-r border-border-subtle dark:border-outline flex flex-col h-full py-6 z-20">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">flight_takeoff</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary leading-none">TravelPlanner Pro</h1>
+<p class="text-label-sm font-label-sm text-outline">Enterprise Edition</p>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center px-3 py-3 rounded-lg font-body-md text-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center px-3 py-3 rounded-lg font-body-md text-body-md text-primary dark:text-inverse-primary font-bold border-r-4 border-primary dark:border-inverse-primary bg-surface-container-low dark:bg-surface-variant" href="#">
+<span class="material-symbols-outlined mr-3">inventory_2</span> Package Management
+            </a>
+<a class="flex items-center px-3 py-3 rounded-lg font-body-md text-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">event</span> Event Management
+            </a>
+<a class="flex items-center px-3 py-3 rounded-lg font-body-md text-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span> Analytics
+            </a>
+<a class="flex items-center px-3 py-3 rounded-lg font-body-md text-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">confirmation_number</span> Bookings
+            </a>
+<a class="flex items-center px-3 py-3 rounded-lg font-body-md text-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined mr-3">settings</span> Settings
+            </a>
+</nav>
+<div class="px-6 pt-6 border-t border-border-subtle">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a travel agency administrator, middle-aged with a warm, welcoming smile, dressed in business casual attire. The lighting is bright and clean, typical of a modern office environment, maintaining a premium corporate feel with soft blue undertones from the TravelMate design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt-UBOeqFN1iYidWIBsq7zPO0McMGv7tX27s7jAIuh1iGw1Z02bEScaoK0uyXf6n7u7WxU8hxAg4x_46_p9SsuOf5x2l0vbz3hz8zgdtdruvqkiSdeBhZAbP5V-GCH4CduXVe89l8Dj1yz-8fSghyrrJXRH9ZQ1rXBFTjGsF_iqjpa-L2-bljEeeDX72kULLC8atxytn6omUwgUlLp3msENl02pNTxaKFEyT4i5xI-84TukVVmoW1HRLStBIR3rcVTU9p9fIwQES6m">
+</div>
+<div class="overflow-hidden">
+<p class="text-label-md font-label-md text-on-surface truncate">Abebe Kebede</p>
+<p class="text-label-sm font-label-sm text-outline truncate">Operations Lead</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Authority: JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-10 bg-surface dark:bg-inverse-surface border-b border-border-subtle dark:border-outline shadow-sm flex justify-between items-center px-margin-desktop py-4">
+<div class="flex items-center bg-surface-container rounded-full px-4 py-2 w-96 border border-border-subtle">
+<span class="material-symbols-outlined text-outline mr-2">search</span>
+<input class="bg-transparent border-none p-0 text-body-sm w-full focus:ring-0" placeholder="Search packages, destinations..." type="text">
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-all duration-200 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all duration-200">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<div class="h-6 w-[1px] bg-border-subtle"></div>
+<button class="text-label-md font-label-md text-primary hover:text-on-primary-fixed-variant transition-all duration-200 cursor-pointer">Support</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 pt-24 pb-20 px-margin-desktop min-h-screen">
+<div class="max-w-4xl mx-auto">
+<!-- Header Section -->
+<div class="mb-10">
+<div class="flex items-center gap-2 text-primary font-label-md text-label-md mb-2">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<a class="hover:underline" href="#">Back to Inventory</a>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Create New Travel Package</h2>
+<p class="text-body-md text-on-surface-variant">Launch a new adventure by filling out the details for your exclusive tour offering.</p>
+</div>
+<!-- Multi-step Form Content -->
+<div class="space-y-12">
+<!-- Section 1: Basic Information -->
+<section class="glass-card rounded-xl p-8 custom-shadow">
+<div class="flex items-center gap-3 mb-8 pb-4 border-b border-border-subtle">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">1</div>
+<h3 class="text-headline-md font-headline-md text-on-surface">Core Details</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="col-span-2">
+<label class="block text-label-md font-label-md text-on-surface mb-2">Package Title</label>
+<input class="w-full h-12 px-4 rounded-lg bg-surface border border-border-subtle text-body-md transition-all" placeholder="e.g., Majestic Simien Mountains Trek" type="text">
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Destination Selection</label>
+<select class="w-full h-12 px-4 rounded-lg bg-surface border border-border-subtle text-body-md transition-all appearance-none">
+<option disabled="" selected="" value="">Select an Ethiopian region</option>
+<option value="amhara">Amhara Region (Gondar, Lalibela)</option>
+<option value="tigray">Tigray Region (Axum, Gheralta)</option>
+<option value="oromia">Oromia Region (Bale Mountains)</option>
+<option value="snnp">SNNP Region (Omo Valley)</option>
+<option value="afar">Afar Region (Danakil Depression)</option>
+<option value="addis">Addis Ababa</option>
+</select>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Duration</label>
+<div class="flex items-center gap-2">
+<input class="w-full h-12 px-4 rounded-lg bg-surface border border-border-subtle text-body-md transition-all" placeholder="7" type="number">
+<span class="text-body-md text-on-surface-variant font-medium">Days</span>
+</div>
+</div>
+<div class="col-span-2">
+<label class="block text-label-md font-label-md text-on-surface mb-2">Detailed Description</label>
+<textarea class="w-full p-4 rounded-lg bg-surface border border-border-subtle text-body-md transition-all resize-none" placeholder="Outline the itinerary, key landmarks, and unique experiences travelers will enjoy..." rows="5"></textarea>
+</div>
+</div>
+</section>
+<!-- Section 2: Pricing & Availability -->
+<section class="glass-card rounded-xl p-8 custom-shadow">
+<div class="flex items-center gap-3 mb-8 pb-4 border-b border-border-subtle">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">2</div>
+<h3 class="text-headline-md font-headline-md text-on-surface">Pricing &amp; Availability</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Price per Person (USD)</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-bold">$</span>
+<input class="w-full h-12 pl-8 pr-4 rounded-lg bg-surface border border-border-subtle text-body-md transition-all" placeholder="450.00" type="number">
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-2">Primary Availability</label>
+<div class="relative">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">calendar_today</span>
+<input class="w-full h-12 px-4 rounded-lg bg-surface border border-border-subtle text-body-md transition-all" type="date">
+</div>
+</div>
+<div class="col-span-2">
+<label class="block text-label-md font-label-md text-on-surface mb-4">Included Amenities</label>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 rounded-full border border-primary bg-surface-container text-primary font-label-md text-label-md flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> Flight Included
+                                </button>
+<button class="px-4 py-2 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-label-md text-label-md hover:border-primary transition-colors" type="button">
+                                    Guided Tours
+                                </button>
+<button class="px-4 py-2 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-label-md text-label-md hover:border-primary transition-colors" type="button">
+                                    Breakfast &amp; Dinner
+                                </button>
+<button class="px-4 py-2 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-label-md text-label-md hover:border-primary transition-colors" type="button">
+                                    Visa Assistance
+                                </button>
+<button class="px-4 py-2 rounded-full border border-border-subtle bg-surface text-on-surface-variant font-label-md text-label-md hover:border-primary transition-colors" type="button">
+                                    Luxury Lodging
+                                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Media Gallery -->
+<section class="glass-card rounded-xl p-8 custom-shadow">
+<div class="flex items-center justify-between mb-8 pb-4 border-b border-border-subtle">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">3</div>
+<h3 class="text-headline-md font-headline-md text-on-surface">Media Gallery</h3>
+</div>
+<button class="text-primary font-label-md text-label-md flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[20px]">cloud_upload</span> Upload All
+                        </button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<!-- Upload Trigger -->
+<div class="aspect-square rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-low flex flex-col items-center justify-center cursor-pointer hover:bg-surface-container transition-all group">
+<div class="w-12 h-12 rounded-full bg-surface flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">add</span>
+</div>
+<span class="mt-3 text-label-sm font-label-sm text-outline">Add Image</span>
+</div>
+<!-- Card Placeholders -->
+<div class="relative group aspect-square rounded-xl overflow-hidden custom-shadow">
+<img class="w-full h-full object-cover" data-alt="A breathtaking landscape photograph of the Simien Mountains in Ethiopia during the golden hour. The jagged peaks and deep valleys are bathed in warm, soft light, with a few gelada baboons in the foreground. The image has a high-fidelity, professional travel magazine aesthetic with a balanced composition and vibrant, natural colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQkDFcxU23OkwJtJ_CGNfeoBZbktAUAfKYZ9j2DXYGYxB8dtf0veF5RLeX5lFidM2zP9U_m5mDayHKXmJF4Pbft15-qck2pU4rqWjFetBIWn6iXrx-YPAnWUlC4vEbpPd9Z0AwwuZav3ZxHOv_-0fqv8pl_Nz8zr8kHvUQK07qG-AOdOoVddjbU27Wfsz49WHJYVHbIz2Z8r-NMeHte-L1zDN_DCxnzzSojpxgK4QHBzqX3PiUjXoUCcUOEx0GOYCtugOLBrkmpspA">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="w-8 h-8 rounded-full bg-white text-error flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<div class="relative group aspect-square rounded-xl overflow-hidden custom-shadow">
+<img class="w-full h-full object-cover" data-alt="Interior view of a luxury eco-lodge in Ethiopia, featuring traditional architecture blended with modern minimalist design. Large glass windows reveal a view of a lush green plateau. The room is decorated with high-quality local textiles and artisanal wood furniture. Soft, ambient interior lighting creates a cozy yet premium atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB-Jf8cFoYzAgMeVNEIQFg4XXZtHoqbSDMTdqrCyhXTC9MD-uXDzJDgytLCmzzRjnfllntGMRhm71eAlb_PEwH_soXhpScbzXsMcRo4V8WtbwlKnEEaORneckgpi3ZEFdQCBTC5mUD8Szx2PzwXVjIrFI7sNyHmvIu6VlUDQq7S-S59KlAC7xISvOsvQX6mErqaOlwsEl6WC2QHH4fWMvUy5OqJZrkaVpFpXIhGhG-iDOlCMAHmWGXgenHs7xaCwy3aSo5tbshmBcw">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="w-8 h-8 rounded-full bg-white text-error flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<div class="relative group aspect-square rounded-xl overflow-hidden custom-shadow">
+<img class="w-full h-full object-cover" data-alt="Close-up of a vibrant Ethiopian cultural feast, specifically a colorful spread of Injera with various stews (Wot) and fresh vegetables. The lighting is crisp and detailed, highlighting the textures and rich colors of the food. The presentation is elegant and high-end, typical of a curated travel experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6Cceh19lHHolc1CM7iit92Qvt-d-ST7v6B0V-kvgLxWnE1WGKHbe49XpP7rFi-8lp6I2OoF3ZPlh4Mp5IneP8t9W03NhQ_kZbBQt2a4csXJ9gBSoKg_mbBFPsJjb55DTP1eR3odtsIwvyDFbmVVLXzi5eCuraHrlPCc_cx74XrspCG5DZzDMf_3U_vyNzlvC1kPhf5agNqyJdzlg2ZcbaudiS3GbcJZIcJjE2IpMfXgy6MZ4fdjKMjAz-R1B3HF1N_9qSBnZxbPUH">
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+<button class="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="w-8 h-8 rounded-full bg-white text-error flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+</div>
+</section>
+<!-- Form Actions -->
+<div class="flex items-center justify-end gap-4 py-8">
+<button class="px-8 h-12 rounded-lg border border-border-subtle bg-surface text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all">
+                        Discard Changes
+                    </button>
+<button class="px-10 h-12 rounded-lg bg-primary text-white font-label-md text-label-md custom-shadow hover:bg-on-primary-fixed-variant transition-all flex items-center gap-2">
+                        Save Package <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interactions for form focus
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+                input.parentElement.classList.add('transition-transform');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Simple button click effect
+        const primaryBtn = document.querySelector('.bg-primary');
+        primaryBtn.addEventListener('click', (e) => {
+            const ripple = document.createElement('div');
+            ripple.classList.add('ripple');
+            // Logic for visual feedback
+            primaryBtn.classList.add('scale-95');
+            setTimeout(() => {
+                primaryBtn.classList.remove('scale-95');
+                // Simulate saving...
+                primaryBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Saving...';
+                setTimeout(() => {
+                    primaryBtn.innerHTML = 'Package Saved! <span class="material-symbols-outlined">check</span>';
+                    primaryBtn.classList.replace('bg-primary', 'bg-secondary');
+                }, 1500);
+            }, 100);
+        });
+    </script>
+</body></html>

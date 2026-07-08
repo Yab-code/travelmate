@@ -1,0 +1,308 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Partner with TravelMate | Event Planner Registration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "tertiary-fixed-dim": "#ffb59d",
+                  "secondary-container": "#5cfd80",
+                  "surface-container-high": "#dce9ff",
+                  "outline": "#727687",
+                  "on-tertiary-fixed-variant": "#832600",
+                  "on-tertiary-fixed": "#390c00",
+                  "secondary-fixed": "#69ff87",
+                  "on-secondary-fixed": "#002108",
+                  "surface-tint": "#0054d6",
+                  "surface-gray": "#F8FAFC",
+                  "surface-container-low": "#eff4ff",
+                  "on-surface": "#0b1c30",
+                  "inverse-primary": "#b3c5ff",
+                  "surface-container-lowest": "#ffffff",
+                  "surface-bright": "#f8f9ff",
+                  "on-primary-fixed": "#001849",
+                  "on-primary": "#ffffff",
+                  "primary-fixed": "#dae1ff",
+                  "surface-dim": "#cbdbf5",
+                  "inverse-on-surface": "#eaf1ff",
+                  "on-primary-container": "#f8f7ff",
+                  "on-surface-variant": "#424656",
+                  "surface-variant": "#d3e4fe",
+                  "on-secondary-container": "#00732c",
+                  "background": "#f8f9ff",
+                  "error": "#ba1a1a",
+                  "secondary-fixed-dim": "#3ce36a",
+                  "accent-yellow": "#FFB700",
+                  "tertiary-fixed": "#ffdbd0",
+                  "tertiary": "#a33200",
+                  "primary-fixed-dim": "#b3c5ff",
+                  "secondary": "#006e2a",
+                  "outline-variant": "#c2c6d8",
+                  "on-tertiary": "#ffffff",
+                  "on-error-container": "#93000a",
+                  "on-background": "#0b1c30",
+                  "primary": "#0050cb",
+                  "on-tertiary-container": "#fff6f4",
+                  "booking-blue": "#003580",
+                  "border-subtle": "#E2E8F0",
+                  "primary-container": "#0066ff",
+                  "on-secondary-fixed-variant": "#00531e",
+                  "surface-container-highest": "#d3e4fe",
+                  "error-container": "#ffdad6",
+                  "surface-container": "#e5eeff",
+                  "surface": "#f8f9ff",
+                  "on-secondary": "#ffffff",
+                  "on-error": "#ffffff",
+                  "on-primary-fixed-variant": "#003fa4",
+                  "tertiary-container": "#cc4204",
+                  "inverse-surface": "#213145"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "margin-mobile": "16px",
+                  "unit": "8px",
+                  "gutter": "24px",
+                  "margin-desktop": "40px",
+                  "container-max": "1280px"
+          },
+          "fontFamily": {
+                  "headline-lg-mobile": ["Inter"],
+                  "label-sm": ["Inter"],
+                  "display-lg": ["Inter"],
+                  "body-sm": ["Inter"],
+                  "body-lg": ["Inter"],
+                  "headline-md": ["Inter"],
+                  "headline-lg": ["Inter"],
+                  "body-md": ["Inter"],
+                  "label-md": ["Inter"]
+          },
+          "fontSize": {
+                  "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                  "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .glass-effect {
+      backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+    .custom-shadow {
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #0050cb;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar Navigation Shell (Suppressed on Task-Focused Page per Logic, but rendered for Brand Identity as per Shared Components instruction) -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20 bg-surface/80 dark:bg-on-surface/80 backdrop-blur-md border-b border-border-subtle shadow-sm">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-bold text-primary">TravelMate</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Packages</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Events</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">About</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-all">search</button>
+<button class="font-label-md text-label-md text-primary hover:opacity-80 transition-all hidden sm:block">Sign In</button>
+<button class="bg-primary-container text-on-primary-container font-label-md text-label-md px-6 py-2.5 rounded-lg shadow-sm hover:opacity-90 active:scale-95 transition-all">Get Started</button>
+</div>
+</header>
+<!-- Main Content: Split Screen Registration -->
+<main class="flex-grow w-full max-w-container-max mx-auto flex flex-col md:flex-row overflow-hidden md:min-h-[calc(100vh-80px)]" style="opacity: 1; transform: translateY(0px);">
+<!-- Left Side: Visual/Contextual Anchor -->
+<section class="w-full md:w-1/2 relative min-h-[400px] md:min-h-0">
+<div class="absolute inset-0 overflow-hidden">
+<img alt="Authentic coffee ceremony setup in a warm, traditionally decorated room. A woman in a beautiful white traditional dress with colorful embroidery is gracefully pouring coffee from a dark clay jebena into small ceramic cups. Wisps of steam rise from the pot while bowls of popcorn and roasted beans sit on a colorful woven mat. The lighting is soft and golden, creating an atmosphere of professional warmth and cultural richness." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLv9Ho1NS1kXo0B-TaMDnF-SE7vgb5Q3ln_aO9FuHPoCh_rGWMo3eFBkJsZFD4jyDInD8nusZsezENNqAmPIkyZn3-Hu6BCIXBlhDJDeAmva3PCIWq4tGx9dimFxkwqxSA6V6x_t3dAs829IV5oomYmQrERE3bjDaNrRUE_kbK--uWkvIZ5bxRTPk2yt33n9W55nvGOv_hZsxRyjplwjitYUIyxZP_42rQEYe_beZ81bfx9tGPhIumpAcwye">
+</div>
+<!-- Overlay Content -->
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/60 via-transparent to-transparent flex flex-col justify-end p-margin-desktop text-white">
+<div class="max-w-md animate-fade-in">
+<h2 class="font-display-lg text-display-lg mb-4">Craft Unforgettable Experiences</h2>
+<p class="font-body-lg text-body-lg opacity-90">Join our network of premium event planners and travel experts. Bring local heritage and modern excellence to a global audience.</p>
+</div>
+</div>
+</section>
+<!-- Right Side: Registration Form -->
+<section class="w-full md:w-1/2 bg-surface-container-lowest p-margin-mobile md:p-margin-desktop flex flex-col justify-center">
+<div class="max-w-xl mx-auto w-full py-unit">
+<div class="mb-10">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Partner with TravelMate</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Fill out the details below to begin your journey as a certified partner.</p>
+</div>
+<form class="space-y-6" onsubmit="event.preventDefault(); alert('Registration Submitted for Approval!');">
+<!-- Two Column Grid for Main Info -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface" for="company-name">Company Name</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md transition-all focus:border-primary" id="company-name" placeholder="Elite Travels Ltd." required="" type="text">
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface" for="owner-name">Owner Name</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md transition-all focus:border-primary" id="owner-name" placeholder="Jane Cooper" required="" type="text">
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface" for="email">Email Address</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md transition-all focus:border-primary" id="email" placeholder="jane@elitetravels.com" required="" type="email">
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface" for="phone">Phone Number</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md transition-all focus:border-primary" id="phone" placeholder="+1 (555) 000-0000" required="" type="tel">
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface" for="description">Business Description</label>
+<textarea class="w-full bg-white border border-outline-variant rounded-xl px-4 py-3 font-body-md text-body-md transition-all focus:border-primary" id="description" placeholder="Briefly describe your services, specialties, and experience in event planning..." required="" rows="4"></textarea>
+</div>
+<!-- File Upload Area -->
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface">Document Upload</label>
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-8 flex flex-col items-center justify-center bg-surface-container-low hover:bg-surface-container hover:border-primary transition-all cursor-pointer group" id="drop-zone">
+<span class="material-symbols-outlined text-4xl text-outline mb-3 group-hover:text-primary transition-colors">upload_file</span>
+<p class="font-body-md text-body-md text-on-surface-variant text-center">
+<span class="text-primary font-bold">Click to upload</span> or drag and drop your Business License (PDF, JPG)
+              </p>
+<p class="font-label-sm text-label-sm text-outline mt-1">Maximum file size 10MB</p>
+<input class="hidden" id="file-input" type="file">
+</div>
+</div>
+<!-- Informational Note -->
+<div class="flex gap-3 p-4 bg-surface-container-high rounded-lg items-start border border-primary/10">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+<strong>Review Process:</strong> Your application will be reviewed by our partnership team. Expect a response via email within 3-5 business days. We prioritize planners with a track record of cultural excellence.
+            </p>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-4 rounded-xl shadow-lg hover:shadow-primary/20 hover:scale-[1.01] active:scale-95 transition-all flex items-center justify-center gap-2" type="submit">
+            Submit Approval Request
+            <span class="material-symbols-outlined">send</span>
+</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer Navigation Shell -->
+<footer class="w-full px-margin-desktop py-20 max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter bg-on-surface text-white mt-20">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed">TravelMate</span>
+<p class="font-body-sm text-body-sm text-outline-variant">Premium Travel &amp; Event Planning tailored for discerning global citizens.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary-fixed uppercase tracking-wider">Services</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Event Hosting</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Travel Planning</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Concierge Services</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary-fixed uppercase tracking-wider">Company</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-white transition-colors" href="#">About Us</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Partners</a></li>
+<li><a class="font-body-sm text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-md text-label-md text-primary-fixed uppercase tracking-wider">Connect</h4>
+<div class="flex gap-4">
+<button class="material-symbols-outlined p-2 border border-outline-variant rounded-full text-outline-variant hover:text-white hover:border-white transition-all">public</button>
+<button class="material-symbols-outlined p-2 border border-outline-variant rounded-full text-outline-variant hover:text-white hover:border-white transition-all">mail</button>
+<button class="material-symbols-outlined p-2 border border-outline-variant rounded-full text-outline-variant hover:text-white hover:border-white transition-all">call</button>
+</div>
+<p class="font-body-sm text-body-sm text-outline-variant mt-4">© 2024 TravelMate. Premium Travel &amp; Event Planning.</p>
+</div>
+</footer>
+<script>
+    // Micro-interactions for the upload area
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('border-primary', 'bg-surface-container-high');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('border-primary', 'bg-surface-container-high');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('border-primary', 'bg-surface-container-high');
+      const files = e.dataTransfer.files;
+      if (files.length) {
+        handleFiles(files);
+      }
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files.length) {
+        handleFiles(fileInput.files);
+      }
+    });
+
+    function handleFiles(files) {
+      const fileName = files[0].name;
+      dropZone.innerHTML = `
+        <span class="material-symbols-outlined text-4xl text-secondary mb-3">check_circle</span>
+        <p class="font-body-md text-body-md text-on-surface font-semibold">${fileName}</p>
+        <p class="font-label-sm text-label-sm text-secondary mt-1">File uploaded successfully</p>
+        <button onclick="location.reload()" class="mt-4 text-primary font-label-md text-label-md hover:underline">Change File</button>
+      `;
+    }
+
+    // Scroll reveal effect for form
+    document.addEventListener('DOMContentLoaded', () => {
+      const main = document.querySelector('main');
+      main.style.opacity = '0';
+      main.style.transform = 'translateY(20px)';
+      main.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+      
+      setTimeout(() => {
+        main.style.opacity = '1';
+        main.style.transform = 'translateY(0)';
+      }, 100);
+    });
+  </script>
+</body></html>

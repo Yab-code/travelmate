@@ -1,0 +1,399 @@
+<!DOCTYPE html><html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Events in Ethiopia - TravelMate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .event-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .event-card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.08);
+        }
+        .category-chip-active {
+            background-color: #0050cb;
+            color: white;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#832600",
+                    "on-surface": "#0b1c30",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "primary-fixed": "#dae1ff",
+                    "on-primary-container": "#f8f7ff",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary-container": "#cc4204",
+                    "border-subtle": "#E2E8F0",
+                    "primary": "#0050cb",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "surface-gray": "#F8FAFC",
+                    "surface-variant": "#d3e4fe",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#006e2a",
+                    "secondary-container": "#5cfd80",
+                    "inverse-on-surface": "#eaf1ff",
+                    "surface-container-low": "#eff4ff",
+                    "accent-yellow": "#FFB700",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#00531e",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#d3e4fe",
+                    "inverse-primary": "#b3c5ff",
+                    "surface-container-high": "#dce9ff",
+                    "booking-blue": "#003580",
+                    "tertiary-fixed": "#ffdbd0",
+                    "outline": "#727687",
+                    "surface": "#f8f9ff",
+                    "secondary-fixed": "#69ff87",
+                    "secondary-fixed-dim": "#3ce36a",
+                    "on-primary-fixed": "#001849",
+                    "tertiary-fixed-dim": "#ffb59d",
+                    "on-secondary-container": "#00732c",
+                    "background": "#f8f9ff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "primary-container": "#0066ff",
+                    "on-surface-variant": "#424656",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container": "#e5eeff",
+                    "tertiary": "#a33200",
+                    "on-tertiary-fixed": "#390c00",
+                    "on-background": "#0b1c30",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#0054d6",
+                    "on-tertiary-container": "#fff6f4",
+                    "inverse-surface": "#213145",
+                    "on-secondary-fixed": "#002108",
+                    "surface-bright": "#f8f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "margin-desktop": "40px",
+                    "unit": "8px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20 bg-surface/80 backdrop-blur-md border-b border-border-subtle shadow-sm">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary">TravelMate</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Packages</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1" href="#">Events</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">About</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container border border-outline-variant/30 rounded-full px-4 py-2">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search events in Ethiopia..." type="text">
+</div>
+<button class="font-label-md text-label-md text-primary px-4 py-2 hover:bg-primary/5 rounded-lg transition-all">Sign In</button>
+<button class="font-label-md text-label-md bg-primary text-on-primary px-6 py-2.5 rounded-full hover:shadow-lg active:scale-95 transition-all">Get Started</button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-10">
+<!-- Hero & Filter Section -->
+<section class="mb-16">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+<div class="max-w-2xl">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Experience Ethiopia</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">From ancient religious ceremonies to world-class athletic events, discover the vibrant heart of East Africa.</p>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-6 py-2.5 rounded-full border border-outline-variant font-label-md text-label-md hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="tune">tune</span> Filters
+                    </button>
+</div>
+</div>
+<!-- Category Chips -->
+<div class="flex flex-wrap gap-3 mb-8">
+<button class="category-chip-active px-6 py-2 rounded-full font-label-md text-label-md transition-all">All Events</button>
+<button class="bg-white border border-outline-variant/50 px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="festival">festival</span> Cultural Festivals
+                </button>
+<button class="bg-white border border-outline-variant/50 px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="coffee">coffee</span> Music &amp; Coffee
+                </button>
+<button class="bg-white border border-outline-variant/50 px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="sports_athletics">sports_athletics</span> Sports
+                </button>
+<button class="bg-white border border-outline-variant/50 px-6 py-2 rounded-full font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="temple_hindu">temple_hindu</span> Religious Heritage
+                </button>
+</div>
+</section>
+<!-- This Weekend Section (Bento Inspired Grid) -->
+<section class="mb-20">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-lg text-headline-lg">Top Experiences</h2>
+<a class="text-primary font-label-md flex items-center gap-1 hover:underline" href="#">View All <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[500px]">
+<!-- Featured Large Card -->
+<div class="md:col-span-8 group relative rounded-xl overflow-hidden shadow-sm event-card-hover bg-white">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+<div class="absolute top-4 left-4 z-20 flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm">Cultural Icon</span>
+<span class="bg-white/90 backdrop-blur-md text-on-surface px-3 py-1 rounded-full text-label-sm font-label-sm">Free</span>
+</div>
+<div class="w-full h-full bg-cover bg-center" data-alt="A massive gathering of thousands of people in white traditional clothing in Meskel Square, Addis Ababa. A giant bonfire (Demera) is being lit at sunset. The atmosphere is solemn yet celebratory, with golden light reflecting off the white robes." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCD3PM5o1X2tUu34Zi_MX0drY0G__mW06wH-2x_MrT_fPEIyniToz8oQRSA8AkjKd3ZZp2-PhjfKPNTM_Q3ph43fWVm_GB08OfwkDTiKBn8bZ7d34VLM1iPhfBGKHN7I3r-zNmP3mgX7vUK2GKr0DSGnxVOnhRzz096VUolG76FFqflG_d8gYoYhsZJrkzESQwAqosBfxXj3cR-iSsYHqQnrAakEcWzl8tDQjpDnOSI5eD8OgZxSuVPCSnFCVtAgHnqoz3JLls4l_KG')"></div>
+<div class="absolute bottom-0 left-0 p-8 z-20 w-full text-white">
+<div class="flex items-center gap-4 mb-2 text-white/80 font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span> September 27</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Meskel Square, Addis Ababa</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg mb-4">Meskel Festival Celebration</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center font-bold text-[10px]">AA</div>
+<span class="text-body-sm">Addis Ababa City Admin</span>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary px-8 py-3 rounded-full font-label-md transition-all shadow-lg">Attend Ceremony</button>
+</div>
+</div>
+</div>
+<!-- Vertical Stack Cards -->
+<div class="md:col-span-4 flex flex-col gap-6">
+<div class="flex-1 bg-white rounded-xl overflow-hidden border border-border-subtle p-5 event-card-hover flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full text-label-sm font-label-sm">Religious Heritage</span>
+<span class="text-primary font-bold">$150</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Timkat Ceremony</h4>
+<p class="text-on-surface-variant text-body-sm line-clamp-2">Experience the Epiphany celebrations in the historic royal city of Gondar, featuring the pool baptism ritual.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between">
+<span class="text-body-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Fasil Ghebbi, Gondar</span>
+<button class="text-primary font-label-md hover:bg-primary/5 px-4 py-2 rounded-lg transition-all">Book Tour</button>
+</div>
+</div>
+<div class="flex-1 bg-white rounded-xl overflow-hidden border border-border-subtle p-5 event-card-hover flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full text-label-sm font-label-sm">Sports</span>
+<span class="text-primary font-bold">$35</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Great Ethiopian Run</h4>
+<p class="text-on-surface-variant text-body-sm line-clamp-2">Join 45,000 participants in Africa's biggest road race. Run alongside world-class legends.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between">
+<span class="text-body-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> Nov 17 • 8:00 AM</span>
+<button class="text-primary font-label-md hover:bg-primary/5 px-4 py-2 rounded-lg transition-all">Register</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Popular Next Month Section -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-lg text-headline-lg">Cultural Workshops</h2>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Event Card 1 - Coffee Ceremony -->
+<div class="bg-white rounded-xl overflow-hidden border border-border-subtle event-card-hover">
+<div class="relative h-48 w-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB_9QQSAsN6bE0ciapgMN6lUHsIVS9pt1STbwj7h1qO67tn3IFmbys6WYsh5AfA0PCTB-jb6j7b5snWk-kQD5VffoWJ8p5OzXOygd5W2MjnOdiI7hTiQPym9FCjqAOyJQzonSJfQB1qVgdT6pGp_gZdnAeuVmzQg7gNZAqFO64AItyeGTmZVvsDjOY-iEybvIdPbBTQzSaQ-NCyW0LO0Vpj6AcOif4Hwtp0d0_uwB5jdj5kVzDXroqcIXeHnernf16HS5dyiuZam4fF')">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="text-primary font-bold text-label-sm">$25</span>
+</div>
+</div>
+<div class="p-5">
+<span class="text-secondary font-label-sm text-label-sm block mb-1">Daily • 10:00 AM</span>
+<h5 class="font-headline-md text-body-lg font-bold mb-3 truncate">Traditional Coffee Workshop</h5>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Tomoca Roastery, Addis
+                        </div>
+<div class="flex items-center justify-between gap-2 border-t border-border-subtle pt-4">
+<span class="text-body-sm text-outline font-medium">Coffee Heritage</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-sm hover:opacity-90 transition-all">Book</button>
+</div>
+</div>
+</div>
+<!-- Event Card 2 - Jazz -->
+<div class="bg-white rounded-xl overflow-hidden border border-border-subtle event-card-hover">
+<div class="relative h-48 w-full bg-cover bg-center" data-alt="Ethio-jazz performance in a dimly lit, atmospheric club. Musicians with brass instruments and traditional drums. The mood is sophisticated and soulful." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_Jaq0VfhaUgdqoI5zkRKdlslgP556qdBkZHd0rrMf99p9nVV0I12QHCXSmH2_XGccRd1N4ukP2qWrMflSpPSbsxUDXypwVMfgShKN9-IGVH8uZSprgAvHoTRB5YsjHUS1UhXsztcxS0yMH0Zl3lS6Tlw0LUyPGTC3T7m4NpM5Lvl79u04AHkLBzodzL08XvkpZ8cY9n6cEO_3_vsRtnc4RMddz4oB6KgXBz1rdAS1shLuqTFQTCGgOQyHUXah0Mh5kdQVAxXSJlHH')">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="text-primary font-bold text-label-sm">$40</span>
+</div>
+</div>
+<div class="p-5">
+<span class="text-secondary font-label-sm text-label-sm block mb-1">Friday • 9:00 PM</span>
+<h5 class="font-headline-md text-body-lg font-bold mb-3 truncate">Ethio-Jazz Night</h5>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Fendika Cultural Center
+                        </div>
+<div class="flex items-center justify-between gap-2 border-t border-border-subtle pt-4">
+<span class="text-body-sm text-outline font-medium">Melaku Belay</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-sm hover:opacity-90 transition-all">Book Now</button>
+</div>
+</div>
+</div>
+<!-- Event Card 3 - Weaving -->
+<div class="bg-white rounded-xl overflow-hidden border border-border-subtle event-card-hover">
+<div class="relative h-48 w-full bg-cover bg-center" data-alt="Traditional Dorze weaver working on a large wooden loom outside an elephant-shaped bamboo hut. Bright sunlight and green landscape." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVB0Q4n5Zx_tzlUKPe-KQ32YORHwmFo7_GW-csUy16ItSIATSArCyLvOvRvGVLLcw4Eh5kLxDhbSnOkgSpd29ORkGe8S5_9jtPS79b3Ib45DY0g3aRjImeT3jI-XtQ4mLixYYZTmM9NEwtXpsgCUHfxg8F90umN7TkFJQctwmxlz33ZLH-oId7RxXFYiZezUNYCLxGSDsXkyASbl45yTZNSLSk_Xn8CGgtu_DsBMceQX0nBaM507xbsp_3dw6VR26C4jaGTDyHOGxR')">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="text-primary font-bold text-label-sm">$60</span>
+</div>
+</div>
+<div class="p-5">
+<span class="text-secondary font-label-sm text-label-sm block mb-1">Oct 12 • 9:00 AM</span>
+<h5 class="font-headline-md text-body-lg font-bold mb-3 truncate">Dorze Weaving Tour</h5>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Chencha Highlands
+                        </div>
+<div class="flex items-center justify-between gap-2 border-t border-border-subtle pt-4">
+<span class="text-body-sm text-outline font-medium">Eco-Ethiopia</span>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-sm hover:opacity-90 transition-all">Book Now</button>
+</div>
+</div>
+</div>
+<!-- Event Card 4 - Lalibela -->
+<div class="bg-white rounded-xl overflow-hidden border border-border-subtle event-card-hover">
+<div class="relative h-48 w-full bg-cover bg-center" data-alt="The rock-hewn church of St. George in Lalibela, carved in the shape of a cross from the top down. Priests in white robes standing near the entrance." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDoNgWQpUIRYs7VU0eWyUBlweLVMlaxHGfuKHjtKFyAGDYa3qJucKnzTur3SXE4gST9Eo-udDMq9i9kIlU7spi1aTAT7L-KKvSLWPPWBTitXij4bChziEGvnUNTtukYA4yXDUbU5omC-vba9NRNMv_RwzpucuYUxbz4gGimfDwZrHJH1uqgFdVzku-uFMxubjcMyH0uZj8FlxQByTJD_6cBzm_j-H901U2Tm1brbPXPy1W7M527mLuING_rZCoeE6wLqDqh1lS3O3qC')">
+<div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow-sm">
+<span class="text-primary font-bold text-label-sm">Invite Only</span>
+</div>
+</div>
+<div class="p-5">
+<span class="text-secondary font-label-sm text-label-sm block mb-1">Jan 07 • All Day</span>
+<h5 class="font-headline-md text-body-lg font-bold mb-3 truncate">Ganna (Christmas) Pilgrimage</h5>
+<div class="flex items-center gap-2 mb-4 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span> Lalibela Churches
+                        </div>
+<div class="flex items-center justify-between gap-2 border-t border-border-subtle pt-4">
+<span class="text-body-sm text-outline font-medium">Holy Land Tours</span>
+<button class="border border-primary text-primary px-4 py-2 rounded-lg font-label-md text-sm hover:bg-primary/5 transition-all">Waitlist</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full px-margin-desktop py-20 max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter bg-on-surface text-on-primary">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed mb-6 block">TravelMate</span>
+<p class="text-body-sm text-outline-variant/80 mb-6">Discover the soul of Ethiopia through curated local events and premium planning services in the Land of Origins.</p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="public">public</span>
+</a>
+<a class="w-10 h-10 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="alternate_email">alternate_email</span>
+</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h6 class="font-label-md text-white">Travel Ethiopia</h6>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Historic Route</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Danakil Depression</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Omo Valley</a>
+</div>
+<div class="flex flex-col gap-4">
+<h6 class="font-label-md text-white">Resources</h6>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Visa Info</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Local Partners</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Safety Guide</a>
+</div>
+<div class="flex flex-col gap-4">
+<h6 class="font-label-md text-white">Newsletter</h6>
+<p class="text-body-sm text-outline-variant">Get the latest Ethiopian festival updates.</p>
+<div class="flex gap-2">
+<input class="bg-white/10 border-none rounded-lg px-4 py-2 text-body-sm focus:ring-1 focus:ring-primary w-full" placeholder="Your email" type="email">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg"><span class="material-symbols-outlined" data-icon="send">send</span></button>
+</div>
+</div>
+<div class="col-span-full border-t border-outline-variant/20 pt-10 mt-10 flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-body-sm text-outline-variant">© 2024 TravelMate Ethiopia. Premium Travel &amp; Heritage Experiences.</span>
+<div class="flex gap-6">
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="text-body-sm text-outline-variant hover:text-white transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for category chips
+        const chips = document.querySelectorAll('.bg-white.border-outline-variant\\/50');
+        const mainChip = document.querySelector('.category-chip-active');
+
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chips.forEach(c => {
+                    c.classList.remove('category-chip-active', 'text-white', 'bg-primary');
+                    c.classList.add('bg-white', 'text-on-surface-variant');
+                });
+                mainChip.classList.remove('category-chip-active');
+                mainChip.classList.add('bg-white', 'text-on-surface-variant', 'border', 'border-outline-variant/50');
+                
+                chip.classList.add('category-chip-active');
+                chip.classList.remove('bg-white', 'text-on-surface-variant');
+            });
+        });
+    </script>
+</body></html>
