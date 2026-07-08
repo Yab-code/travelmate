@@ -37,4 +37,18 @@ const getAllUsers = async (req, res) => {
   res.json({ status: 'success', users });
 };
 
-module.exports = { getProfile, updateProfile, getAllUsers };
+/**
+ * PUT /api/users/:id/role (SUPER_ADMIN only)
+ */
+const updateUserRole = async (req, res) => {
+  const { id } = req.params;
+  const { roleId } = req.body;
+  const updated = await prisma.user.update({
+    where: { id: parseInt(id) },
+    data: { roleId: parseInt(roleId) },
+    include: { role: true },
+  });
+  res.json({ status: 'success', user: updated });
+};
+
+module.exports = { getProfile, updateProfile, getAllUsers, updateUserRole };

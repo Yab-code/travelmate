@@ -25,7 +25,7 @@ const formatUser = (user) => ({
  * Body: { name, email, password, roleName: 'TRAVELER' | 'EVENT_PLANNER' }
  */
 const register = async (req, res) => {
-  const { name, email, password, roleName = 'TRAVELER' } = req.body;
+  const { name, email, password, roleName = 'TRAVELER', company } = req.body;
 
   if (!name || !email || !password) {
     return res.status(400).json({ status: 'error', message: 'Name, email and password are required.' });
@@ -45,6 +45,70 @@ const register = async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
+  // If registering as EVENT_PLANNER and company details are provided
+  if (roleName === 'EVENT_PLANNER' && company) {
+    const { companyName, businessEmail, phone, address, description, logo = '', licenseDocument = '' } = company;
+    
+    if (!companyName || !businessEmail || !phone || !address || !description) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'All company details (name, email, phone, address, description) are required for planner registration.'
+      });
+    }
+
+    const existingCompany = await prisma.company.findUnique({ where: { businessEmail } });
+    if (existingCompany) {
+      return res.status(409).json({ status: 'error', message: 'A company with this business email already exists.' });
+    }
+
+    try {
+      const result = await prisma.$transaction(async (tx) => {
+        const newUser = await tx.user.create({
+          data: {
+            name,
+            email,
+            password: hashedPassword,
+            roleId: role.id,
+          },
+          include: { role: true },
+        });
+
+        const newCompany = await tx.company.create({
+          data: {
+            companyName,
+            businessEmail,
+            phone,
+            address,
+            description,
+            logo,
+            licenseDocument,
+            ownerId: newUser.id,
+            status: 'PENDING'
+          }
+        });
+
+        const updatedUser = await tx.user.update({
+          where: { id: newUser.id },
+          data: { companyId: newCompany.id },
+          include: { role: true }
+        });
+
+        return { user: updatedUser, company: newCompany };
+      });
+
+      const token = signToken(result.user.id);
+      return res.status(201).json({
+        status: 'success',
+        message: 'Registration successful. Company registration pending approval.',
+        token,
+        user: formatUser(result.user),
+      });
+    } catch (err) {
+      return res.status(500).json({ status: 'error', message: err.message || 'Transaction failed.' });
+    }
+  }
+
+  // Normal traveler or admin registration (no company profile)
   const user = await prisma.user.create({
     data: {
       name,
