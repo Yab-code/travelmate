@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   }
 
   if (allowedRoles && allowedRoles.length > 0) {
-    const userRole = user?.role || user?.role?.name;
+    const userRole = typeof user?.role === 'string' ? user.role : user?.role?.name;
     const hasRole = allowedRoles.includes(userRole);
     if (!hasRole) {
       // Redirect to unauthorized page or home page
@@ -32,3 +32,4 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 };
 
 export default ProtectedRoute;
+

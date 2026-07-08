@@ -121,19 +121,19 @@ export const userService = {
 export const packageService = {
   getPackages: async (params) => {
     const response = await api.get('/packages', { params });
-    return response.data;
+    return response.data.packages || [];
   },
   getPackage: async (id) => {
     const response = await api.get(`/packages/${id}`);
-    return response.data;
+    return response.data.package || null;
   },
   createPackage: async (packageData) => {
     const response = await api.post('/packages', packageData);
-    return response.data;
+    return response.data.package;
   },
   updatePackage: async (id, packageData) => {
     const response = await api.put(`/packages/${id}`, packageData);
-    return response.data;
+    return response.data.package;
   },
   deletePackage: async (id) => {
     const response = await api.delete(`/packages/${id}`);
@@ -144,19 +144,19 @@ export const packageService = {
 export const eventService = {
   getEvents: async (params) => {
     const response = await api.get('/events', { params });
-    return response.data;
+    return response.data.events || [];
   },
   getEvent: async (id) => {
     const response = await api.get(`/events/${id}`);
-    return response.data;
+    return response.data.event || null;
   },
   createEvent: async (eventData) => {
     const response = await api.post('/events', eventData);
-    return response.data;
+    return response.data.event;
   },
   updateEvent: async (id, eventData) => {
     const response = await api.put(`/events/${id}`, eventData);
-    return response.data;
+    return response.data.event;
   },
   deleteEvent: async (id) => {
     const response = await api.delete(`/events/${id}`);
@@ -176,3 +176,6 @@ export const destinationService = {
 };
 
 export default api;
+
+
+
