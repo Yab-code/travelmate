@@ -3,6 +3,22 @@ import { authService } from '../services/api';
 
 const AuthContext = createContext(null);
 
+export const getRoleName = (account) => {
+  if (!account) return null;
+  return typeof account.role === 'string' ? account.role : account.role?.name || null;
+};
+
+export const getRoleLabel = (roleName) => {
+  const labels = {
+    SUPER_ADMIN: 'Super Admin',
+    EVENT_PLANNER: 'Event Planner',
+    TRAVELER: 'Traveler',
+  };
+  return labels[roleName] || 'Traveler';
+};
+
+export const getDashboardPath = () => '/dashboard';
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -76,23 +92,29 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+
   const logout = () => {
     authService.logout();
     setUser(null);
   };
 
+  const roleName = getRoleName(user);
+
   const value = {
     user,
+    roleName,
+    roleLabel: getRoleLabel(roleName),
     loading,
     error,
     login,
     registerTraveler,
     registerPlanner,
     logout,
+    getDashboardPath,
     isAuthenticated: !!user,
-    isSuperAdmin: user?.role === 'SUPER_ADMIN' || user?.role?.name === 'SUPER_ADMIN',
-    isEventPlanner: user?.role === 'EVENT_PLANNER' || user?.role?.name === 'EVENT_PLANNER',
-    isTraveler: user?.role === 'TRAVELER' || user?.role?.name === 'TRAVELER',
+    isSuperAdmin: roleName === 'SUPER_ADMIN',
+    isEventPlanner: roleName === 'EVENT_PLANNER',
+    isTraveler: roleName === 'TRAVELER',
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -105,3 +127,6 @@ export const useAuth = () => {
   }
   return context;
 };
+
+
+

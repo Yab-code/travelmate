@@ -23,8 +23,8 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     const userRole = typeof user?.role === 'string' ? user.role : user?.role?.name;
     const hasRole = allowedRoles.includes(userRole);
     if (!hasRole) {
-      // Redirect to unauthorized page or home page
-      return <Navigate to="/" replace />;
+      // Keep authenticated users inside the app, but outside pages their role cannot use.
+      return <Navigate to="/dashboard" replace />;
     }
   }
 
@@ -32,4 +32,5 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 };
 
 export default ProtectedRoute;
+
 

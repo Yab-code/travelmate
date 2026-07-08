@@ -22,13 +22,26 @@ const formatUser = (user) => ({
 
 /**
  * POST /api/auth/register
- * Body: { name, email, password, roleName: 'TRAVELER' | 'EVENT_PLANNER' }
+ * Public roles: TRAVELER, EVENT_PLANNER. SUPER_ADMIN is seeded and login-only.
  */
 const register = async (req, res) => {
   const { name, email, password, roleName = 'TRAVELER', company } = req.body;
+  const allowedRoles = ['TRAVELER', 'EVENT_PLANNER'];
 
   if (!name || !email || !password) {
     return res.status(400).json({ status: 'error', message: 'Name, email and password are required.' });
+  }
+
+  if (!allowedRoles.includes(roleName)) {
+    return res.status(400).json({ status: 'error', message: 'Invalid account role.' });
+  }
+
+
+  if (roleName === 'EVENT_PLANNER' && !company) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Company details are required for event planner registration.',
+    });
   }
 
   // Check for existing user
@@ -108,7 +121,7 @@ const register = async (req, res) => {
     }
   }
 
-  // Normal traveler or admin registration (no company profile)
+  // Normal traveler registration (no company profile)
   const user = await prisma.user.create({
     data: {
       name,
@@ -164,3 +177,7 @@ const login = async (req, res) => {
 };
 
 module.exports = { register, login };
+
+
+
+

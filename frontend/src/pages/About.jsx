@@ -31,7 +31,6 @@ const About = () => {
       description: 'Our intuitive interface makes booking complex multi-city trips as easy as sending a message.'
     }
   ];
-
   const team = [
     {
       name: 'Elena Rodriguez',
@@ -150,7 +149,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
       {/* Why TravelMate */}
       <section className="py-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center mb-24">
         <h2 className="text-2xl font-bold text-on-surface mb-12">Why TravelMate?</h2>
@@ -244,3 +242,5 @@ const About = () => {
 };
 
 export default About;
+
+

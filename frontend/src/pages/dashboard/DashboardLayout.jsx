@@ -3,9 +3,9 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const DashboardLayout = () => {
-  const { user, logout } = useAuth();
+  const { user, roleName, roleLabel, logout } = useAuth();
   const navigate = useNavigate();
-  const userRole = user?.role || user?.role?.name || 'TRAVELER';
+  const userRole = roleName || 'TRAVELER';
 
   const handleLogout = () => {
     logout();
@@ -129,7 +129,7 @@ const DashboardLayout = () => {
               <div className="text-right">
                 <p className="font-label-md text-label-md text-on-surface">{user?.name || 'Alex Mercer'}</p>
                 <p className="font-label-sm text-xs text-on-surface-variant uppercase tracking-wider">
-                  {userRole.replace('_', ' ')}
+                  {roleLabel}
                 </p>
               </div>
               <div className="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden bg-primary/10 flex items-center justify-center">
@@ -149,3 +149,4 @@ const DashboardLayout = () => {
 };
 
 export default DashboardLayout;
+

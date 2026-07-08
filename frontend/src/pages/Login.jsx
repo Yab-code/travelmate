@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, getDashboardPath } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,13 +28,13 @@ const Login = () => {
     setError('');
 
     try {
-      await login(email, password);
+      const loggedInUser = await login(email, password);
       if (rememberMe) {
         localStorage.setItem('rememberedEmail', email);
       } else {
         localStorage.removeItem('rememberedEmail');
       }
-      navigate(from, { replace: true });
+      navigate(from === '/' ? getDashboardPath(loggedInUser) : from, { replace: true });
     } catch (err) {
       setError(err.message || 'Invalid email or password.');
     } finally {
@@ -230,8 +230,18 @@ const Login = () => {
                 className="font-label-md text-label-md text-primary hover:text-primary-container transition-colors ml-1 font-semibold"
                 to="/register/traveler"
               >
-                Create an account
+                Create traveler account
               </Link>
+                          <span className="mx-2 text-outline">|</span>
+              <Link
+                className="font-label-md text-label-md text-secondary hover:text-primary transition-colors font-semibold"
+                to="/register/planner"
+              >
+                Register as planner
+              </Link>
+            </p>
+            <p className="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              TravelMate Super Admin signs in with the seeded admin account.
             </p>
           </div>
         </div>
@@ -241,3 +251,4 @@ const Login = () => {
 };
 
 export default Login;
+

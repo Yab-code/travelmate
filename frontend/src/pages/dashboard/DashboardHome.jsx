@@ -5,8 +5,8 @@ import PlannerDashboard from './PlannerDashboard';
 import AdminDashboard from './AdminDashboard';
 
 const DashboardHome = () => {
-  const { user } = useAuth();
-  const userRole = user?.role || user?.role?.name || 'TRAVELER';
+  const { roleName } = useAuth();
+  const userRole = roleName || 'TRAVELER';
 
   switch (userRole) {
     case 'SUPER_ADMIN':
@@ -20,3 +20,4 @@ const DashboardHome = () => {
 };
 
 export default DashboardHome;
+

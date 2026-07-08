@@ -53,9 +53,6 @@ export const authService = {
     return response.data;
   },
   registerPlanner: async (name, email, password, companyData) => {
-    // Registered as planner. Usually planner also registers company.
-    // The backend register endpoint might handle it or we can register as user first,
-    // then submit company request. Let's send roleName: 'EVENT_PLANNER'.
     const response = await api.post('/auth/register', {
       name,
       email,
@@ -65,6 +62,7 @@ export const authService = {
     });
     return response.data;
   },
+
   logout: () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -176,6 +174,8 @@ export const destinationService = {
 };
 
 export default api;
+
+
 
 
 

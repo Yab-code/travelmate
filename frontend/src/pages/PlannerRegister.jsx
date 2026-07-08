@@ -75,7 +75,7 @@ const PlannerRegister = () => {
     try {
       await registerPlanner(name, email, password, companyData);
       // Redirect to login or home. Since company is registered, it might start as PENDING status
-      navigate('/login', { state: { registrationSuccess: true, partnerPending: true } });
+      navigate('/dashboard', { replace: true, state: { partnerPending: true } });
     } catch (err) {
       setError(err.message || 'Planner registration failed. Please try again.');
     } finally {
@@ -130,13 +130,13 @@ const PlannerRegister = () => {
                   type="button"
                   onClick={() => navigate('/register/traveler')}
                 >
-                  Individual Traveler
+                  Traveler
                 </button>
                 <button
                   className="flex-1 py-2 px-4 rounded-lg bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md transition-all focus:outline-none"
                   type="button"
                 >
-                  Professional Planner
+                  Event Planner
                 </button>
               </div>
             </div>
@@ -383,3 +383,6 @@ const PlannerRegister = () => {
 };
 
 export default PlannerRegister;
+
+
+

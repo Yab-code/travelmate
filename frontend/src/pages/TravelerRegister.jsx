@@ -45,7 +45,7 @@ const TravelerRegister = () => {
       await registerTraveler(name, email, password);
       // If registration automatically logs in, AuthContext state changes, redirect
       // Otherwise, redirect to login page with success state
-      navigate('/login', { state: { registrationSuccess: true } });
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.');
     } finally {
@@ -111,14 +111,14 @@ const TravelerRegister = () => {
                   className="flex-1 py-2 px-4 rounded-lg bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md transition-all focus:outline-none"
                   type="button"
                 >
-                  Individual Traveler
+                  Traveler
                 </button>
                 <button
                   className="flex-1 py-2 px-4 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface transition-colors focus:outline-none"
                   type="button"
-                  onClick={() => navigate('/planner-register')}
+                  onClick={() => navigate('/register/planner')}
                 >
-                  Professional Planner
+                  Event Planner
                 </button>
               </div>
             </div>
@@ -306,3 +306,6 @@ const TravelerRegister = () => {
 };
 
 export default TravelerRegister;
+
+
+
