@@ -8,4 +8,65 @@ datasource db {
   // See https://pris.ly/d/config-datasource
 }
 
-// Add your data model definitions here
+enum RoleName {
+  SUPER_ADMIN
+  EVENT_PLANNER
+  TRAVELER
+}
+
+enum CompanyStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Role {
+  id    Int      @id @default(autoincrement())
+  name  RoleName @unique
+  users User[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  roleId    Int
+  role      Role     @relation(fields: [roleId], references: [id])
+  isActive  Boolean  @default(true)
+  companyId Int?
+  company   Company? @relation(fields: [companyId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Company {
+  id              Int           @id @default(autoincrement())
+  companyName     String
+  businessEmail   String        @unique
+  phone           String
+  address         String
+  description     String
+  logo            String?
+  licenseDocument String?
+  status          CompanyStatus @default(PENDING)
+  ownerId         Int
+  owner           User          @relation(fields: [ownerId], references: [id])
+  travelPackages  TravelPackage[]
+  events          Event[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+// Placeholder models to satisfy relations – can be expanded later
+model TravelPackage {
+  id        Int    @id @default(autoincrement())
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+}
+
+model Event {
+  id        Int    @id @default(autoincrement())
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+}
