@@ -13,5 +13,8 @@ router.use('/packages', require('./packages'));
 router.use('/events', require('./events'));
 router.use('/companies', require('./companies'));
 router.use('/destinations', require('./destinations'));
+router.use('/bookings', require('./bookings'));
+router.use('/interests', require('./interests'));
 
 module.exports = router;
+

@@ -1,9 +1,6 @@
 const jwt = require('jsonwebtoken');
 const prisma = require('../config/prisma');
 
-/**
- * Protect: validates JWT from Authorization header and attaches user to req.user.
- */
 const protect = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -16,7 +13,7 @@ const protect = async (req, res, next) => {
 
     const user = await prisma.user.findUnique({
       where: { id: decoded.id },
-      include: { role: true },
+      include: { role: true, ownedCompany: true, memberOf: true },
     });
 
     if (!user || !user.isActive) {
@@ -30,10 +27,6 @@ const protect = async (req, res, next) => {
   }
 };
 
-/**
- * requireRole: restricts access to specific role names.
- * Usage: router.get('/admin', protect, requireRole('SUPER_ADMIN'), handler)
- */
 const requireRole = (...roles) => {
   return (req, res, next) => {
     if (!req.user) {
@@ -50,4 +43,17 @@ const requireRole = (...roles) => {
   };
 };
 
-module.exports = { protect, requireRole };
+const requireApprovedPlanner = (req, res, next) => {
+  if (req.user?.role?.name !== 'EVENT_PLANNER') return next();
+  const approvalStatus = req.user.ownedCompany?.status || req.user.memberOf?.status || 'PENDING';
+  if (approvalStatus !== 'APPROVED') {
+    return res.status(403).json({
+      status: 'error',
+      message: 'Your account is pending Super Admin approval.',
+      approvalStatus,
+    });
+  }
+  next();
+};
+
+module.exports = { protect, requireRole, requireApprovedPlanner };

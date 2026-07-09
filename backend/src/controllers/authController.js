@@ -4,12 +4,12 @@ const prisma = require('../config/prisma');
 
 const SALT_ROUNDS = 10;
 
-/** Generate a signed JWT for a user */
 const signToken = (userId) => {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
 };
 
-/** Format user for API response (omit password) */
+const getCompanyStatus = (user) => user.ownedCompany?.status || user.memberOf?.status || null;
+
 const formatUser = (user) => ({
   id: user.id,
   name: user.name,
@@ -17,13 +17,10 @@ const formatUser = (user) => ({
   isActive: user.isActive,
   role: user.role,
   companyId: user.companyId,
+  companyStatus: getCompanyStatus(user),
   createdAt: user.createdAt,
 });
 
-/**
- * POST /api/auth/register
- * Public roles: TRAVELER, EVENT_PLANNER. SUPER_ADMIN is seeded and login-only.
- */
 const register = async (req, res) => {
   const { name, email, password, roleName = 'TRAVELER', company } = req.body;
   const allowedRoles = ['TRAVELER', 'EVENT_PLANNER'];
@@ -36,7 +33,6 @@ const register = async (req, res) => {
     return res.status(400).json({ status: 'error', message: 'Invalid account role.' });
   }
 
-
   if (roleName === 'EVENT_PLANNER' && !company) {
     return res.status(400).json({
       status: 'error',
@@ -44,13 +40,11 @@ const register = async (req, res) => {
     });
   }
 
-  // Check for existing user
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) {
     return res.status(409).json({ status: 'error', message: 'An account with this email already exists.' });
   }
 
-  // Resolve role
   const role = await prisma.role.findUnique({ where: { name: roleName } });
   if (!role) {
     return res.status(400).json({ status: 'error', message: `Role "${roleName}" does not exist.` });
@@ -58,14 +52,13 @@ const register = async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
-  // If registering as EVENT_PLANNER and company details are provided
   if (roleName === 'EVENT_PLANNER' && company) {
     const { companyName, businessEmail, phone, address, description, logo = '', licenseDocument = '' } = company;
-    
+
     if (!companyName || !businessEmail || !phone || !address || !description) {
       return res.status(400).json({
         status: 'error',
-        message: 'All company details (name, email, phone, address, description) are required for planner registration.'
+        message: 'All company details (name, email, phone, address, description) are required for planner registration.',
       });
     }
 
@@ -96,23 +89,23 @@ const register = async (req, res) => {
             logo,
             licenseDocument,
             ownerId: newUser.id,
-            status: 'PENDING'
-          }
+            status: 'PENDING',
+          },
         });
 
         const updatedUser = await tx.user.update({
           where: { id: newUser.id },
           data: { companyId: newCompany.id },
-          include: { role: true }
+          include: { role: true, ownedCompany: true, memberOf: true },
         });
 
-        return { user: updatedUser, company: newCompany };
+        return { user: updatedUser };
       });
 
       const token = signToken(result.user.id);
       return res.status(201).json({
         status: 'success',
-        message: 'Registration successful. Company registration pending approval.',
+        message: 'Registration successful. Your account is pending Super Admin approval.',
         token,
         user: formatUser(result.user),
       });
@@ -121,7 +114,6 @@ const register = async (req, res) => {
     }
   }
 
-  // Normal traveler registration (no company profile)
   const user = await prisma.user.create({
     data: {
       name,
@@ -129,7 +121,7 @@ const register = async (req, res) => {
       password: hashedPassword,
       roleId: role.id,
     },
-    include: { role: true },
+    include: { role: true, ownedCompany: true, memberOf: true },
   });
 
   const token = signToken(user.id);
@@ -142,10 +134,6 @@ const register = async (req, res) => {
   });
 };
 
-/**
- * POST /api/auth/login
- * Body: { email, password }
- */
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -155,7 +143,7 @@ const login = async (req, res) => {
 
   const user = await prisma.user.findUnique({
     where: { email },
-    include: { role: true },
+    include: { role: true, ownedCompany: true, memberOf: true },
   });
 
   if (!user || !user.isActive) {
@@ -177,7 +165,3 @@ const login = async (req, res) => {
 };
 
 module.exports = { register, login };
-
-
-
-

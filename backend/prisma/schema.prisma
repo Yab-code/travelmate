@@ -18,6 +18,17 @@ enum CompanyStatus {
   REJECTED
 }
 
+enum BookingType {
+  TRAVEL_PACKAGE
+  EVENT
+}
+
+enum BookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model Role {
   id    Int      @id @default(autoincrement())
   name  RoleName @unique
@@ -25,80 +36,113 @@ model Role {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  name          String
-  email         String    @unique
-  password      String
-  roleId        Int
-  role          Role      @relation(fields: [roleId], references: [id])
-  isActive      Boolean   @default(true)
-  // The company this user belongs to (as a member/employee)
-  companyId     Int?
-  memberOf      Company?  @relation("CompanyMembers", fields: [companyId], references: [id])
-  // The company this user owns (as EVENT_PLANNER)
-  ownedCompany  Company?  @relation("CompanyOwner")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id           Int               @id @default(autoincrement())
+  name         String
+  email        String            @unique
+  password     String
+  roleId       Int
+  role         Role              @relation(fields: [roleId], references: [id])
+  isActive     Boolean           @default(true)
+  companyId    Int?
+  memberOf     Company?          @relation("CompanyMembers", fields: [companyId], references: [id])
+  ownedCompany Company?          @relation("CompanyOwner")
+  bookings     Booking[]
+  interests    TravelerInterest[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
 }
 
 model Company {
-  id              Int           @id @default(autoincrement())
+  id              Int             @id @default(autoincrement())
   companyName     String
-  businessEmail   String        @unique
+  businessEmail   String          @unique
   phone           String
   address         String
   description     String
   logo            String?
   licenseDocument String?
-  status          CompanyStatus @default(PENDING)
-  // The owner — one User owns one Company (one-to-one)
-  ownerId         Int           @unique
-  owner           User          @relation("CompanyOwner", fields: [ownerId], references: [id])
-  // Members (employees/planners) assigned to this company
-  members         User[]        @relation("CompanyMembers")
+  status          CompanyStatus   @default(PENDING)
+  ownerId         Int             @unique
+  owner           User            @relation("CompanyOwner", fields: [ownerId], references: [id])
+  members         User[]          @relation("CompanyMembers")
   travelPackages  TravelPackage[]
   events          Event[]
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
 }
 
-// Placeholder models to satisfy relations – can be expanded later
 model TravelPackage {
-  id           Int      @id @default(autoincrement())
+  id           Int               @id @default(autoincrement())
   title        String
   description  String
   location     String
   type         String
-  lodging      String
-  price        Decimal  @db.Decimal(10, 2)
+  price        Decimal           @db.Decimal(10, 2)
   duration     Int
   image        String?
-  tags         String[] @default([])
-  difficulty   String   @default("Easy")
-  groupSize    String   @default("Max 10")
-  language     String   @default("English")
-  rating       Decimal  @default(0) @db.Decimal(3, 2)
-  reviewsCount Int      @default(0)
+  lodging      String?
+  tags         String[]          @default([])
+  difficulty   String            @default("Easy")
+  groupSize    String            @default("Max 10")
+  language     String            @default("English")
+  rating       Decimal           @default(0) @db.Decimal(3, 2)
+  reviewsCount Int               @default(0)
   itinerary    Json?
   companyId    Int
-  company      Company  @relation(fields: [companyId], references: [id])
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  company      Company           @relation(fields: [companyId], references: [id])
+  bookings     Booking[]
+  interests    TravelerInterest[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
 }
 
 model Event {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  category    String
-  price       Decimal  @db.Decimal(10, 2)
-  date        DateTime
-  location    String
-  image       String?
-  organizer   String?
-  featured    Boolean  @default(false)
-  companyId   Int
-  company     Company  @relation(fields: [companyId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                Int               @id @default(autoincrement())
+  title             String
+  description       String
+  category          String
+  price             Decimal           @db.Decimal(10, 2)
+  date              DateTime
+  location          String
+  image             String?
+  organizer         String?
+  featured          Boolean           @default(false)
+  featuredRequested Boolean           @default(false)
+  companyId         Int
+  company           Company           @relation(fields: [companyId], references: [id])
+  bookings          Booking[]
+  interests         TravelerInterest[]
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+}
+
+model TravelerInterest {
+  id              Int            @id @default(autoincrement())
+  userId          Int
+  user            User           @relation(fields: [userId], references: [id])
+  travelPackageId Int?
+  travelPackage   TravelPackage? @relation(fields: [travelPackageId], references: [id])
+  eventId         Int?
+  event           Event?         @relation(fields: [eventId], references: [id])
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@unique([userId, travelPackageId])
+  @@unique([userId, eventId])
+}
+
+model Booking {
+  id              Int            @id @default(autoincrement())
+  type            BookingType
+  quantity        Int
+  status          BookingStatus  @default(PENDING)
+  travelDate      DateTime?
+  travelerId      Int?
+  traveler        User?          @relation(fields: [travelerId], references: [id])
+  travelPackageId Int?
+  travelPackage   TravelPackage? @relation(fields: [travelPackageId], references: [id])
+  eventId         Int?
+  event           Event?         @relation(fields: [eventId], references: [id])
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 }

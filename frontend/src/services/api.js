@@ -9,7 +9,6 @@ const api = axios.create({
   },
 });
 
-// Request interceptor to attach JWT token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -18,17 +17,13 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Response interceptor to handle global errors (e.g. 401 Unauthorized)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Clear token and redirect to login if unauthorized
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       if (window.location.pathname !== '/login') {
@@ -58,11 +53,10 @@ export const authService = {
       email,
       password,
       roleName: 'EVENT_PLANNER',
-      company: companyData
+      company: companyData,
     });
     return response.data;
   },
-
   logout: () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -70,7 +64,7 @@ export const authService = {
   getCurrentUser: () => {
     const userStr = localStorage.getItem('user');
     return userStr ? JSON.parse(userStr) : null;
-  }
+  },
 };
 
 export const companyService = {
@@ -95,10 +89,9 @@ export const companyService = {
     return response.data;
   },
   approveCompany: async (id, status) => {
-    // status: 'APPROVED' or 'REJECTED'
     const response = await api.put(`/companies/${id}/approve`, { status });
     return response.data;
-  }
+  },
 };
 
 export const userService = {
@@ -117,7 +110,7 @@ export const userService = {
   updateUserRole: async (id, roleId) => {
     const response = await api.put(`/users/${id}/role`, { roleId });
     return response.data;
-  }
+  },
 };
 
 export const packageService = {
@@ -130,17 +123,21 @@ export const packageService = {
     return response.data.package || null;
   },
   createPackage: async (packageData) => {
-    const response = await api.post('/packages', packageData);
+    const response = await api.post('/packages', packageData, {
+      headers: packageData instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : undefined,
+    });
     return response.data.package;
   },
   updatePackage: async (id, packageData) => {
-    const response = await api.put(`/packages/${id}`, packageData);
+    const response = await api.put(`/packages/${id}`, packageData, {
+      headers: packageData instanceof FormData ? { 'Content-Type': 'multipart/form-data' } : undefined,
+    });
     return response.data.package;
   },
   deletePackage: async (id) => {
     const response = await api.delete(`/packages/${id}`);
     return response.data;
-  }
+  },
 };
 
 export const eventService = {
@@ -163,7 +160,53 @@ export const eventService = {
   deleteEvent: async (id) => {
     const response = await api.delete(`/events/${id}`);
     return response.data;
-  }
+  },
+  getFeaturedRequests: async () => {
+    const response = await api.get('/events/featured-requests');
+    return response.data.events || [];
+  },
+  reviewFeaturedRequest: async (id, approved) => {
+    const response = await api.put(`/events/${id}/featured`, { approved });
+    return response.data.event;
+  },
+};
+
+export const bookingService = {
+  getBookings: async () => {
+    const response = await api.get('/bookings');
+    return response.data.bookings || [];
+  },
+  getMyBookings: async () => {
+    const response = await api.get('/bookings/me');
+    return response.data.bookings || [];
+  },
+  createBooking: async (bookingData) => {
+    const response = await api.post('/bookings', bookingData);
+    return response.data.booking;
+  },
+  updateBookingStatus: async (id, status) => {
+    const response = await api.put(`/bookings/${id}/status`, { status });
+    return response.data.booking;
+  },
+};
+
+export const interestService = {
+  getInterests: async () => {
+    const response = await api.get('/interests');
+    return response.data.interests || [];
+  },
+  getPlannerInterests: async () => {
+    const response = await api.get('/interests/planner');
+    return response.data.interests || [];
+  },
+  toggleInterest: async (type, itemId) => {
+    const response = await api.post('/interests', { type, itemId });
+    return response.data.interest;
+  },
+  removeInterest: async (id) => {
+    const response = await api.delete(`/interests/${id}`);
+    return response.data;
+  },
 };
 
 export const destinationService = {
@@ -174,13 +217,7 @@ export const destinationService = {
   createDestination: async (destinationData) => {
     const response = await api.post('/destinations', destinationData);
     return response.data;
-  }
+  },
 };
 
 export default api;
-
-
-
-
-
-

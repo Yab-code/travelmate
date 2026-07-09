@@ -19,7 +19,7 @@ const HomeEthiopia = () => {
       try {
         const [packageData, eventData] = await Promise.all([
           packageService.getPackages({ country: 'Ethiopia', limit: 3 }),
-          eventService.getEvents({ country: 'Ethiopia', limit: 2 }),
+          eventService.getEvents({ country: 'Ethiopia', limit: 2, featured: 'true' }),
         ]);
         setPackages(packageData || []);
         setEvents(eventData || []);
@@ -127,7 +127,7 @@ const HomeEthiopia = () => {
                 <div className="p-6 flex-grow flex flex-col justify-between">
                   <div>
                     <div className="flex justify-between items-start mb-2"><h3 className="font-headline-md text-lg font-bold text-on-surface truncate pr-2">{pkg.title}</h3><span className="font-headline-md text-lg font-bold text-primary">${pkg.price}</span></div>
-                    <p className="font-body-sm text-on-surface-variant text-xs mb-4">{pkg.duration} Days - {pkg.lodging}</p>
+                    <p className="font-body-sm text-on-surface-variant text-xs mb-4">{pkg.duration} Days</p>
                     <div className="flex flex-wrap gap-2 mb-6">{(pkg.tags || []).slice(0, 2).map((tag) => <span key={tag} className="bg-surface-variant text-primary px-2.5 py-1 rounded-full font-label-sm text-[10px]">{tag}</span>)}</div>
                   </div>
                   <button onClick={() => navigate(`/packages/${pkg.id}`)} className="w-full py-3 border border-primary text-primary rounded-xl font-label-md hover:bg-primary hover:text-on-primary transition-all active:scale-95 text-xs font-semibold">Explore Package</button>
@@ -163,3 +163,4 @@ const HomeEthiopia = () => {
 };
 
 export default HomeEthiopia;
+

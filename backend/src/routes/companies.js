@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { protect, requireRole } = require('../middleware/auth');
+const { protect, requireRole, requireApprovedPlanner } = require('../middleware/auth');
 const prisma = require('../config/prisma');
 
 // GET /api/companies/pending — admin views pending
@@ -26,7 +26,7 @@ router.get('/pending', protect, requireRole('SUPER_ADMIN'), async (req, res) => 
 });
 
 // GET /api/companies/my-company — planner views their company
-router.get('/my-company', protect, requireRole('EVENT_PLANNER'), async (req, res) => {
+router.get('/my-company', protect, requireRole('EVENT_PLANNER'), requireApprovedPlanner, async (req, res) => {
   try {
     const company = await prisma.company.findFirst({
       where: { ownerId: req.user.id },
@@ -47,7 +47,7 @@ router.get('/my-company', protect, requireRole('EVENT_PLANNER'), async (req, res
 });
 
 // POST /api/companies — register a new company
-router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
+router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, async (req, res) => {
   try {
     const { companyName, businessEmail, phone, address, description, logo = '', licenseDocument = '' } = req.body;
     
@@ -155,5 +155,6 @@ router.put('/:id/approve', protect, requireRole('SUPER_ADMIN'), async (req, res)
 });
 
 module.exports = router;
+
 
 

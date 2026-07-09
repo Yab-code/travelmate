@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -57,10 +57,34 @@ const AppLayout = ({ children }) => (
   </div>
 );
 
+const PendingPlannerGate = ({ children }) => {
+  const { loading, isPendingPlanner, logout } = useAuth();
+
+  if (loading) return children;
+  if (!isPendingPlanner) return children;
+
+  return (
+    <div className="min-h-screen bg-background flex items-start justify-center px-4 pt-8">
+      <div className="w-full max-w-xl bg-white border border-accent-yellow/30 shadow-xl rounded-2xl p-6 text-center">
+        <div className="mx-auto mb-4 w-12 h-12 rounded-full bg-accent-yellow/10 text-accent-yellow flex items-center justify-center">
+          <span className="material-symbols-outlined">pending_actions</span>
+        </div>
+        <h1 className="text-xl font-bold text-on-surface mb-2">Account pending Super Admin approval</h1>
+        <p className="text-sm text-on-surface-variant leading-relaxed">
+          Your Event Planner account is pending Super Admin approval. You cannot access pages or system features until approval is granted.
+        </p>
+        <button onClick={logout} className="mt-6 px-5 py-2.5 rounded-xl border border-border-subtle text-sm font-semibold text-on-surface-variant hover:bg-surface-container-low">
+          Sign out
+        </button>
+      </div>
+    </div>
+  );
+};
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <PendingPlannerGate>
         <Routes>
           {/* ─── Auth Routes (no Navbar/Footer) ─── */}
           <Route path="/login" element={<Login />} />
@@ -279,12 +303,15 @@ const App = () => {
           {/* ─── Fallback ─── */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </PendingPlannerGate>
       </AuthProvider>
     </BrowserRouter>
   );
 };
 
 export default App;
+
+
 
 
 

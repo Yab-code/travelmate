@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { protect, requireRole } = require('../middleware/auth');
+const { protect, requireRole, requireApprovedPlanner } = require('../middleware/auth');
 const prisma = require('../config/prisma');
 
 const toEventDto = (event) => ({
@@ -15,6 +15,7 @@ const toEventDto = (event) => ({
   image: event.image,
   organizer: event.organizer || event.company?.companyName,
   featured: event.featured,
+  featuredRequested: event.featuredRequested,
   companyId: event.companyId,
   company: event.company,
 });
@@ -32,8 +33,30 @@ const getPlannerCompanyId = async (user) => {
   return company.id;
 };
 
+router.get('/featured-requests', protect, requireRole('SUPER_ADMIN'), async (req, res) => {
+  const events = await prisma.event.findMany({
+    where: { featuredRequested: true, featured: false },
+    include: { company: true },
+    orderBy: { updatedAt: 'desc' },
+  });
+  res.json({ status: 'success', events: events.map(toEventDto) });
+});
+
+router.put('/:id/featured', protect, requireRole('SUPER_ADMIN'), async (req, res) => {
+  const { approved } = req.body;
+  const event = await prisma.event.update({
+    where: { id: parseInt(req.params.id, 10) },
+    data: {
+      featured: Boolean(approved),
+      featuredRequested: false,
+    },
+    include: { company: true },
+  });
+  res.json({ status: 'success', event: toEventDto(event) });
+});
+
 router.get('/', async (req, res) => {
-  const { search, destination, category, date, limit, country } = req.query;
+  const { search, destination, category, date, limit, country, featured } = req.query;
   const take = limit ? Math.min(parseInt(limit, 10) || 12, 50) : undefined;
   if (country && country.toLowerCase() !== 'ethiopia') {
     return res.json({ status: 'success', events: [] });
@@ -50,7 +73,8 @@ router.get('/', async (req, res) => {
 
   const events = await prisma.event.findMany({
     where: {
-      ...(category ? { category: { equals: category, mode: 'insensitive' } } : {}),
+      ...(featured === 'true' ? { featured: true } : {}),
+      ...(category && category.toLowerCase() !== 'all' ? { category: { equals: category, mode: 'insensitive' } } : {}),
       ...(dateFilter ? { date: dateFilter } : {}),
       ...(keyword
         ? {
@@ -83,7 +107,7 @@ router.get('/:id', async (req, res) => {
   res.json({ status: 'success', event: toEventDto(event) });
 });
 
-router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
+router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, async (req, res) => {
   const companyId = req.body.companyId ? parseInt(req.body.companyId, 10) : await getPlannerCompanyId(req.user);
   const { title, description, category, price, date, location, image, organizer, featured = false } = req.body;
 
@@ -91,6 +115,8 @@ router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (re
     return res.status(400).json({ status: 'error', message: 'Title, description, category, price, date, location and company are required.' });
   }
 
+  const isSuperAdmin = req.user.role?.name === 'SUPER_ADMIN';
+  const requestedFeatured = Boolean(featured);
   const event = await prisma.event.create({
     data: {
       title,
@@ -101,7 +127,8 @@ router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (re
       location,
       image: image || null,
       organizer: organizer || null,
-      featured: Boolean(featured),
+      featured: isSuperAdmin ? requestedFeatured : false,
+      featuredRequested: !isSuperAdmin && requestedFeatured,
       companyId,
     },
     include: { company: true },
@@ -110,7 +137,7 @@ router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (re
   res.status(201).json({ status: 'success', event: toEventDto(event) });
 });
 
-router.put('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
+router.put('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, async (req, res) => {
   const eventId = parseInt(req.params.id, 10);
   const existing = await prisma.event.findUnique({ where: { id: eventId } });
 
@@ -125,10 +152,23 @@ router.put('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (
     }
   }
 
-  const allowed = ['title', 'description', 'category', 'price', 'date', 'location', 'image', 'organizer', 'featured'];
+  const allowed = ['title', 'description', 'category', 'price', 'date', 'location', 'image', 'organizer'];
   const data = {};
   for (const key of allowed) {
     if (req.body[key] !== undefined) data[key] = key === 'date' ? new Date(req.body[key]) : req.body[key];
+  }
+
+  if (req.body.featured !== undefined) {
+    if (req.user.role?.name === 'SUPER_ADMIN') {
+      data.featured = Boolean(req.body.featured);
+      data.featuredRequested = false;
+    } else if (Boolean(req.body.featured) && !existing.featured) {
+      data.featured = false;
+      data.featuredRequested = true;
+    } else if (!Boolean(req.body.featured)) {
+      data.featured = false;
+      data.featuredRequested = false;
+    }
   }
 
   const event = await prisma.event.update({
@@ -140,7 +180,7 @@ router.put('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (
   res.json({ status: 'success', event: toEventDto(event) });
 });
 
-router.delete('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
+router.delete('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, async (req, res) => {
   const eventId = parseInt(req.params.id, 10);
   const existing = await prisma.event.findUnique({ where: { id: eventId } });
 
@@ -160,6 +200,3 @@ router.delete('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), asyn
 });
 
 module.exports = router;
-
-
-

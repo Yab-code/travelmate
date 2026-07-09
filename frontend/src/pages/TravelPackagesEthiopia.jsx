@@ -128,7 +128,7 @@ const TravelPackagesEthiopia = () => {
             </div>
             <div className="space-y-2">
               <label className="block text-xs font-semibold text-on-surface-variant uppercase">Category</label>
-              <div className="flex flex-col gap-2">{['all', 'Heritage Site', 'Adventure', 'Nature', 'Trekking'].map((cat) => <label key={cat} className="flex items-center gap-2 text-xs text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors"><input type="radio" name="category" checked={selectedCategory === cat} onChange={() => setSelectedCategory(cat)} className="text-primary focus:ring-primary focus:ring-offset-0" /><span>{cat === 'all' ? 'All Categories' : cat}</span></label>)}</div>
+              <div className="flex flex-col gap-2">{['all', 'Business Tour', 'Escorted Tour', 'Adventure Tour', 'Family Tour', 'Cultural Tour', 'Religious Tour', 'Eco Tour'].map((cat) => <label key={cat} className="flex items-center gap-2 text-xs text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors"><input type="radio" name="category" checked={selectedCategory === cat} onChange={() => setSelectedCategory(cat)} className="text-primary focus:ring-primary focus:ring-offset-0" /><span>{cat === 'all' ? 'All Categories' : cat}</span></label>)}</div>
             </div>
           </div>
         </aside>
@@ -143,7 +143,7 @@ const TravelPackagesEthiopia = () => {
               {filteredPackages.map((pkg) => (
                 <div key={pkg.id} className="card-hover group bg-white rounded-2xl overflow-hidden shadow-sm border border-border-subtle flex flex-col justify-between">
                   <div className="relative h-64 overflow-hidden bg-surface-container">{pkg.image ? <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src={pkg.image} alt={pkg.title} /> : <div className="w-full h-full flex items-center justify-center text-primary"><span className="material-symbols-outlined text-5xl">travel_explore</span></div>}<div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-primary font-label-sm text-xs font-semibold">{pkg.type}</div></div>
-                  <div className="p-6 flex-grow flex flex-col justify-between"><div><div className="flex justify-between items-start mb-2"><h3 className="font-headline-md text-lg font-bold text-on-surface pr-2 truncate">{pkg.title}</h3><span className="font-headline-md text-lg font-bold text-primary">${pkg.price}</span></div><p className="font-body-sm text-on-surface-variant text-xs mb-4">{pkg.duration} Days - {pkg.lodging}</p><div className="flex flex-wrap gap-2 mb-6">{(pkg.tags || []).map((tag) => <span key={tag} className="bg-surface-variant text-primary px-2.5 py-1 rounded-full font-label-sm text-[10px]">{tag}</span>)}</div></div><button onClick={() => navigate(`/packages/${pkg.id}`)} className="w-full py-3 border border-primary text-primary rounded-xl font-label-md hover:bg-primary hover:text-on-primary transition-all active:scale-95 text-xs font-semibold">Explore Package</button></div>
+                  <div className="p-6 flex-grow flex flex-col justify-between"><div><div className="flex justify-between items-start mb-2"><h3 className="font-headline-md text-lg font-bold text-on-surface pr-2 truncate">{pkg.title}</h3><span className="font-headline-md text-lg font-bold text-primary">${pkg.price}</span></div><p className="font-body-sm text-on-surface-variant text-xs mb-4">{pkg.duration} Days</p><div className="flex flex-wrap gap-2 mb-6">{(pkg.tags || []).map((tag) => <span key={tag} className="bg-surface-variant text-primary px-2.5 py-1 rounded-full font-label-sm text-[10px]">{tag}</span>)}</div></div><button onClick={() => navigate(`/packages/${pkg.id}`)} className="w-full py-3 border border-primary text-primary rounded-xl font-label-md hover:bg-primary hover:text-on-primary transition-all active:scale-95 text-xs font-semibold">Explore Package</button></div>
                 </div>
               ))}
             </div>
@@ -155,3 +155,4 @@ const TravelPackagesEthiopia = () => {
 };
 
 export default TravelPackagesEthiopia;
+

@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { protect, requireRole } = require('../middleware/auth');
+const { protect, requireRole, requireApprovedPlanner } = require('../middleware/auth');
 const prisma = require('../config/prisma');
+const { upload, resolveUploadedImagePath } = require('../middleware/upload');
 
 const toPackageDto = (pkg) => ({
   id: pkg.id,
@@ -9,7 +10,6 @@ const toPackageDto = (pkg) => ({
   description: pkg.description,
   location: pkg.location,
   type: pkg.type,
-  lodging: pkg.lodging,
   price: Number(pkg.price),
   duration: pkg.duration,
   image: pkg.image,
@@ -92,12 +92,13 @@ router.get('/:id', async (req, res) => {
   res.json({ status: 'success', package: toPackageDto(pkg) });
 });
 
-router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
+router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, upload.single('image'), async (req, res) => {
   const companyId = req.body.companyId ? parseInt(req.body.companyId, 10) : await getPlannerCompanyId(req.user);
-  const { title, description, location, type, lodging, price, duration, image, tags, difficulty, groupSize, language, itinerary } = req.body;
+  const { title, description, location, type, price, duration, tags, difficulty, groupSize, language, itinerary } = req.body;
+  const imagePath = resolveUploadedImagePath(req);
 
-  if (!title || !description || !location || !type || !lodging || !price || !duration || !companyId) {
-    return res.status(400).json({ status: 'error', message: 'Title, description, location, type, lodging, price, duration and company are required.' });
+  if (!title || !description || !location || !type || !price || !duration || !companyId) {
+    return res.status(400).json({ status: 'error', message: 'Title, description, location, type, price, duration and company are required.' });
   }
 
   const pkg = await prisma.travelPackage.create({
@@ -106,10 +107,9 @@ router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (re
       description,
       location,
       type,
-      lodging,
       price,
       duration: parseInt(duration, 10),
-      image: image || null,
+      image: imagePath,
       tags: Array.isArray(tags) ? tags : [],
       difficulty: difficulty || 'Easy',
       groupSize: groupSize || 'Max 10',
@@ -123,7 +123,7 @@ router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (re
   res.status(201).json({ status: 'success', package: toPackageDto(pkg) });
 });
 
-router.put('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
+router.put('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, upload.single('image'), async (req, res) => {
   const packageId = parseInt(req.params.id, 10);
   const existing = await prisma.travelPackage.findUnique({ where: { id: packageId } });
 
@@ -138,10 +138,15 @@ router.put('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (
     }
   }
 
-  const allowed = ['title', 'description', 'location', 'type', 'lodging', 'price', 'duration', 'image', 'tags', 'difficulty', 'groupSize', 'language', 'itinerary'];
+  const allowed = ['title', 'description', 'location', 'type', 'price', 'duration', 'image', 'tags', 'difficulty', 'groupSize', 'language', 'itinerary'];
   const data = {};
+  const imagePath = resolveUploadedImagePath(req);
   for (const key of allowed) {
     if (req.body[key] !== undefined) data[key] = key === 'duration' ? parseInt(req.body[key], 10) : req.body[key];
+  }
+
+  if (imagePath) {
+    data.image = imagePath;
   }
 
   const pkg = await prisma.travelPackage.update({
@@ -153,7 +158,7 @@ router.put('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (
   res.json({ status: 'success', package: toPackageDto(pkg) });
 });
 
-router.delete('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
+router.delete('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, async (req, res) => {
   const packageId = parseInt(req.params.id, 10);
   const existing = await prisma.travelPackage.findUnique({ where: { id: packageId } });
 
@@ -173,6 +178,3 @@ router.delete('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), asyn
 });
 
 module.exports = router;
-
-
-

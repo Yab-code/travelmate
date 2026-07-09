@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { authService } from '../services/api';
+import { authService, userService } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -24,12 +24,32 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const persistUser = (nextUser) => {
+    localStorage.setItem('user', JSON.stringify(nextUser));
+    setUser(nextUser);
+  };
+
   useEffect(() => {
-    const currentUser = authService.getCurrentUser();
-    if (currentUser) {
+    const hydrate = async () => {
+      const currentUser = authService.getCurrentUser();
+      const token = localStorage.getItem('token');
+      if (!currentUser || !token) {
+        setLoading(false);
+        return;
+      }
+
       setUser(currentUser);
-    }
-    setLoading(false);
+      try {
+        const profile = await userService.getProfile();
+        if (profile.user) persistUser(profile.user);
+      } catch (err) {
+        console.error('Failed to refresh profile:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    hydrate();
   }, []);
 
   const login = async (email, password) => {
@@ -53,14 +73,9 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const data = await authService.registerTraveler(name, email, password);
-      // Automatically log in or redirect to login page.
-      // If the backend login immediately after register, we can save token.
-      // Assuming traveler registration returns standard message, and traveler must login,
-      // or if it returns token/user:
       if (data.token && data.user) {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setUser(data.user);
+        persistUser(data.user);
       }
       return data;
     } catch (err) {
@@ -79,8 +94,7 @@ export const AuthProvider = ({ children }) => {
       const data = await authService.registerPlanner(name, email, password, companyData);
       if (data.token && data.user) {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setUser(data.user);
+        persistUser(data.user);
       }
       return data;
     } catch (err) {
@@ -92,6 +106,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const refreshUser = async () => {
+    const profile = await userService.getProfile();
+    if (profile.user) persistUser(profile.user);
+    return profile.user;
+  };
 
   const logout = () => {
     authService.logout();
@@ -99,6 +118,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const roleName = getRoleName(user);
+  const isPendingPlanner = roleName === 'EVENT_PLANNER' && user?.companyStatus !== 'APPROVED';
 
   const value = {
     user,
@@ -109,11 +129,13 @@ export const AuthProvider = ({ children }) => {
     login,
     registerTraveler,
     registerPlanner,
+    refreshUser,
     logout,
     getDashboardPath,
     isAuthenticated: !!user,
     isSuperAdmin: roleName === 'SUPER_ADMIN',
     isEventPlanner: roleName === 'EVENT_PLANNER',
+    isPendingPlanner,
     isTraveler: roleName === 'TRAVELER',
   };
 
@@ -127,6 +149,3 @@ export const useAuth = () => {
   }
   return context;
 };
-
-
-
