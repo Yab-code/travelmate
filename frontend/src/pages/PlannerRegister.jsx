@@ -150,7 +150,7 @@ const PlannerRegister = () => {
                   <input
                     className="w-full bg-white border border-outline-variant rounded-lg px-4 py-2.5 font-body-md text-body-md transition-all focus:border-primary outline-none"
                     id="owner-name"
-                    placeholder="Jane Cooper"
+                    placeholder="Abebe Kebede"
                     required
                     type="text"
                     value={name}
@@ -163,7 +163,7 @@ const PlannerRegister = () => {
                   <input
                     className="w-full bg-white border border-outline-variant rounded-lg px-4 py-2.5 font-body-md text-body-md transition-all focus:border-primary outline-none"
                     id="personal-phone"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+252987654321"
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -176,7 +176,7 @@ const PlannerRegister = () => {
                 <input
                   className="w-full bg-white border border-outline-variant rounded-lg px-4 py-2.5 font-body-md text-body-md transition-all focus:border-primary outline-none"
                   id="email"
-                  placeholder="jane@example.com"
+                  placeholder="abebe@example.com"
                   required
                   type="email"
                   value={email}

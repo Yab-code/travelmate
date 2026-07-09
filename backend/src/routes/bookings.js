@@ -46,7 +46,7 @@ const getPlannerCompanyId = async (user) => {
   return company.id;
 };
 
-router.get('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, async (req, res) => {
+router.get('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
   const companyId = await getPlannerCompanyId(req.user);
   const bookings = await prisma.booking.findMany({
     where: companyId
@@ -88,7 +88,7 @@ router.post('/', protect, requireRole('TRAVELER'), async (req, res) => {
   res.status(201).json({ status: 'success', booking: toBookingDto(booking) });
 });
 
-router.put('/:id/status', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, async (req, res) => {
+router.put('/:id/status', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
   const { status } = req.body;
   if (!['PENDING', 'APPROVED', 'REJECTED'].includes(status)) {
     return res.status(400).json({ status: 'error', message: 'Invalid booking status.' });

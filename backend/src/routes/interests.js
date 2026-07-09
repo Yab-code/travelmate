@@ -40,7 +40,7 @@ router.get('/', protect, requireRole('TRAVELER'), async (req, res) => {
   res.json({ status: 'success', interests: interests.map(toInterestDto) });
 });
 
-router.get('/planner', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), requireApprovedPlanner, async (req, res) => {
+router.get('/planner', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (req, res) => {
   let companyId = null;
   if (req.user.role?.name !== 'SUPER_ADMIN') {
     const company = await prisma.company.findFirst({ where: { ownerId: req.user.id } });
