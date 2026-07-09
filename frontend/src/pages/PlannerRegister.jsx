@@ -26,6 +26,7 @@ const PlannerRegister = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [activePolicy, setActivePolicy] = useState(null);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -340,7 +341,15 @@ const PlannerRegister = () => {
                 />
               </div>
               <label className="font-body-sm text-xs text-on-surface-variant cursor-pointer" htmlFor="terms">
-                I agree to the Terms of Service and Privacy Policy as a TravelMate Business Partner.
+                I agree to the{' '}
+                <button className="text-primary hover:underline" type="button" onClick={() => setActivePolicy('terms')}>
+                  Terms of Service
+                </button>{' '}
+                and{' '}
+                <button className="text-primary hover:underline" type="button" onClick={() => setActivePolicy('privacy')}>
+                  Privacy Policy
+                </button>{' '}
+                as a TravelMate Business Partner.
               </label>
             </div>
 
@@ -377,6 +386,76 @@ const PlannerRegister = () => {
           </div>
         </div>
       </section>
+
+      {activePolicy && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6">
+          <div className="w-full max-w-2xl rounded-2xl border border-outline-variant bg-white p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="font-headline-sm text-headline-sm text-on-surface">
+                  {activePolicy === 'terms' ? 'Terms of Service' : 'Privacy Policy'}
+                </h3>
+                <p className="mt-1 text-sm text-on-surface-variant">
+                  {activePolicy === 'terms'
+                    ? 'These terms govern how you use TravelMate services.'
+                    : 'This policy explains how we collect and protect your information.'}
+                </p>
+              </div>
+              <button
+                className="rounded-full p-2 text-outline hover:bg-surface-container-lowest hover:text-on-surface"
+                type="button"
+                onClick={() => setActivePolicy(null)}
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <div className="mt-5 max-h-[60vh] overflow-y-auto pr-2 text-sm leading-7 text-on-surface-variant">
+              {activePolicy === 'terms' ? (
+                <div className="space-y-3">
+                  <p>
+                    By creating an account and using TravelMate, you agree to use our platform responsibly for travel planning,
+                    bookings, and related services.
+                  </p>
+                  <p>
+                    You are responsible for the accuracy of your profile details, booking information, and any content you share.
+                    You must not misuse the platform, attempt unauthorized access, or share misleading information.
+                  </p>
+                  <p>
+                    TravelMate may update services, pricing, or policies from time to time. Continued use of the platform after
+                    changes means you accept the updated terms.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <p>
+                    TravelMate collects personal information such as your name, email address, contact details, travel preferences,
+                    and booking data to provide a better experience and process requests securely.
+                  </p>
+                  <p>
+                    We use your information to create and manage your account, communicate about bookings, improve our services,
+                    and comply with legal obligations.
+                  </p>
+                  <p>
+                    Your data is stored securely and shared only with trusted service providers when necessary to deliver our services,
+                    such as payment processing or customer support.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-6 flex justify-end">
+              <button
+                className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-on-primary transition-colors hover:bg-primary-container"
+                type="button"
+                onClick={() => setActivePolicy(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 };
