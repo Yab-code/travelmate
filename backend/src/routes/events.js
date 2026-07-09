@@ -33,18 +33,31 @@ const getPlannerCompanyId = async (user) => {
 };
 
 router.get('/', async (req, res) => {
-  const { search, category, limit } = req.query;
+  const { search, destination, category, date, limit, country } = req.query;
   const take = limit ? Math.min(parseInt(limit, 10) || 12, 50) : undefined;
+  if (country && country.toLowerCase() !== 'ethiopia') {
+    return res.json({ status: 'success', events: [] });
+  }
+
+  const keyword = (destination || search || '').trim();
+  const selectedDate = date ? new Date(date) : null;
+  const dateFilter = selectedDate && !Number.isNaN(selectedDate.getTime())
+    ? {
+        gte: selectedDate,
+        lt: new Date(selectedDate.getTime() + 24 * 60 * 60 * 1000),
+      }
+    : undefined;
 
   const events = await prisma.event.findMany({
     where: {
       ...(category ? { category: { equals: category, mode: 'insensitive' } } : {}),
-      ...(search
+      ...(dateFilter ? { date: dateFilter } : {}),
+      ...(keyword
         ? {
             OR: [
-              { title: { contains: search, mode: 'insensitive' } },
-              { description: { contains: search, mode: 'insensitive' } },
-              { location: { contains: search, mode: 'insensitive' } },
+              { title: { contains: keyword, mode: 'insensitive' } },
+              { description: { contains: keyword, mode: 'insensitive' } },
+              { location: { contains: keyword, mode: 'insensitive' } },
             ],
           }
         : {}),
@@ -147,3 +160,6 @@ router.delete('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), asyn
 });
 
 module.exports = router;
+
+
+

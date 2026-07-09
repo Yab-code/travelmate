@@ -38,28 +38,45 @@ const getPlannerCompanyId = async (user) => {
 };
 
 router.get('/', async (req, res) => {
-  const { search, category, limit } = req.query;
+  const { search, destination, category, guests, limit, country } = req.query;
   const take = limit ? Math.min(parseInt(limit, 10) || 12, 50) : undefined;
+  const keyword = (destination || search || '').trim();
+  const guestCount = guests ? parseInt(guests, 10) : null;
+
+  if (country && country.toLowerCase() !== 'ethiopia') {
+    return res.json({ status: 'success', packages: [] });
+  }
+
+  if (guests && (!Number.isInteger(guestCount) || guestCount < 1)) {
+    return res.status(400).json({ status: 'error', message: 'Guests must be a whole number greater than zero.' });
+  }
 
   const packages = await prisma.travelPackage.findMany({
     where: {
       ...(category ? { type: { equals: category, mode: 'insensitive' } } : {}),
-      ...(search
+      ...(keyword
         ? {
             OR: [
-              { title: { contains: search, mode: 'insensitive' } },
-              { location: { contains: search, mode: 'insensitive' } },
-              { type: { contains: search, mode: 'insensitive' } },
+              { title: { contains: keyword, mode: 'insensitive' } },
+              { location: { contains: keyword, mode: 'insensitive' } },
+              { type: { contains: keyword, mode: 'insensitive' } },
+              { description: { contains: keyword, mode: 'insensitive' } },
             ],
           }
         : {}),
     },
     include: { company: true },
     orderBy: { createdAt: 'desc' },
-    take,
   });
 
-  res.json({ status: 'success', packages: packages.map(toPackageDto) });
+  const filtered = Number.isInteger(guestCount)
+    ? packages.filter((pkg) => {
+        const match = String(pkg.groupSize || '').match(/\d+/);
+        return !match || parseInt(match[0], 10) >= guestCount;
+      })
+    : packages;
+
+  res.json({ status: 'success', packages: filtered.slice(0, take).map(toPackageDto) });
 });
 
 router.get('/:id', async (req, res) => {
@@ -156,3 +173,6 @@ router.delete('/:id', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), asyn
 });
 
 module.exports = router;
+
+
+

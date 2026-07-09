@@ -31,7 +31,6 @@ const PlannerRegister = () => {
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
-      // Simulate file upload by setting a mock path/url
       setLicenseDocument(`documents/${file.name}`);
     }
   };
@@ -383,6 +382,7 @@ const PlannerRegister = () => {
 };
 
 export default PlannerRegister;
+
 
 
 

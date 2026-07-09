@@ -2,89 +2,59 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+const navLinks = [
+  { to: '/', label: 'Home', match: (path) => path === '/' },
+  { to: '/about', label: 'About', match: (path) => path.startsWith('/about') },
+  { to: '/packages', label: 'Packages', match: (path) => path.startsWith('/packages') },
+  { to: '/events', label: 'Events', match: (path) => path.startsWith('/events') },
+];
+
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const isEthiopia = location.pathname.startsWith('/et');
-
-  const toggleLocale = () => {
-    if (isEthiopia) {
-      // Switch from Ethiopia to Global
-      const newPath = location.pathname.replace(/^\/et/, '') || '/';
-      navigate(newPath);
-    } else {
-      // Switch from Global to Ethiopia
-      const newPath = location.pathname === '/' ? '/et' : `/et${location.pathname}`;
-      navigate(newPath);
-    }
-  };
-
-  const getLinkPath = (path) => {
-    return isEthiopia ? `/et${path}` : path;
-  };
+  const [converterOpen, setConverterOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-20 bg-surface/80 backdrop-blur-md border-b border-border-subtle shadow-sm">
       <div className="flex items-center gap-10">
-        <Link to={getLinkPath('/')} className="font-headline-md text-headline-md font-bold text-primary tracking-tight">
+        <Link to="/" className="font-headline-md text-headline-md font-bold text-primary tracking-tight">
           TravelMate
         </Link>
         <div className="hidden md:flex gap-8 items-center">
-          <Link
-            to={getLinkPath('/')}
-            className={`font-body-md text-body-md transition-colors duration-200 ${
-              location.pathname === '/' || location.pathname === '/et'
-                ? 'text-primary border-b-2 border-primary pb-1 font-semibold'
-                : 'text-on-surface-variant hover:text-primary'
-            }`}
-          >
-            Home
-          </Link>
-          <Link
-            to={getLinkPath('/packages')}
-            className={`font-body-md text-body-md transition-colors duration-200 ${
-              location.pathname.includes('/packages')
-                ? 'text-primary border-b-2 border-primary pb-1 font-semibold'
-                : 'text-on-surface-variant hover:text-primary'
-            }`}
-          >
-            Packages
-          </Link>
-          <Link
-            to={getLinkPath('/events')}
-            className={`font-body-md text-body-md transition-colors duration-200 ${
-              location.pathname.includes('/events')
-                ? 'text-primary border-b-2 border-primary pb-1 font-semibold'
-                : 'text-on-surface-variant hover:text-primary'
-            }`}
-          >
-            Events
-          </Link>
-          <Link
-            to={getLinkPath('/about')}
-            className={`font-body-md text-body-md transition-colors duration-200 ${
-              location.pathname.includes('/about')
-                ? 'text-primary border-b-2 border-primary pb-1 font-semibold'
-                : 'text-on-surface-variant hover:text-primary'
-            }`}
-          >
-            About
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className={`font-body-md text-body-md transition-colors duration-200 ${
+                link.match(location.pathname)
+                  ? 'text-primary border-b-2 border-primary pb-1 font-semibold'
+                  : 'text-on-surface-variant hover:text-primary'
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
       </div>
 
       <div className="flex items-center gap-4">
-        {/* Ethiopia Toggle Button */}
-        <button
-          onClick={toggleLocale}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/30 text-body-sm font-label-md text-on-surface hover:bg-surface-variant/40 transition-all"
-        >
-          <span className="material-symbols-outlined text-lg">language</span>
-          <span>{isEthiopia ? 'Ethiopia (ET)' : 'Global (EN)'}</span>
-        </button>
+        <div className="relative">
+          <button
+            onClick={() => setConverterOpen(!converterOpen)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant/30 text-body-sm font-label-md text-on-surface hover:bg-surface-variant/40 transition-all"
+          >
+            <span className="material-symbols-outlined text-lg">currency_exchange</span>
+            <span>USD to ETB</span>
+          </button>
+          {converterOpen && (
+            <div className="absolute right-0 mt-2 w-44 bg-white border border-border-subtle rounded-xl shadow-lg p-4 text-sm z-50">
+              <p className="font-bold text-on-surface">1 USD = 150 ETB</p>
+              <p className="text-xs text-on-surface-variant mt-1">Fixed TravelMate rate</p>
+            </div>
+          )}
+        </div>
 
         {isAuthenticated ? (
           <div className="relative">

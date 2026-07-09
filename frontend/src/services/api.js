@@ -90,6 +90,10 @@ export const companyService = {
     const response = await api.get('/companies/pending');
     return response.data;
   },
+  getAllCompanies: async () => {
+    const response = await api.get('/companies');
+    return response.data;
+  },
   approveCompany: async (id, status) => {
     // status: 'APPROVED' or 'REJECTED'
     const response = await api.put(`/companies/${id}/approve`, { status });
@@ -174,6 +178,7 @@ export const destinationService = {
 };
 
 export default api;
+
 
 
 

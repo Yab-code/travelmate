@@ -89,6 +89,20 @@ router.post('/', protect, requireRole('EVENT_PLANNER', 'SUPER_ADMIN'), async (re
   }
 });
 
+// GET /api/companies - admin views all companies
+router.get('/', protect, requireRole('SUPER_ADMIN'), async (req, res) => {
+  try {
+    const companies = await prisma.company.findMany({
+      include: {
+        owner: { select: { id: true, name: true, email: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+    res.json({ status: 'success', companies });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: error.message });
+  }
+});
 // GET /api/companies/:id
 router.get('/:id', async (req, res) => {
   try {
@@ -141,3 +155,5 @@ router.put('/:id/approve', protect, requireRole('SUPER_ADMIN'), async (req, res)
 });
 
 module.exports = router;
+
+

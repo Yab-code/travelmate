@@ -178,50 +178,6 @@ const Login = () => {
               )}
             </button>
           </form>
-
-          {/* Divider */}
-          <div className="relative flex items-center py-2">
-            <div className="flex-grow border-t border-outline-variant/30"></div>
-            <span className="flex-shrink mx-4 font-label-sm text-label-sm text-outline uppercase tracking-wider">
-              Or continue with
-            </span>
-            <div className="flex-grow border-t border-outline-variant/30"></div>
-          </div>
-
-          {/* Social Logins */}
-          <div className="grid grid-cols-2 gap-4">
-            <button className="flex items-center justify-center py-3 border border-outline-variant rounded-xl social-btn-shadow hover:bg-surface-container-low transition-all bg-surface-container-lowest">
-              <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
-                <path
-                  d="M12 5.04c1.64 0 3.12.56 4.28 1.67l3.21-3.21C17.54 1.76 14.98 1 12 1 7.37 1 3.42 3.66 1.48 7.57l3.78 2.93C6.18 7.4 8.87 5.04 12 5.04z"
-                  fill="#EA4335"
-                ></path>
-                <path
-                  d="M23.49 12.27c0-.8-.07-1.56-.21-2.3H12v4.35h6.44c-.28 1.48-1.12 2.73-2.38 3.58l3.7 2.87c2.16-1.99 3.43-4.91 3.43-8.5z"
-                  fill="#4285F4"
-                ></path>
-                <path
-                  d="M5.26 14.49c-.24-.71-.38-1.47-.38-2.27s.14-1.56.38-2.27L1.48 7.07C.54 8.94 0 11.01 0 13s.54 4.06 1.48 5.93l3.78-2.44z"
-                  fill="#FBBC05"
-                ></path>
-                <path
-                  d="M12 23c3.16 0 5.81-1.05 7.75-2.84l-3.7-2.87c-1.07.72-2.44 1.15-4.05 1.15-3.13 0-5.82-2.36-6.74-5.46l-3.78 2.93C3.42 20.34 7.37 23 12 23z"
-                  fill="#34A853"
-                ></path>
-              </svg>
-              <span className="font-label-md text-label-md text-on-surface">Google</span>
-            </button>
-            <button className="flex items-center justify-center py-3 border border-outline-variant rounded-xl social-btn-shadow hover:bg-surface-container-low transition-all bg-surface-container-lowest">
-              <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
-                <path
-                  d="M17.05 20.28c-.98.95-2.05 1.72-3.1 1.72-1.05 0-1.4-.64-2.65-.64s-1.65.64-2.65.64c-1.05 0-2.12-.77-3.1-1.72-2.18-2.13-2.18-5.59 0-7.72.98-.95 2.05-1.72 3.1-1.72 1.05 0 1.4.64 2.65.64s1.65-.64 2.65-.64c1.05 0 2.12.77 3.1 1.72 2.18 2.13 2.18 5.59 0 7.72zM12 9.04c1.28 0 2.33-1.05 2.33-2.33S13.28 4.38 12 4.38s-2.33 1.05-2.33 2.33S10.72 9.04 12 9.04z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-              <span className="font-label-md text-label-md text-on-surface">Apple</span>
-            </button>
-          </div>
-
           {/* Footer Text */}
           <div className="text-center">
             <p className="font-body-sm text-body-sm text-on-surface-variant">
@@ -251,4 +207,5 @@ const Login = () => {
 };
 
 export default Login;
+
 

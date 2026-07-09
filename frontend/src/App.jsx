@@ -12,14 +12,7 @@ import ResetPassword from './pages/ResetPassword';
 import TravelerRegister from './pages/TravelerRegister';
 import PlannerRegister from './pages/PlannerRegister';
 
-// Global Pages
-import Home from './pages/Home';
-import TravelPackages from './pages/TravelPackages';
-import PackageDetails from './pages/PackageDetails';
-import Events from './pages/Events';
-import About from './pages/About';
-
-// Ethiopia Pages
+// Public Ethiopia Pages
 import HomeEthiopia from './pages/HomeEthiopia';
 import TravelPackagesEthiopia from './pages/TravelPackagesEthiopia';
 import PackageDetailsEthiopia from './pages/PackageDetailsEthiopia';
@@ -75,51 +68,9 @@ const App = () => {
           <Route path="/register/traveler" element={<TravelerRegister />} />
           <Route path="/register/planner" element={<PlannerRegister />} />
 
-          {/* ─── Global (International) Routes ─── */}
+          {/* Ethiopian Public Routes */}
           <Route
             path="/"
-            element={
-              <AppLayout>
-                <Home />
-              </AppLayout>
-            }
-          />
-          <Route
-            path="/packages"
-            element={
-              <AppLayout>
-                <TravelPackages />
-              </AppLayout>
-            }
-          />
-          <Route
-            path="/packages/:id"
-            element={
-              <AppLayout>
-                <PackageDetails />
-              </AppLayout>
-            }
-          />
-          <Route
-            path="/events"
-            element={
-              <AppLayout>
-                <Events />
-              </AppLayout>
-            }
-          />
-          <Route
-            path="/about"
-            element={
-              <AppLayout>
-                <About />
-              </AppLayout>
-            }
-          />
-
-          {/* ─── Ethiopia (/et) Routes ─── */}
-          <Route
-            path="/et"
             element={
               <AppLayout>
                 <HomeEthiopia />
@@ -127,7 +78,7 @@ const App = () => {
             }
           />
           <Route
-            path="/et/packages"
+            path="/packages"
             element={
               <AppLayout>
                 <TravelPackagesEthiopia />
@@ -135,7 +86,7 @@ const App = () => {
             }
           />
           <Route
-            path="/et/packages/:id"
+            path="/packages/:id"
             element={
               <AppLayout>
                 <PackageDetailsEthiopia />
@@ -143,7 +94,7 @@ const App = () => {
             }
           />
           <Route
-            path="/et/events"
+            path="/events"
             element={
               <AppLayout>
                 <EventsEthiopia />
@@ -151,14 +102,18 @@ const App = () => {
             }
           />
           <Route
-            path="/et/about"
+            path="/about"
             element={
               <AppLayout>
                 <AboutEthiopia />
               </AppLayout>
             }
           />
-
+          <Route path="/et" element={<Navigate to="/" replace />} />
+          <Route path="/et/packages" element={<Navigate to="/packages" replace />} />
+          <Route path="/et/packages/:id" element={<Navigate to="/packages/:id" replace />} />
+          <Route path="/et/events" element={<Navigate to="/events" replace />} />
+          <Route path="/et/about" element={<Navigate to="/about" replace />} />
           {/* ─── Dashboard Routes (Nested under /dashboard) ─── */}
           <Route
             path="/dashboard"
@@ -330,6 +285,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 
